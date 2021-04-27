@@ -1,22 +1,23 @@
 import * as React from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import { StyleSheet } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { Text, View, TextInput } from '../components/Themed';
 
 export default function TabOneScreen() {
-
-		const [text, setText] = useState('');
+		const [text, setText] = React.useState('');
 		return (
 				<View style={styles.container}>
+						<Text style={styles.title}>Customers</Text>
 						<TextInput
-
-
-
-				/>
-				<Text style={styles.title}>Tab One</Text>
-				<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-				<EditScreenInfo path="/screens/TabOneScreen.tsx" />
-		</View>
+								style={styles.searchInput}
+								placeholder="Search customer"
+								placeholderTextColor="gray"
+								onChangeText={text => setText(text)}
+								defaultValue={text}
+						/>
+						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+						<EditScreenInfo path="/screens/TabOneScreen.tsx" />
+				</View>
 		);
 }
 
@@ -26,6 +27,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+	searchInput: {
+		width: "80%",
+		margin: 20,
+		padding: 10,
+		color: 'white',
+		borderColor: 'gold',
+		borderWidth: 0.2,
+		borderRadius: 5,
+		},
   title: {
     fontSize: 20,
     fontWeight: 'bold',
