@@ -24,17 +24,24 @@ export default function BottomTabNavigator() {
       initialRouteName="TabOne"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Search"
+        component={TabOneScreen}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="search-sharp" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name="Layout"
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="md-apps-sharp" color={color} />,
+        }}
+      />
+			<BottomTab.Screen
+        name="Info"
+        component={TabOneNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-information" color={color} />,
         }}
       />
     </BottomTab.Navigator>
