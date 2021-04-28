@@ -2,26 +2,20 @@ import * as React from 'react';
 import { StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View, TextInput } from '../components/Themed';
-import CustomerItem from '../components/CustomerListItem';
+import Reservation from '../components/Reservation';
 
 
 export default function TabOneScreen() {
-
 		const [text, setText] = React.useState('');
 		const [customerList, setCustomerList] = React.useState([...CUSTOMERS_DATA]);
 
 		const handleSeachInput = (text)=>{
+				/* probaby should divide this function when cleaning up the code*/
 				setText(text);
 				setCustomerList(CUSTOMERS_DATA.filter(
 						(value) => value.name.toLowerCase().includes(text.toLowerCase())
 				))
 		}
-
-		const Resevation = ({reserv}) => (
-			  <View style={styles.resevation}>
-						<Text style={styles.title}>{reserv.name}</Text>
-				</View>
-		);
 
 		return (
 				<View style={styles.container}>
@@ -37,7 +31,7 @@ export default function TabOneScreen() {
 						<FlatList
 								styles={styles.reservList}
 								data={customerList}
-								renderItem={ ({item}) => <Resevation reserv={item}/>}
+								renderItem={ ({ item }) => <Reservation reserv={item}/>}
 								keyExtractor={item => item.id}
 						/>
 				</View>
@@ -52,8 +46,8 @@ const styles = StyleSheet.create({
   },
 	searchInput: {
 		alignSelf: 'center',
-		width: "80%",
-		margin: 20,
+		width: "85%",
+		margin: 5,
 		padding: 10,
 		color: 'white',
 		borderColor: 'gold',
@@ -71,14 +65,14 @@ const styles = StyleSheet.create({
 		borderWidth: 0.2,
 		borderRadius: 2,
 		padding: 5, 
-		width: "80%",
+		width: "85%",
 		marginVertical: 3,
 	},
   separator: {
 		alignSelf: 'center',
-    marginVertical: 30,
+    marginVertical: 15,
     height: 1,
-    width: '80%',
+    width: '90%',
   },
 	reservList: {
     paddingVertical: 15,
