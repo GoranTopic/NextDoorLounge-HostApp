@@ -8,11 +8,18 @@ import CustomerItem from '../components/CustomerListItem';
 export default function TabOneScreen() {
 
 		const [text, setText] = React.useState('');
-		const [customerList, setCustomerList] = React.useState(CUSTOMERS_DATA);
+		const [customerList, setCustomerList] = React.useState([...CUSTOMERS_DATA]);
 
-		const Resevation = ({ title }) => (
+		const handleSeachInput = (text)=>{
+				setText(text);
+				setCustomerList(CUSTOMERS_DATA.filter(
+						(value) => value.name.toLowerCase().includes(text.toLowerCase())
+				))
+		}
+
+		const Resevation = ({reserv}) => (
 			  <View style={styles.resevation}>
-						<Text style={styles.title}>{title}</Text>
+						<Text style={styles.title}>{reserv.name}</Text>
 				</View>
 		);
 
@@ -23,14 +30,14 @@ export default function TabOneScreen() {
 								style={styles.searchInput}
 								placeholder="Search customer"
 								placeholderTextColor="gray"
-								onChangeText={text => setText(text)}
+								onChangeText={handleSeachInput}
 								defaultValue={text}
 						/>
 						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 						<FlatList
 								styles={styles.reservList}
-								data={DATA}
-								renderItem={({item}) => <Resevation title={item.title} />}
+								data={customerList}
+								renderItem={ ({item}) => <Resevation reserv={item}/>}
 								keyExtractor={item => item.id}
 						/>
 				</View>
@@ -103,9 +110,15 @@ const CUSTOMERS_DATA = [
 		{ id: 3, table: '3B', currentGuest: 0, name: 'Naoma Silver', partySize: 5, arrivalTime: '9:00pm'  },
 		{ id: 4, table: '4B', currentGuest: 0, name: 'Leslie Reyes', partySize: 5, arrivalTime: '9:00pm'  },
 		{ id: 5, table: '20', currentGuest: 0, name: 'Ashley Vega', partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 6, table: '20', currentGuest: 0, name: 'Ashley Vega', partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 1, table: '34', currentGuest: 0, name: 'Deloria King', partySize: 4, arrivalTime: '9:00pm'  },
-		
-		
+		{ id: 6, table: '26', currentGuest: 0, name: 'Gimena Lora', partySize: 5, arrivalTime: '9:00pm'  },
+		{ id: 7, table: '34', currentGuest: 0, name: 'Oman Revolta', partySize: 3, arrivalTime: '9:00pm'  },
+		{ id: 8, table: '34', currentGuest: 0, name: 'Deloria King', partySize: 4, arrivalTime: '9:00pm'  },
+		{ id: 9, table: '4B', currentGuest: 0, name: 'Anna Nazarijan', partySize: 4, arrivalTime: '9:00pm'  },
+		{ id: 10, table: '3B', currentGuest: 0, name: 'Naoma Silver', partySize: 5, arrivalTime: '9:00pm'  },
+		{ id: 11, table: '4B', currentGuest: 0, name: 'Leslie Reyes', partySize: 5, arrivalTime: '9:00pm'  },
+		{ id: 12, table: '20', currentGuest: 0, name: 'Ashley Vega', partySize: 5, arrivalTime: '9:00pm'  },
+		{ id: 13, table: '26', currentGuest: 0, name: 'Gimena Lora', partySize: 5, arrivalTime: '9:00pm'  },
+		{ id: 14, table: '34', currentGuest: 0, name: 'Oman Revolta', partySize: 3, arrivalTime: '9:00pm'  },
+
 ];
 
