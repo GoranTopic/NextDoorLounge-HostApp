@@ -1,28 +1,34 @@
-import * as React from 'react';
+import * as React from 'react
 import { StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View, TextInput } from '../components/Themed';
 import Reservation from '../components/Reservation';
-
+import { createStackNavigator } from '@react-navigation/stack';
 
 export default function TabOneScreen() {
 		const [text, setText] = React.useState('');
-		const [customerList, setCustomerList] = React.useState([...CUSTOMERS_DATA]);
-
-		const handleSeachInput = (text)=>{
+		const [ reservationList, setReservationList ] = React.useState([...CUSTOMERS_DATA]);
+		const [customerList, setCustomerList] = React.useState(reservList);
+		const handleSeachInput = (text)=> {
 				/* probaby should divide this function when cleaning up the code*/
 				setText(text);
-				setCustomerList(CUSTOMERS_DATA.filter(
-						(value) => value.name.toLowerCase().includes(text.toLowerCase())
-				))
+				setCustomerList(reservationList.filter( (value) => value.name.toLowerCase().includes(text.toLowerCase())))
+		}
+
+		const updateList = ( id )  => {
+				CUSTOMERS_DATA.filter((value) => value.id !== id )
+		}
+
+		const removeList = ( id )  => {
+				setReservationList(reservationList.filter((value) => value.id !== id ))
 		}
 
 		return (
 				<View style={styles.container}>
-						<Text style={styles.title}>Customers</Text>
+						<Text style={styles.title}>Reservations</Text>
 						<TextInput
 								style={styles.searchInput}
-								placeholder="Search customer"
+								placeholder="Search Reservation"
 								placeholderTextColor="gray"
 								onChangeText={handleSeachInput}
 								defaultValue={text}
@@ -31,8 +37,8 @@ export default function TabOneScreen() {
 						<FlatList
 								styles={styles.reservList}
 								data={customerList}
-								renderItem={ ({ item }) => <Reservation reserv={item}/>}
-								keyExtractor={item => item.id}
+								renderItem={ ({ item }) => <Reservation reserv={item} update={updateList} remove={removeList}/>}
+								keyExtractor={(item, index) => index.toString()}
 						/>
 				</View>
 		);
@@ -48,7 +54,9 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		width: "85%",
 		margin: 5,
-		padding: 10,
+		paddingVertical: 3,
+		paddingLeft: 15,
+		paddingRight: 15,
 		color: 'white',
 		borderColor: 'gold',
 		borderWidth: 0.2,
@@ -80,23 +88,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-
-
-const DATA = [
-		{
-				id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-				title: 'First Item',
-		},
-		{
-				id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-				title: 'Second Item',
-		},
-		{
-				id: '58694a0f-3da1-471f-bd96-145571e29d72',
-				title: 'Third Item',
-		},
-		
-];
 
 const CUSTOMERS_DATA = [
 		{ id: 1, table: '34', currentGuest: 0, name: 'Deloria King', partySize: 4, arrivalTime: '9:00pm'  },
