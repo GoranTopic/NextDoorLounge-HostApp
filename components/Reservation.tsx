@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import useColorScheme from '../hooks/useColorScheme';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack'
 
 export default function Reservation( { reserv, update, remove }) {
 		const [isEditMode, setEditMode ] = React.useState(false);

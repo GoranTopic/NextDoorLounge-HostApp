@@ -1,14 +1,15 @@
-import * as React from 'react
+import * as React from 'react';
 import { StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View, TextInput } from '../components/Themed';
 import Reservation from '../components/Reservation';
 import { createStackNavigator } from '@react-navigation/stack';
 
+
 export default function TabOneScreen() {
 		const [text, setText] = React.useState('');
 		const [ reservationList, setReservationList ] = React.useState([...CUSTOMERS_DATA]);
-		const [customerList, setCustomerList] = React.useState(reservList);
+		const [customerList, setCustomerList] = React.useState(reservationList);
 		const handleSeachInput = (text)=> {
 				/* probaby should divide this function when cleaning up the code*/
 				setText(text);
@@ -20,8 +21,13 @@ export default function TabOneScreen() {
 		}
 
 		const removeList = ( id )  => {
-				setReservationList(reservationList.filter((value) => value.id !== id ))
+				/* bug it take twice the button press to delete*/
+				setCustomerList(reservationList.filter((value) => value.id !== id ));
+				setReservationList(reservationList.filter((value) => value.id !== id ));
+				handleSeachInput(text);
 		}
+
+		const updateStack = createStackNavigator<TabOneParamList>();
 
 		return (
 				<View style={styles.container}>
@@ -38,7 +44,7 @@ export default function TabOneScreen() {
 								styles={styles.reservList}
 								data={customerList}
 								renderItem={ ({ item }) => <Reservation reserv={item} update={updateList} remove={removeList}/>}
-								keyExtractor={(item, index) => index.toString()}
+								keyExtractor={(item) => item.id.toString()}
 						/>
 				</View>
 		);
