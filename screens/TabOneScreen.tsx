@@ -3,21 +3,22 @@ import { StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-nati
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View, TextInput } from '../components/Themed';
 import Reservation from '../components/Reservation';
-import { createStackNavigator } from '@react-navigation/stack';
 
+export default function TabOneScreen({ navigation }) {
 
-export default function TabOneScreen() {
 		const [text, setText] = React.useState('');
-		const [ reservationList, setReservationList ] = React.useState([...CUSTOMERS_DATA]);
+		const [ reservationList, setReservationList ] = React.useState(RESERVATION_DATA);
 		const [customerList, setCustomerList] = React.useState(reservationList);
+
 		const handleSeachInput = (text)=> {
 				/* probaby should divide this function when cleaning up the code*/
 				setText(text);
-				setCustomerList(reservationList.filter( (value) => value.name.toLowerCase().includes(text.toLowerCase())))
+				setCustomerList(reservationList.filter( (value) => value.name.toLowerCase().includes(text.toLowerCase())));
 		}
 
 		const updateList = ( id )  => {
-				CUSTOMERS_DATA.filter((value) => value.id !== id )
+				//CUSTOMERS_DATA.filter((value) => value.id !== id )
+				navigation.navigate('updateScreen', { id: id });
 		}
 
 		const removeList = ( id )  => {
@@ -26,8 +27,6 @@ export default function TabOneScreen() {
 				setReservationList(reservationList.filter((value) => value.id !== id ));
 				handleSeachInput(text);
 		}
-
-		const updateStack = createStackNavigator<TabOneParamList>();
 
 		return (
 				<View style={styles.container}>
@@ -43,7 +42,7 @@ export default function TabOneScreen() {
 						<FlatList
 								styles={styles.reservList}
 								data={customerList}
-								renderItem={ ({ item }) => <Reservation reserv={item} update={updateList} remove={removeList}/>}
+								renderItem={ ({ item }) => <Reservation reserv={item} navigation={navigation} update={updateList} remove={removeList}/> }
 								keyExtractor={(item) => item.id.toString()}
 						/>
 				</View>
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
 		borderColor: 'gold',
 		borderWidth: 0.2,
 		borderRadius: 5,
-		},
+	},
   title: {
 		alignSelf: 'center',
     fontSize: 20,
@@ -95,7 +94,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const CUSTOMERS_DATA = [
+
+const RESERVATION_DATA = [ // data use to build for now
 		{ id: 1, table: '34', currentGuest: 0, name: 'Deloria King', partySize: 4, arrivalTime: '9:00pm'  },
 		{ id: 2, table: '4B', currentGuest: 0, name: 'Anna Nazarijan', partySize: 4, arrivalTime: '9:00pm'  },
 		{ id: 3, table: '3B', currentGuest: 0, name: 'Naoma Silver', partySize: 5, arrivalTime: '9:00pm'  },
@@ -110,6 +110,5 @@ const CUSTOMERS_DATA = [
 		{ id: 12, table: '20', currentGuest: 0, name: 'Ashley Vega', partySize: 5, arrivalTime: '9:00pm'  },
 		{ id: 13, table: '26', currentGuest: 0, name: 'Gimena Lora', partySize: 5, arrivalTime: '9:00pm'  },
 		{ id: 14, table: '34', currentGuest: 0, name: 'Oman Revolta', partySize: 3, arrivalTime: '9:00pm'  },
-
 ];
 
