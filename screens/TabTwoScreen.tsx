@@ -62,6 +62,10 @@ export default function TabTwoScreen({ navigation }) {
 				}
 		}
 
+		const createTable = ( sqrid )  => {
+				navigation.navigate('updateScreen', { id: id });
+		}
+	
 		return (
 				<DraxProvider>
 						<View style={styles.gridContainer} >
