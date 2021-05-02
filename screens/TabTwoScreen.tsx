@@ -3,22 +3,13 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
+import Table from '../components/Table';
+import Layout from '../constants/Layout';
 import { DraxProvider, DraxView } from 'react-native-drax';
-
-const squareNum = 216; // magic number fo the number of squares
-const ratio =  1.5; // magic number for the number ratio of the picture
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-const gridWidth = windowWidth;
-const gridHeight = gridWidth * ratio ;
-const gridVol = gridWidth * gridHeight;
-const squareVol = gridVol / squareNum;
-const squareWidth  = (gridWidth / 12) - 0.1;
-const squareHeight =  squareWidth;
 
 //Create grid data
 const GRID_DATA = [];
-for (let i = 0; i < squareNum; i++ ) GRID_DATA.push({ sqrId: i, table: 'none',  })
+for (let i = 0; i < Layout.squareNum; i++ ) GRID_DATA.push({ sqrId: i, table: 'none',  })
 
 export default function TabTwoScreen({ navigation }) {
 		const [ grid, setGrid ] = React.useState([...GRID_DATA]);
@@ -73,7 +64,7 @@ export default function TabTwoScreen({ navigation }) {
 		return (
 				<DraxProvider>
 						<View style={styles.gridContainer} >
-								{ grid.map(renderSquares)}
+								{ grid.map((sqr, index) => Table(sqr, index, isEditMode, toCreateTableScreen))}
 						</View> 
 						<View style={styles.newTableContainer}>
 								<DraxView style={styles.squareTable}
@@ -112,14 +103,14 @@ const styles = StyleSheet.create({
 				borderColor: 'red',
 				flexDirection: "row",
 				flexWrap: "wrap",
-				height: gridHeight,
-				width: gridWidth,
+				height: Layout.gridHeight,
+				width: Layout.gridWidth,
 		},
 		square: {
 			borderWidth: 0.2,
 			//borderColor: 'white', // show the grid
-			width: squareWidth,
-			height: squareHeight,
+			width: Layout.squareWidth,
+			height: Layout.squareHeight,
 		},
 		draggable: {
 				width: 100,
@@ -146,32 +137,32 @@ const styles = StyleSheet.create({
 			borderColor: 'white',
 			backgroundColor: 'rgba(255,255,255,0.8)',
 			borderRadius: 2,
-			width: squareWidth,
-			height: squareHeight,
+			width: Layout.squareWidth,
+			height: Layout.squareHeight,
 		},
 		circleTable: {
 			borderWidth: 0.2,
 			borderColor: 'white',
 			borderRadius: 12,
 			backgroundColor: 'rgba(255,255,255,0.8)',
-			width: squareWidth,
-			height: squareHeight,
+			width: Layout.squareWidth,
+			height: Layout.squareHeight,
 		},
 		longTableHorizontal: {
 			borderWidth: 0.2,
 			borderColor: 'white',
 			backgroundColor: 'rgba(255,255,255,0.8)',
 			borderRadius: 12,
-			width: squareWidth * 2,
-			height: squareHeight,
+			width: Layout.squareWidth * 2,
+			height: Layout.squareHeight,
 		},
 		longTableVertical: {
 			borderWidth: 0.2,
 			borderColor: 'white',
 			backgroundColor: 'rgba(255,255,255,0.8)',
 			borderRadius: 12,
-			width: squareWidth,
-			height: squareHeight * 2,
+			width: Layout.squareWidth,
+			height: Layout.squareHeight * 2,
 		},
 		optionsIcon: {
 				alignSelf: 'center',

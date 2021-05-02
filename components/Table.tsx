@@ -2,11 +2,13 @@ import * as React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import useColorScheme from '../hooks/useColorScheme';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import Layout from '../constants/Layout';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { DraxProvider, DraxView } from 'react-native-drax';
 
-export default function Table( sqr, index, isEditMode: false ) {
+export default function Table( sqr, index, isEditMode: false, toCreateTableScreen: null ) {
+
 		if (isEditMode){ 	
 				switch(sqr.table){  
 						case 'sqrTable':
@@ -37,109 +39,109 @@ export default function Table( sqr, index, isEditMode: false ) {
 										console.log(`placing ${payload}`);
 										toCreateTableScreen(index, payload);
 								}}/>
-								} else { 
-										switch(sqr.table){  
-												case 'sqrTable':
-												return <View 
-														key={index}
-														style={ styles.squareTable } /> ;
-												case 'circleTable':
-												return <View
-														key={index}
-														style={ styles.circleTable } />;
-												case 'longTableHorizontal':
-												return <View 
-														key={index}
-														style={ styles.longTableHorizontal } />;
-												case 'longTableVertical':
-												return <View 
-														key={index}
-														style={ styles.longTableVertical } />;
-												default:
-												return <View 
-														style={styles.square} 
-												/>
-										}
-								}
+						}
+		} else { 
+				switch(sqr.table){  
+						case 'sqrTable':
+						return <View 
+								key={index}
+								style={ styles.squareTable } /> ;
+						case 'circleTable':
+						return <View
+								key={index}
+								style={ styles.circleTable } />;
+						case 'longTableHorizontal':
+						return <View 
+								key={index}
+								style={ styles.longTableHorizontal } />;
+						case 'longTableVertical':
+						return <View 
+								key={index}
+								style={ styles.longTableVertical } />;
+						default:
+						return <View 
+								style={styles.square} 
+						/>
+				}
 		}
+}
 
 const styles = StyleSheet.create({
 		container: {
-				alignItems: 'center',
+				flex: 1,
 				justifyContent: 'center',
-		},
-		tableBox: {
-				alignSelf: 'center',
 				alignItems: 'center',
-				justifyContent: 'center',
-				borderColor: 'green',
-				borderWidth: 0.5,
-				borderRadius: 5,
-				marginRight: 15,
-				height: 25,
-				width: 25,
 		},
-		tableText:{
-				color: 'green',
-		},
-		resevation:{
-				alignSelf: 'center',
-				borderColor: 'gray',
+		gridContainer: {
 				borderWidth: 0.2,
-				borderRadius: 2,
-				width: "85%",
-				paddingHorizontal: 10,
-				paddingVertical: 10, 
-				marginVertical: 4,
-				display: 'flex',
-				shadowColor: 'rgba(100, 100, 100, 0.2)',
-				shadowOffset: {
-						width: 0,
-						height: -3,
-				},
-				shadowRadius: 5,
-				flexDirection: "row",
-				justifyContent: 'space-between',
-				alignItems: 'center',
-		},
-		resevationEditMode:{
-				alignSelf: 'center',
 				borderColor: 'red',
-				borderWidth: 0.2,
-				borderRadius: 2,
-				width: "85%",
-				paddingHorizontal: 10,
-				paddingVertical: 10, 
-				marginVertical: 4,
-				display: 'flex',
-				shadowColor: 'rgba(100, 100, 100, 0.2)',
-				shadowOffset: {
-						width: 0,
-						height: -3,
-				},
-				shadowRadius: 5,
 				flexDirection: "row",
+				flexWrap: "wrap",
+				height: Layout.gridHeight,
+				width: Layout.gridWidth,
+		},
+		square: {
+			borderWidth: 0.2,
+			//borderColor: 'white', // show the grid
+			width: Layout.squareWidth,
+			height: Layout.squareHeight,
+		},
+		draggable: {
+				width: 100,
+				height: 100,
+				backgroundColor: 'blue',
+		},
+		receiver: {
+				width: 100,
+				height: 100,
+				backgroundColor: 'green',
+		},
+		newTableContainer: {
+				height: '100%',
+				width: 'auto',
+				backgroundColor: 'rgba(123,123,123,0.2)',
+				flex: 1,
+				flexDirection: 'row',
 				justifyContent: 'space-between',
 				alignItems: 'center',
+				paddingHorizontal: 20,
 		},
-		name: {
-				color: 'white',
-				alignSelf: 'center',
+		squareTable: {
+			borderWidth: 0.2,
+			borderColor: 'white',
+			backgroundColor: 'rgba(255,255,255,0.8)',
+			borderRadius: 2,
+			width: Layout.squareWidth,
+			height: Layout.squareHeight,
 		},
-		party: {
-				fontSize: 12,
-				color: 'gray',
-				alignSelf: 'center',
+		circleTable: {
+			borderWidth: 0.2,
+			borderColor: 'white',
+			borderRadius: 12,
+			backgroundColor: 'rgba(255,255,255,0.8)',
+			width: Layout.squareWidth,
+			height: Layout.squareHeight,
 		},
-		arrival: {
-				fontSize: 12,
-				color: 'gray',
-				alignSelf: 'center',
-				textAlign: 'left',
+		longTableHorizontal: {
+			borderWidth: 0.2,
+			borderColor: 'white',
+			backgroundColor: 'rgba(255,255,255,0.8)',
+			borderRadius: 12,
+			width: Layout.squareWidth * 2,
+			height: Layout.squareHeight,
+		},
+		longTableVertical: {
+			borderWidth: 0.2,
+			borderColor: 'white',
+			backgroundColor: 'rgba(255,255,255,0.8)',
+			borderRadius: 12,
+			width: Layout.squareWidth,
+			height: Layout.squareHeight * 2,
 		},
 		optionsIcon: {
 				alignSelf: 'center',
 				textAlign: 'left',
 		},
 });
+
 
