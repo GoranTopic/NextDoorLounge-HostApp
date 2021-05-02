@@ -7,8 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { DraxProvider, DraxView } from 'react-native-drax';
 
-export default function Table( sqr, index, isEditMode: false, toCreateTableScreen: null ) {
-
+export default function Table( sqr, index: 0, isEditMode: false, toCreateTableScreen: null ) {
 		if (isEditMode){ 	
 				switch(sqr.table){  
 						case 'sqrTable':
@@ -37,7 +36,7 @@ export default function Table( sqr, index, isEditMode: false, toCreateTableScree
 								style={styles.square}
 								onReceiveDragDrop={({ dragged: { payload } }) => {
 										console.log(`placing ${payload}`);
-										toCreateTableScreen(index, payload);
+										toCreateTableScreen(sqr, payload);
 								}}/>
 						}
 		} else { 

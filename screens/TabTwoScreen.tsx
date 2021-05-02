@@ -20,44 +20,10 @@ export default function TabTwoScreen({ navigation }) {
 
 		const eraseTable = ( sqrId ) =>  setGrid([...grid, grid[sqrId].table = 'none' ]);
 
-		const renderSquares = ( sqr, index ) => {
-				switch(sqr.table){  
-						case 'sqrTable':
-						return <DraxView 
-								payload={index}
-								key={index}
-								style={ styles.squareTable } /> ;
-						case 'circleTable':
-						return <DraxView
-								payload={index}
-								key={index}
-								style={ styles.circleTable } />;
-						case 'longTableHorizontal':
-						return <DraxView 
-								payload={index}
-								key={index}
-								style={ styles.longTableHorizontal } />;
-						case 'longTableVertical':
-						return <DraxView 
-								payload={index}
-								key={index}
-								style={ styles.longTableVertical } />;
-						default:
-						return <DraxView 
-								key={index}
-								style={styles.square}
-								onReceiveDragDrop={({ dragged: { payload } }) => {
-										console.log(`placing ${payload}`);
-										toCreateTableScreen(index, payload);
-								}}/>
-				}
-		}
-
-		const toCreateTableScreen = ( sqrID, newTable )  => {
+		const toCreateTableScreen = ( sqrData, newTable )  => {
 				navigation.navigate('updateTable',{
-						id: sqrID, 
+						sqr: sqrData, 
 						newTable: newTable, 
-						createTable: (sqrID, newTable ) => createTableOnGrid(sqrID, newTable),
 				});
 		}
 	

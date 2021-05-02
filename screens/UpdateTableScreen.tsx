@@ -4,13 +4,17 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Table from '../components/Table';
 import { RootStackParamList } from '../types';
 
-export default function UpdateTableScreen({ navigation }) {
+export default function UpdateTableScreen({ route,  navigation }) {
+		console.log(navigation);
+		console.log(route);
+		const { sqr, newTable } = route.params;
 
   return (
     <View style={styles.container}>
+				{ Table(sqr, 'circleTable') }
       <Text style={styles.title}>This screen doesn't exist.</Text>
-      <TouchableOpacity onPress={() => navigation.replace('Root')} style={styles.link}>
-        <Text style={styles.linkText}>Go to home screen!</Text>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>
+        <Text style={styles.linkText}>Done</Text>
       </TouchableOpacity>
     </View>
   );
@@ -19,7 +23,7 @@ export default function UpdateTableScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
