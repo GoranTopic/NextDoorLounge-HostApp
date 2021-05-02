@@ -23,9 +23,9 @@ for (let i = 0; i < squareNum; i++ ) GRID_DATA.push({ sqrId: i, table: 'none',  
 export default function TabTwoScreen({ navigation }) {
 		const [ grid, setGrid ] = React.useState([...GRID_DATA]);
 
-		const [ isEditMode, setEditMode ] = React.useState('false');
+		const [ isEditMode, setEditMode ] = React.useState(true);
 
-		const placeTable = ( sqrId, table ) => setGrid([...grid, grid[sqrId].table = table ]);
+		const createTableOnGrid = ( sqrId, table ) => setGrid([...grid, grid[sqrId].table = table ]);
 
 		const eraseTable = ( sqrId ) =>  setGrid([...grid, grid[sqrId].table = 'none' ]);
 
@@ -56,14 +56,18 @@ export default function TabTwoScreen({ navigation }) {
 								key={index}
 								style={styles.square}
 								onReceiveDragDrop={({ dragged: { payload } }) => {
-										console.log(`erasing ${payload}`);
-										placeTable(index, payload);
+										console.log(`placing ${payload}`);
+										toCreateTableScreen(index, payload);
 								}}/>
 				}
 		}
 
-		const createTable = ( sqrid )  => {
-				navigation.navigate('updateScreen', { id: id });
+		const toCreateTableScreen = ( sqrID, newTable )  => {
+				navigation.navigate('updateTable',{
+						id: sqrID, 
+						newTable: newTable, 
+						createTable: (sqrID, newTable ) => createTableOnGrid(sqrID, newTable),
+				});
 		}
 	
 		return (

@@ -86,7 +86,6 @@ function TabTwoNavigator() {
         component={UpdateTableScreen}
         options={{ headerTitle: 'Edit Table' }}
       />
-
     </TabTwoStack.Navigator>
   );
 }
