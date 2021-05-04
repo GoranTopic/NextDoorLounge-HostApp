@@ -7,7 +7,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { DraxProvider, DraxView } from 'react-native-drax';
 
-export default function Table( sqr, index: 0, isEditMode: false, toCreateTableScreen: null ) {
+export default function Table( { sqr, index, isEditMode, toCreateTableScreen, } ) {
+		console.log("running Table")
+		console.log(sqr);
+		console.log("isEditMode:")
+		console.log(isEditMode)
 		if (isEditMode){ 	
 				switch(sqr.table){  
 						case 'sqrTable':

@@ -30,7 +30,9 @@ export default function TabTwoScreen({ navigation }) {
 		return (
 				<DraxProvider>
 						<View style={styles.gridContainer} >
-								{ grid.map((sqr, index) => Table(sqr, index, isEditMode, toCreateTableScreen))}
+								{ grid.map((sqr, index) => <Table 
+										sqr={sqr} key={index} index={index} isEditMode={isEditMode} toCreateTableScreen={toCreateTableScreen} />
+								)}
 						</View> 
 						<View style={styles.newTableContainer}>
 								<DraxView style={styles.squareTable}
