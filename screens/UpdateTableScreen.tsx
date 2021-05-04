@@ -4,6 +4,8 @@ import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-nativ
 import Table from '../components/Table';
 import { RootStackParamList } from '../types';
 
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 export default function UpdateTableScreen({ route,  navigation }) {
 		console.log(navigation);
 		console.log(route);
@@ -49,6 +51,15 @@ export default function UpdateTableScreen({ route,  navigation }) {
 										defaultValue={table.reservation.name}
 								/>
 						</View>
+						<View style={styles.inputContainer}>
+								<DateTimePickerModal
+										isVisible={isDatePickerVisible}
+										mode="date"
+										onConfirm={handleConfirm}
+										onCancel={hideDatePicker}
+								/>
+						</View>
+
 						<TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>
 								<Text style={styles.linkText}>Done</Text>
 						</TouchableOpacity>
