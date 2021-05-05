@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import * as React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
+import { StyleSheet, Text, Button, TouchableOpacity, View, TextInput } from 'react-native';
 import Table from '../components/Table';
 import { RootStackParamList } from '../types';
 
@@ -9,16 +9,37 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 export default function UpdateTableScreen({ route,  navigation }) {
 		console.log(navigation);
 		console.log(route);
+		let d = new Date();
 		const { sqr, newTable } = route.params;
 		sqr.table = newTable;
 		sqr.tableName = '';
 		sqr.waiter = '';
-		sqr.reservation = { name: '', time: '', vip: false, notes: '' };
+		sqr.reservation = { name: '', date: d.getDate(), time: d.getTime(), vip: false, notes: '' };
 		sqr.group = '';
 
 		const [table, setTable] = React.useState({...sqr});
+		
 
-		const handleNameChange = input => setTable({ ...table, resevation: { ...table.reservation, name: input  } }) 
+
+		const handleWaiterChange = waiter => setTable({ ...table, reservation: { ...table.reservation, name: input  } }) 
+
+		// reservation handlers 
+		const handleReservationNameChange = name => setTable({ ...table, reservation: { ...table.reservation, name: name  } }) 
+		const handleReservationGroupChange = group => setTable({ ...table, reservation: { ...table.reservation, group: group  } }) 
+		const toggleReservationVIPChange = vip => setTable({ ...table, reservation: { ...table.reservation, vip: !table.reservation  } }) 
+		const handleReservationNoteChange = input => setTable({ ...table, reservation: { ...table.reservation, name: input  } }) 
+
+		//functions to control the date picker
+		const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
+		const showDatePicker = () => setDatePickerVisibility(true);
+		const hideDatePicker = () =>  setDatePickerVisibility(false);
+		const handleDateConfirm = date => { setTable({ ...table, reservation: { ...table.reservation, date: date  } }); hideDatePicker(); };
+
+		//functions to control the time picker
+		const [isTimePickerVisible, setTimePickerVisibility] = React.useState(false);
+		const showTimePicker = () => setTimePickerVisibility(true);
+		const hideTimePicker = () =>  setTimePickerVisibility(false);
+		const handleTimeConfirm = time => { setTable({ ...table, reservation: { ...table.reservation, time: time  } }); hideTimePicker(); };
 
 		return (
 				<View style={styles.container}>
@@ -28,7 +49,7 @@ export default function UpdateTableScreen({ route,  navigation }) {
 										style={styles.input}
 										placeholder="Table Name"
 										placeholderTextColor="gray"
-										onChangeText={handleNameChange}
+										onChangeText={handleReservationNameChange}
 										defaultValue={table.reservation.name}
 								/>
 						</View>
@@ -37,7 +58,7 @@ export default function UpdateTableScreen({ route,  navigation }) {
 										style={styles.input}
 										placeholder="group"
 										placeholderTextColor="gray"
-										onChangeText={handleNameChange}
+										onChangeText={handleReservationGroupChange}
 										defaultValue={table.reservation.name}
 								/>
 						</View>
@@ -47,19 +68,28 @@ export default function UpdateTableScreen({ route,  navigation }) {
 										style={styles.input}
 										placeholder="Reservation Name"
 										placeholderTextColor="gray"
-										onChangeText={handleNameChange}
+										onChangeText={handleReservationNameChange}
 										defaultValue={table.reservation.name}
 								/>
 						</View>
 						<View style={styles.inputContainer}>
+								<Button title="Show Date Picker" onPress={showDatePicker} />
 								<DateTimePickerModal
 										isVisible={isDatePickerVisible}
 										mode="date"
-										onConfirm={handleConfirm}
+										onConfirm={handleDateConfirm}
 										onCancel={hideDatePicker}
 								/>
 						</View>
-
+						<View style={styles.inputContainer}>
+								<Button title="Show Date Picker" onPress={showDatePicker} />
+								<DateTimePickerModal
+										isVisible={isDatePickerVisible}
+										mode="time"
+										onConfirm={handleTimeConfirm}
+										onCancel={hideDatePicker}
+								/>
+						</View>
 						<TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>
 								<Text style={styles.linkText}>Done</Text>
 						</TouchableOpacity>
