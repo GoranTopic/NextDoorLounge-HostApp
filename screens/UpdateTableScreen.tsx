@@ -1,10 +1,9 @@
-import { StackScreenProps } from '@react-navigation/stack';
 import * as React from 'react';
 import { StyleSheet, Text, Button, TouchableOpacity, View, TextInput } from 'react-native';
 import Table from '../components/Table';
-import { RootStackParamList } from '../types';
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import RNPickerSelect from 'react-native-picker-select';
 
 export default function UpdateTableScreen({ route,  navigation }) {
 		console.log(navigation);
@@ -12,22 +11,24 @@ export default function UpdateTableScreen({ route,  navigation }) {
 		let d = new Date();
 		const { sqr, newTable } = route.params;
 		sqr.table = newTable;
-		sqr.tableName = '';
+		sqr.name = '';
 		sqr.waiter = '';
-		sqr.reservation = { name: '', date: d.getDate(), time: d.getTime(), vip: false, notes: '' };
 		sqr.group = '';
+		sqr.reservation = { name: '', date: d.getDate(), time: d.getTime(), vip: false, notes: '' };
 
 		const [table, setTable] = React.useState({...sqr});
 		
 
-
-		const handleWaiterChange = waiter => setTable({ ...table, reservation: { ...table.reservation, name: input  } }) 
+		// table handler functions 
+		const handleTableNameChange = name => setTable({ ...table, name: name  }) 
+		const handleTableWaiterChange = waiter => setTable({ ...table, waiter: waiter }) 
+		const handleTableGroupChange = group => setTable({ ...table, group: group }) 
 
 		// reservation handlers 
 		const handleReservationNameChange = name => setTable({ ...table, reservation: { ...table.reservation, name: name  } }) 
 		const handleReservationGroupChange = group => setTable({ ...table, reservation: { ...table.reservation, group: group  } }) 
-		const toggleReservationVIPChange = vip => setTable({ ...table, reservation: { ...table.reservation, vip: !table.reservation  } }) 
-		const handleReservationNoteChange = input => setTable({ ...table, reservation: { ...table.reservation, name: input  } }) 
+		const toggleReservationVIPChange = vip => setTable({ ...table, reservation: { ...table.reservation, vip: !table.reservation.vip  } }) 
+		const handleReservationNoteChange = notes => setTable({ ...table, reservation: { ...table.reservation, notes: notes  } }) 
 
 		//functions to control the date picker
 		const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
@@ -62,39 +63,49 @@ export default function UpdateTableScreen({ route,  navigation }) {
 										defaultValue={table.reservation.name}
 								/>
 						</View>
-						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 						<View style={styles.inputContainer}>
-								<TextInput
-										style={styles.input}
-										placeholder="Reservation Name"
-										placeholderTextColor="gray"
-										onChangeText={handleReservationNameChange}
-										defaultValue={table.reservation.name}
-								/>
-						</View>
-						<View style={styles.inputContainer}>
-								<Button title="Show Date Picker" onPress={showDatePicker} />
-								<DateTimePickerModal
-										isVisible={isDatePickerVisible}
-										mode="date"
-										onConfirm={handleDateConfirm}
-										onCancel={hideDatePicker}
-								/>
-						</View>
-						<View style={styles.inputContainer}>
-								<Button title="Show Date Picker" onPress={showDatePicker} />
-								<DateTimePickerModal
-										isVisible={isDatePickerVisible}
-										mode="time"
-										onConfirm={handleTimeConfirm}
-										onCancel={hideDatePicker}
-								/>
-						</View>
-						<TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>
-								<Text style={styles.linkText}>Done</Text>
-						</TouchableOpacity>
+								<RNPickerSelect
+										onValueChange={(value) => console.log(value)}
+										items={[
+												{ label: 'Football', value: 'football' },
+												{ label: 'Baseball', value: 'baseball' },
+												{ label: 'Hockey', value: 'hockey' },
+										]}
+								/>	
 				</View>
-		);
+				<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+				<View style={styles.inputContainer}>
+						<TextInput
+								style={styles.input}
+								placeholder="Reservation Name"
+								placeholderTextColor="gray"
+								onChangeText={handleReservationNameChange}
+								defaultValue={table.reservation.name}
+						/>
+				</View>
+				<View style={styles.inputContainer}>
+						<Button title="Show Date Picker" onPress={showDatePicker} />
+						<DateTimePickerModal
+								isVisible={isDatePickerVisible}
+								mode="date"
+								onConfirm={handleDateConfirm}
+								onCancel={hideDatePicker}
+						/>
+				</View>
+				<View style={styles.inputContainer}>
+						<Button title="Show Date Picker" onPress={showDatePicker} />
+						<DateTimePickerModal
+								isVisible={isDatePickerVisible}
+								mode="time"
+								onConfirm={handleTimeConfirm}
+								onCancel={hideDatePicker}
+						/>
+				</View>
+				<TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>
+						<Text style={styles.linkText}>Done</Text>
+				</TouchableOpacity>
+		</View>
+);
 }
 
 const styles = StyleSheet.create({
