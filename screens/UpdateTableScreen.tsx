@@ -5,6 +5,17 @@ import Table from '../components/Table';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import RNPickerSelect from 'react-native-picker-select';
 
+const configinfo = { waiters: [
+												{ label: 'Melissa', value: 'red' },
+												{ label: 'Jennifer', value: 'blue' },
+												{ label: 'Cassadra', value: 'green' },
+												{ label: 'Selina', value: 'pink' },
+												{ label: 'Jake', value: 'purple' },
+										],
+
+}
+
+
 export default function UpdateTableScreen({ route,  navigation }) {
 		console.log(navigation);
 		console.log(route);
@@ -17,7 +28,6 @@ export default function UpdateTableScreen({ route,  navigation }) {
 		sqr.reservation = { name: '', date: d.getDate(), time: d.getTime(), vip: false, notes: '' };
 
 		const [table, setTable] = React.useState({...sqr});
-		
 
 		// table handler functions 
 		const handleTableNameChange = name => setTable({ ...table, name: name  }) 
@@ -45,6 +55,17 @@ export default function UpdateTableScreen({ route,  navigation }) {
 		return (
 				<View style={styles.container}>
 						<Table sqr={sqr} index={sqr.sqrId} isEditMode={false} />
+						<View style={styles.pickerContainer}>
+								<RNPickerSelect
+										style={{color: 'white', width: 100, height: 100 }}
+										placeholder={{
+												label: 'Waiter',
+														value: 'select',
+														color: '#9EA0A4',
+										}}
+										onValueChange={(value) => console.log(value)}
+										items={configinfo.waiters}/ >	
+						</View>
 						<View style={styles.inputContainer}>
 								<TextInput
 										style={styles.input}
@@ -63,75 +84,70 @@ export default function UpdateTableScreen({ route,  navigation }) {
 										defaultValue={table.reservation.name}
 								/>
 						</View>
+						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 						<View style={styles.inputContainer}>
-								<RNPickerSelect
-										onValueChange={(value) => console.log(value)}
-										items={[
-												{ label: 'Football', value: 'football' },
-												{ label: 'Baseball', value: 'baseball' },
-												{ label: 'Hockey', value: 'hockey' },
-										]}
-								/>	
+								<TextInput
+										style={styles.input}
+										placeholder="Reservation Name"
+										placeholderTextColor="gray"
+										onChangeText={handleReservationNameChange}
+										defaultValue={table.reservation.name}
+								/>
+						</View>
+						<View style={styles.inputContainer}>
+								<Button title="Show Date Picker" onPress={showDatePicker} />
+								<DateTimePickerModal
+										isVisible={isDatePickerVisible}
+										mode="date"
+										onConfirm={handleDateConfirm}
+										onCancel={hideDatePicker}
+								/>
+						</View>
+						<View style={styles.inputContainer}>
+
+								<Button title="Show Time Picker" onPress={showTimePicker} />
+								<DateTimePickerModal
+										isVisible={isTimePickerVisible}
+										mode="time"
+										onConfirm={handleTimeConfirm}
+										onCancel={hideDatePicker}
+								/>
+						</View>
+						<TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>
+								<Text style={styles.linkText}>Done</Text>
+						</TouchableOpacity>
 				</View>
-				<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-				<View style={styles.inputContainer}>
-						<TextInput
-								style={styles.input}
-								placeholder="Reservation Name"
-								placeholderTextColor="gray"
-								onChangeText={handleReservationNameChange}
-								defaultValue={table.reservation.name}
-						/>
-				</View>
-				<View style={styles.inputContainer}>
-						<Button title="Show Date Picker" onPress={showDatePicker} />
-						<DateTimePickerModal
-								isVisible={isDatePickerVisible}
-								mode="date"
-								onConfirm={handleDateConfirm}
-								onCancel={hideDatePicker}
-						/>
-				</View>
-				<View style={styles.inputContainer}>
-						<Button title="Show Date Picker" onPress={showDatePicker} />
-						<DateTimePickerModal
-								isVisible={isDatePickerVisible}
-								mode="time"
-								onConfirm={handleTimeConfirm}
-								onCancel={hideDatePicker}
-						/>
-				</View>
-				<TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>
-						<Text style={styles.linkText}>Done</Text>
-				</TouchableOpacity>
-		</View>
-);
+		);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-  linkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
-separator: {
-		alignSelf: 'center',
-    marginVertical: 15,
-    height: 1,
-    width: '90%',
-  },
+		container: {
+				flex: 1,
+				backgroundColor: 'red',
+				alignItems: 'center',
+				justifyContent: 'center',
+				padding: 20,
+		},
+		pickerContainer: {
+				width: 100,
+				padding: 20,
+		},
+		title: {
+				fontSize: 20,
+				fontWeight: 'bold',
+		},
+		link: {
+				marginTop: 15,
+				paddingVertical: 15,
+		},
+		linkText: {
+				fontSize: 14,
+				color: '#2e78b7',
+		},
+		separator: {
+				alignSelf: 'center',
+				marginVertical: 15,
+				height: 1,
+				width: '90%',
+		},
 });
