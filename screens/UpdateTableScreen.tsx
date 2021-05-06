@@ -65,66 +65,70 @@ export default function UpdateTableScreen({ route,  navigation }) {
 										}}
 										onValueChange={(value) => console.log(value)}
 										items={configinfo.waiters}/ >	
+								</View>
+								<View style={styles.inputContainer}>
+										<TextInput
+												style={styles.input}
+												placeholder="Table Name"
+												placeholderTextColor="gray"
+												onChangeText={handleReservationNameChange}
+												defaultValue={table.reservation.name}
+										/>
+								</View>
+								<View style={styles.inputContainer}>
+										<TextInput
+												style={styles.input}
+												placeholder="group"
+												placeholderTextColor="gray"
+												onChangeText={handleReservationGroupChange}
+												defaultValue={table.reservation.name}
+										/>
+								</View>
+								<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+								<View style={styles.inputContainer}>
+										<TextInput
+												style={styles.input}
+												placeholder="Reservation Name"
+												placeholderTextColor="gray"
+												onChangeText={handleReservationNameChange}
+												defaultValue={table.reservation.name}
+										/>
+								</View>
+								<View style={styles.inputContainer}>
+										{ table.reservation.date !== null? <TouchableOpacity onPress={showTimePicker}>
+												<Text style={{color: 'blue'}}>{table.reservation.date.toLocaleDateString("es-US")}</Text>
+										</TouchableOpacity>
+										: <Button title="Date" onPress={showDatePicker} /> }
+										<DateTimePickerModal
+												isVisible={isDatePickerVisible}
+												mode="date"
+												onConfirm={handleDateConfirm}
+												onCancel={hideDatePicker}
+										/>
+								</View>
+								<View style={styles.inputContainer}>
+										{ table.reservation.time !== null? <TouchableOpacity onPress={showTimePicker}>
+												<Text style={{color: 'blue'}}> {table.reservation.time.toLocaleTimeString("es-US", { hour12: true, hour: '2-digit', minute: '2-digit' } )}</Text>
+										</TouchableOpacity>
+										: <Button title="Time" onPress={showTimePicker} /> }
+										<DateTimePickerModal
+												isVisible={isTimePickerVisible}
+												mode="time"
+												onConfirm={handleTimeConfirm}
+												onCancel={hideDatePicker}
+										/>
+								</View>
+								<TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>
+										<Text style={styles.linkText}>Done</Text>
+								</TouchableOpacity>
 						</View>
-						<View style={styles.inputContainer}>
-								<TextInput
-										style={styles.input}
-										placeholder="Table Name"
-										placeholderTextColor="gray"
-										onChangeText={handleReservationNameChange}
-										defaultValue={table.reservation.name}
-								/>
-						</View>
-						<View style={styles.inputContainer}>
-								<TextInput
-										style={styles.input}
-										placeholder="group"
-										placeholderTextColor="gray"
-										onChangeText={handleReservationGroupChange}
-										defaultValue={table.reservation.name}
-								/>
-						</View>
-						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-						<View style={styles.inputContainer}>
-								<TextInput
-										style={styles.input}
-										placeholder="Reservation Name"
-										placeholderTextColor="gray"
-										onChangeText={handleReservationNameChange}
-										defaultValue={table.reservation.name}
-								/>
-						</View>
-						<View style={styles.inputContainer}>
-								<Button title="Show Date Picker" onPress={showDatePicker} />
-								<DateTimePickerModal
-										isVisible={isDatePickerVisible}
-										mode="date"
-										onConfirm={handleDateConfirm}
-										onCancel={hideDatePicker}
-								/>
-						</View>
-						<View style={styles.inputContainer}>
-								{ table.reservation.date !== null? 
-								<Text style={{color: 'blue'}}>{ table.reservation.date } </Text>
-								: <Button title="Show Time Picker" onPress={showTimePicker} /> }
-								<DateTimePickerModal
-										isVisible={isTimePickerVisible}
-										mode="time"
-										onConfirm={handleTimeConfirm}
-										onCancel={hideDatePicker}
-								/>
-						</View>
-						<TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>
-								<Text style={styles.linkText}>Done</Text>
-						</TouchableOpacity>
-				</View>
-		);
+				);
 }
 
 const styles = StyleSheet.create({
 		container: {
 				flex: 1,
-				backgroundColor: 'red',
+				backgroundColor: 'black',
 				alignItems: 'center',
 				justifyContent: 'center',
 				padding: 20,
