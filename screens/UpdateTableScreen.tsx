@@ -25,7 +25,7 @@ export default function UpdateTableScreen({ route,  navigation }) {
 		sqr.name = '';
 		sqr.waiter = '';
 		sqr.group = '';
-		sqr.reservation = { name: '', date: d.getDate(), time: d.getTime(), vip: false, notes: '' };
+		sqr.reservation = { name: '', date: null, time: null, vip: false, notes: '' };
 
 		const [table, setTable] = React.useState({...sqr});
 
@@ -104,8 +104,9 @@ export default function UpdateTableScreen({ route,  navigation }) {
 								/>
 						</View>
 						<View style={styles.inputContainer}>
-
-								<Button title="Show Time Picker" onPress={showTimePicker} />
+								{ table.reservation.date !== null? 
+								<Text style={{color: 'blue'}}>{ table.reservation.date } </Text>
+								: <Button title="Show Time Picker" onPress={showTimePicker} /> }
 								<DateTimePickerModal
 										isVisible={isTimePickerVisible}
 										mode="time"
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
 				padding: 20,
 		},
 		pickerContainer: {
-				width: 100,
+				width: 200,
 				padding: 20,
 		},
 		title: {
