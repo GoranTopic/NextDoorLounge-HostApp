@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Text, Button, TouchableOpacity, View, TextInput } from 'react-native';
+import { StyleSheet, Checkbox, Text, Button, TouchableOpacity, View, TextInput } from 'react-native';
 import Table from '../components/Table';
-
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import RNPickerSelect from 'react-native-picker-select';
+import { Ionicons } from '@expo/vector-icons';
+import { CheckBox } from 'react-native-elements'
 
 const configinfo = { waiters: [
 												{ label: 'Melissa', value: 'red' },
@@ -15,8 +16,6 @@ const configinfo = { waiters: [
 }
 
 export default function UpdateTableScreen({ route,  navigation }) {
-		console.log(navigation);
-		console.log(route);
 		let d = new Date();
 		const { sqr, newTable } = route.params;
 		sqr.table = newTable;
@@ -35,7 +34,7 @@ export default function UpdateTableScreen({ route,  navigation }) {
 		// reservation handlers 
 		const handleReservationNameChange = name => setTable({ ...table, reservation: { ...table.reservation, name: name  } }) 
 		const handleReservationGroupChange = group => setTable({ ...table, reservation: { ...table.reservation, group: group  } }) 
-		const toggleReservationVIPChange = vip => setTable({ ...table, reservation: { ...table.reservation, vip: !table.reservation.vip  } }) 
+		const toggleReservationVIPChange = vip => setTable({ ...table, reservation: { ...table.reservation, vip: !table.reservation.vip } }) 
 		const handleReservationNoteChange = notes => setTable({ ...table, reservation: { ...table.reservation, notes: notes  } }) 
 
 		//functions to control the date picker
@@ -82,12 +81,12 @@ export default function UpdateTableScreen({ route,  navigation }) {
 										<RNPickerSelect
 												placeholder={{
 														label: 'Waiter',
-														value: 'select',
-														color: 'gray',
+																value: 'select',
+																color: 'gray',
 												}}
 												onValueChange={handleTableWaiterChange}
-												items={configinfo.waiters}>	
-												style={styles.title}
+												items={configinfo.waiters}
+												style={styles.title}>
 										</RNPickerSelect>
 								</View>
 						</View>
@@ -97,7 +96,7 @@ export default function UpdateTableScreen({ route,  navigation }) {
 								<View style={styles.row}>
 										<View style={styles.inputContainer}>
 												<TextInput
-														style={styles.input}
+														style={{...styles.input, width: 180 }}
 														placeholder="Name"
 														placeholderTextColor="gray"
 														onChangeText={handleReservationNameChange}
@@ -130,6 +129,14 @@ export default function UpdateTableScreen({ route,  navigation }) {
 														mode="time"
 														onConfirm={handleTimeConfirm}
 														onCancel={hideDatePicker}
+												/>
+										</View>
+										<View>
+												<CheckBox
+														checkedIcon={ <Ionicons name={'pencil-outline'} color={'red'} size={16} style={styles.optionsIcon} /> }
+														uncheckedIcon={ <Ionicons name={'pencil'} color={'red'} size={16} style={styles.optionsIcon} /> }
+														checked={table.reservation.vip}
+														onPress={toggleReservationVIPChange}
 												/>
 										</View>
 								</View>
@@ -197,4 +204,5 @@ const styles = StyleSheet.create({
 				width: '70%',
 				backgroundColor: '#eee',
 		},
+
 });

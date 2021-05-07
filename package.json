@@ -31,6 +31,7 @@
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-drax": "^0.8.0",
+    "react-native-elements": "^3.4.1",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-modal-datetime-picker": "^9.2.1",
     "react-native-picker-select": "^8.0.4",
