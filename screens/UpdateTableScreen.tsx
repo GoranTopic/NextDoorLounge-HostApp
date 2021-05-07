@@ -12,9 +12,7 @@ const configinfo = { waiters: [
 												{ label: 'Selina', value: 'pink' },
 												{ label: 'Jake', value: 'purple' },
 										],
-
 }
-
 
 export default function UpdateTableScreen({ route,  navigation }) {
 		console.log(navigation);
@@ -54,75 +52,93 @@ export default function UpdateTableScreen({ route,  navigation }) {
 
 		return (
 				<View style={styles.container}>
-						<Table sqr={sqr} index={sqr.sqrId} isEditMode={false} />
-						<View style={styles.pickerContainer}>
-								<RNPickerSelect
-										style={{color: 'white', width: 100, height: 100 }}
-										placeholder={{
-												label: 'Waiter',
-														value: 'select',
-														color: '#9EA0A4',
-										}}
-										onValueChange={(value) => console.log(value)}
-										items={configinfo.waiters}/ >	
-								</View>
-								<View style={styles.inputContainer}>
-										<TextInput
-												style={styles.input}
-												placeholder="Table Name"
-												placeholderTextColor="gray"
-												onChangeText={handleReservationNameChange}
-												defaultValue={table.reservation.name}
-										/>
-								</View>
-								<View style={styles.inputContainer}>
-										<TextInput
-												style={styles.input}
-												placeholder="group"
-												placeholderTextColor="gray"
-												onChangeText={handleReservationGroupChange}
-												defaultValue={table.reservation.name}
-										/>
-								</View>
-								<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-								<View style={styles.inputContainer}>
-										<TextInput
-												style={styles.input}
-												placeholder="Reservation Name"
-												placeholderTextColor="gray"
-												onChangeText={handleReservationNameChange}
-												defaultValue={table.reservation.name}
-										/>
-								</View>
-								<View style={styles.inputContainer}>
-										{ table.reservation.date !== null? <TouchableOpacity onPress={showTimePicker}>
-												<Text style={{color: 'blue'}}>{table.reservation.date.toLocaleDateString("es-US")}</Text>
-										</TouchableOpacity>
-										: <Button title="Date" onPress={showDatePicker} /> }
-										<DateTimePickerModal
-												isVisible={isDatePickerVisible}
-												mode="date"
-												onConfirm={handleDateConfirm}
-												onCancel={hideDatePicker}
-										/>
-								</View>
-								<View style={styles.inputContainer}>
-										{ table.reservation.time !== null? <TouchableOpacity onPress={showTimePicker}>
-												<Text style={{color: 'blue'}}> {table.reservation.time.toLocaleTimeString("es-US", { hour12: true, hour: '2-digit', minute: '2-digit' } )}</Text>
-										</TouchableOpacity>
-										: <Button title="Time" onPress={showTimePicker} /> }
-										<DateTimePickerModal
-												isVisible={isTimePickerVisible}
-												mode="time"
-												onConfirm={handleTimeConfirm}
-												onCancel={hideDatePicker}
-										/>
-								</View>
-								<TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>
-										<Text style={styles.linkText}>Done</Text>
-								</TouchableOpacity>
+						<View style={styles.tableContainer}>
+								<Table sqr={sqr} index={sqr.sqrId} isEditMode={false} />
 						</View>
-				);
+						<Text style={styles.title}>Table</Text>
+						<View style={styles.separator}/>
+						<View style={styles.col}>
+								<View style={styles.row}>
+										<View style={styles.inputContainer}>
+												<TextInput
+														style={styles.input}
+														placeholder="Name"
+														placeholderTextColor="gray"
+														onChangeText={handleTableNameChange}
+														defaultValue={table.name}
+												/>
+										</View>
+										<View style={styles.inputContainer}>
+												<TextInput
+														style={styles.input}
+														placeholder="Group"
+														placeholderTextColor="gray"
+														onChangeText={handleTableGroupChange}
+														defaultValue={table.group}
+												/>
+										</View>
+								</View>
+								<View style={styles.pickerContainer}>
+										<RNPickerSelect
+												placeholder={{
+														label: 'Waiter',
+														value: 'select',
+														color: 'gray',
+												}}
+												onValueChange={handleTableWaiterChange}
+												items={configinfo.waiters}>	
+												style={styles.title}
+										</RNPickerSelect>
+								</View>
+						</View>
+						<Text style={styles.title}>Reservation</Text>
+						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+						<View style={styles.col}>
+								<View style={styles.row}>
+										<View style={styles.inputContainer}>
+												<TextInput
+														style={styles.input}
+														placeholder="Name"
+														placeholderTextColor="gray"
+														onChangeText={handleReservationNameChange}
+														defaultValue={table.reservation.name}
+												/>
+										</View>
+								</View>
+								<View style={styles.row}>
+										<View style={styles.inputContainer}>
+												{ table.reservation.date !== null? <TouchableOpacity onPress={showTimePicker}>
+														<Text style={styles.linkText}>{table.reservation.date.toLocaleDateString("es-US")}</Text>
+												</TouchableOpacity>
+												: <Button title="Date" onPress={showDatePicker}/> }
+												<DateTimePickerModal
+														isVisible={isDatePickerVisible}
+														mode="date"
+														onConfirm={handleDateConfirm}
+														onCancel={hideDatePicker}
+												/>
+										</View>
+										<View style={styles.inputContainer}>
+												{ table.reservation.time !== null? <TouchableOpacity onPress={showTimePicker}>
+														<Text style={styles.linkText}> 
+																{table.reservation.time.toLocaleTimeString("es-US", { hour12: false, hour: '2-digit', minute: '2-digit' } )}
+														</Text>
+												</TouchableOpacity>
+												: <Button title="Time" style={styles.button} onPress={showTimePicker} /> }
+												<DateTimePickerModal
+														isVisible={isTimePickerVisible}
+														mode="time"
+														onConfirm={handleTimeConfirm}
+														onCancel={hideDatePicker}
+												/>
+										</View>
+								</View>
+						</View>
+						<TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>
+								<Text style={styles.linkText}>Done</Text>
+						</TouchableOpacity>
+				</View>
+		);
 }
 
 const styles = StyleSheet.create({
@@ -133,13 +149,32 @@ const styles = StyleSheet.create({
 				justifyContent: 'center',
 				padding: 20,
 		},
-		pickerContainer: {
-				width: 200,
+		tableContainer: {
+				alignItems: 'center',
+				justifyContent: 'center',
+				height: '20%',
+		},
+		col:{
+			flexDirection: 'column',
+			padding: 20,
+		},
+		row:{
+			flexDirection: 'row',
+		},
+		inputContainer: {
 				padding: 20,
 		},
+		pickerContainer: {
+				width: 'auto',
+				marginLeft: "10%",
+		},
+		button: {
+				borderRadius: 0.12,
+		},
 		title: {
-				fontSize: 20,
+				fontSize: 17,
 				fontWeight: 'bold',
+				color: 'white',
 		},
 		link: {
 				marginTop: 15,
@@ -149,10 +184,17 @@ const styles = StyleSheet.create({
 				fontSize: 14,
 				color: '#2e78b7',
 		},
+		input: {
+				width: 120,
+				color: 'white',
+			borderBottomWidth: 0.2,
+			borderColor: 'gold',
+		},
 		separator: {
 				alignSelf: 'center',
 				marginVertical: 15,
-				height: 1,
-				width: '90%',
+				height: 0.5,
+				width: '70%',
+				backgroundColor: '#eee',
 		},
 });
