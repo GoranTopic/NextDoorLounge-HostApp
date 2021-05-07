@@ -7,12 +7,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { CheckBox } from 'react-native-elements'
 
 const configinfo = { waiters: [
-												{ label: 'Melissa', value: 'red' },
-												{ label: 'Jennifer', value: 'blue' },
-												{ label: 'Cassadra', value: 'green' },
-												{ label: 'Selina', value: 'pink' },
-												{ label: 'Jake', value: 'purple' },
-										],
+		{ label: 'Melissa', value: 'red' },
+		{ label: 'Jennifer', value: 'blue' },
+		{ label: 'Cassadra', value: 'green' },
+		{ label: 'Selina', value: 'pink' },
+		{ label: 'Jake', value: 'purple' },
+],
 }
 
 export default function UpdateTableScreen({ route,  navigation }) {
@@ -52,7 +52,7 @@ export default function UpdateTableScreen({ route,  navigation }) {
 		return (
 				<View style={styles.container}>
 						<View style={styles.tableContainer}>
-								<Table sqr={sqr} index={sqr.sqrId} isEditMode={false} />
+								<Table sqr={table} index={table.sqrId} isEditMode={false} />
 						</View>
 						<Text style={styles.title}>Table</Text>
 						<View style={styles.separator}/>
@@ -86,30 +86,36 @@ export default function UpdateTableScreen({ route,  navigation }) {
 												}}
 												onValueChange={handleTableWaiterChange}
 												items={configinfo.waiters}
-												style={styles.title}>
+												style={{ ...styles.title,
+																inputAndroid: {
+																		color:"white",
+																},
+																inputIOS: {
+																		color:"white",
+																},
+												}}>
+
 										</RNPickerSelect>
 								</View>
 						</View>
 						<Text style={styles.title}>Reservation</Text>
 						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 						<View style={styles.col}>
-								<View style={styles.row}>
-										<View style={styles.inputContainer}>
+										<View style={ styles.inputContainer}>
 												<TextInput
-														style={{...styles.input, width: 180 }}
+														style={{...styles.input, width: '100%' }}
 														placeholder="Name"
 														placeholderTextColor="gray"
 														onChangeText={handleReservationNameChange}
 														defaultValue={table.reservation.name}
 												/>
-										</View>
 								</View>
 								<View style={styles.row}>
 										<View style={styles.inputContainer}>
 												{ table.reservation.date !== null? <TouchableOpacity onPress={showTimePicker}>
 														<Text style={styles.linkText}>{table.reservation.date.toLocaleDateString("es-US")}</Text>
 												</TouchableOpacity>
-												: <Button title="Date" onPress={showDatePicker}/> }
+												: <Button title="Date" color='gray' onPress={showDatePicker}/> }
 												<DateTimePickerModal
 														isVisible={isDatePickerVisible}
 														mode="date"
@@ -123,7 +129,7 @@ export default function UpdateTableScreen({ route,  navigation }) {
 																{table.reservation.time.toLocaleTimeString("es-US", { hour12: false, hour: '2-digit', minute: '2-digit' } )}
 														</Text>
 												</TouchableOpacity>
-												: <Button title="Time" style={styles.button} onPress={showTimePicker} /> }
+												: <Button title="Time" style={styles.button} color='gray' onPress={showTimePicker} /> }
 												<DateTimePickerModal
 														isVisible={isTimePickerVisible}
 														mode="time"
@@ -131,10 +137,16 @@ export default function UpdateTableScreen({ route,  navigation }) {
 														onCancel={hideDatePicker}
 												/>
 										</View>
-										<View>
+										<View style={{...styles.inputContainer, margin: 10, width: 100, }}>
 												<CheckBox
-														checkedIcon={ <Ionicons name={'pencil-outline'} color={'red'} size={16} style={styles.optionsIcon} /> }
-														uncheckedIcon={ <Ionicons name={'pencil'} color={'red'} size={16} style={styles.optionsIcon} /> }
+														title='VIP'
+														iconRight
+														textStyle={{color: 'white'}}
+														containerStyle={styles.button}
+														uncheckedColor='gray'
+														checkedColor='gray'
+														checkedIcon={ <Ionicons name={'star'} color={'gold'} size={20} style={styles.optionsIcon} /> }
+														uncheckedIcon={ <Ionicons name={'star-outline'} color={'gold'} size={20} style={styles.optionsIcon} /> }
 														checked={table.reservation.vip}
 														onPress={toggleReservationVIPChange}
 												/>
@@ -162,21 +174,27 @@ const styles = StyleSheet.create({
 				height: '20%',
 		},
 		col:{
-			flexDirection: 'column',
-			padding: 20,
+				flexDirection: 'column',
+				padding: 20,
 		},
 		row:{
-			flexDirection: 'row',
+				flexDirection: 'row',
 		},
 		inputContainer: {
-				padding: 20,
+				margin: 15,
 		},
 		pickerContainer: {
 				width: 'auto',
 				marginLeft: "10%",
 		},
 		button: {
-				borderRadius: 0.12,
+				borderRadius: 2,
+				borderColor: 'gray',  
+				height: 39, 
+				backgroundColor:'gray',
+				alignItems:'center',
+				justifyContent: 'center',
+				fontWeight: 'normal' 
 		},
 		title: {
 				fontSize: 17,
@@ -194,8 +212,8 @@ const styles = StyleSheet.create({
 		input: {
 				width: 120,
 				color: 'white',
-			borderBottomWidth: 0.2,
-			borderColor: 'gold',
+				borderBottomWidth: 0.2,
+				borderColor: 'gold',
 		},
 		separator: {
 				alignSelf: 'center',
@@ -204,5 +222,4 @@ const styles = StyleSheet.create({
 				width: '70%',
 				backgroundColor: '#eee',
 		},
-
 });
