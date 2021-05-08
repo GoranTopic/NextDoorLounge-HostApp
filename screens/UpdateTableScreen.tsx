@@ -7,11 +7,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { CheckBox } from 'react-native-elements'
 
 const configinfo = { waiters: [
-		{ label: 'Melissa', value: 'red' },
-		{ label: 'Jennifer', value: 'blue' },
-		{ label: 'Cassadra', value: 'green' },
-		{ label: 'Selina', value: 'pink' },
-		{ label: 'Jake', value: 'purple' },
+		{ label: 'Melissa', value: 'Melissa' },
+		{ label: 'Jennifer', value: 'Jennifer' },
+		{ label: 'Cassadra', value: 'Cassadra' },
+		{ label: 'Selina', value: 'Selina' },
+		{ label: 'Jake', value: 'Jake' },
 ],
 }
 
@@ -101,14 +101,14 @@ export default function UpdateTableScreen({ route,  navigation }) {
 						<Text style={styles.title}>Reservation</Text>
 						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 						<View style={styles.col}>
-										<View style={ styles.inputContainer}>
-												<TextInput
-														style={{...styles.input, width: '100%' }}
-														placeholder="Name"
-														placeholderTextColor="gray"
-														onChangeText={handleReservationNameChange}
-														defaultValue={table.reservation.name}
-												/>
+								<View style={ styles.inputContainer}>
+										<TextInput
+												style={{...styles.input, width: '100%' }}
+												placeholder="Name"
+												placeholderTextColor="gray"
+												onChangeText={handleReservationNameChange}
+												defaultValue={table.reservation.name}
+										/>
 								</View>
 								<View style={styles.row}>
 										<View style={styles.inputContainer}>
@@ -153,11 +153,15 @@ export default function UpdateTableScreen({ route,  navigation }) {
 										</View>
 								</View>
 						</View>
-						<TouchableOpacity onPress={() => navigation.goBack()} style={styles.link}>
-								<Text style={styles.linkText}>Done</Text>
-						</TouchableOpacity>
-				</View>
-		);
+						<TouchableOpacity onPress={() => navigation.navigate('Layout', { 
+								name: 'Layout',
+								params: { table: table },
+								merege: true,
+						})} style={styles.link}>
+						<Text style={styles.linkText}>Done</Text>
+				</TouchableOpacity>
+		</View>
+);
 }
 
 const styles = StyleSheet.create({

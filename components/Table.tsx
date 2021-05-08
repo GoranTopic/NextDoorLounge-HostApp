@@ -7,7 +7,28 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { DraxProvider, DraxView } from 'react-native-drax';
 
+const waitersColors = [
+		{ waiter: 'Melissa', color: 'red' },
+		{ waiter: 'Jennifer', color: 'blue' },
+		{ waiter: 'Cassadra', color: 'green' },
+		{ waiter: 'Selina', color: 'pink' },
+		{ waiter: 'Jake', color: 'purple' },
+]
+
+const getWaiterColor = (waiter) => {
+		try{  
+				let color = waitersColors.filter(value => value.waiter === waiter )[0].color;
+				return color;
+		}catch( e ){
+				console.log(e);
+				return 'white';
+		}
+}
+
+
 export default function Table( { sqr, index, isEditMode, toCreateTableScreen, } ) {
+		console.log("sqr:");
+		console.log(sqr);
 	
 		const getTableStyle = tableType => { switch(tableType){  
 				case 'sqrTable':
@@ -21,94 +42,58 @@ export default function Table( { sqr, index, isEditMode, toCreateTableScreen, } 
 				default:
 					return styles.square;
 		}}
+		
+		const getNameStyle = (name) => { return name !== ''? { backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center' } : {}  }
+
+		const getVipStyle = (vip) => { return vip? { borderColor: 'gold', borderWidth: 1 } : {}  }
+
+		const InsideName = (name) => name !== ''? <Text style={{...getColorStyle(sqr.waiter), ...styles.insideName,  } }>{name}</Text> : <></> 
+
+		const getColorStyle = waiter => { 
+				return { 
+						color: getWaiterColor(waiter), 
+						backgroundColor: getWaiterColor(waiter), 
+						borderColor: getWaiterColor(waiter)
+				}
+		}
 
 
 		const renderTable = () => { 
 				if(isEditMode){  
-						return sqr.table? 
+						return sqr.table !== 'none'? 
 						<DraxView 
 								payload={index}
 								key={index}
-								style={getTableStyle(sqr.table)}/> 
+								style={getTableStyle(sqr.table)}>
+						</DraxView>
 						: <DraxView 
 								payload={index}
 								key={index}
 								style={getTableStyle(sqr.table)}
 								onReceiveDragDrop={({ dragged: { payload } }) => {
-										console.log("run this");
-										toCreateTableScreen(sqr, payload);} }/> 
+										toCreateTableScreen(sqr, payload);} }> 
+						</DraxView>
 								}else{
 										return <View 
 												key={index}
-												style={getTableStyle(sqr.table)}/> 
+												style={ {...getTableStyle(sqr.table), 
+																...getColorStyle(sqr.waiter), 
+																...getNameStyle(sqr.name), 
+																...getVipStyle(sqr.reservation.vip) } }> 
+												{ InsideName(sqr.name) }
+										</View>
 								}
 		}
 
 		return renderTable();
 
-		if (isEditMode){ 	
-				switch(sqr.table){  
-						case 'sqrTable':
-						return <DraxView 
-								payload={index}
-								key={index}
-								style={ styles.squareTable }>
-						</DraxView>;
-						case 'circleTable':
-						return <DraxView
-								payload={index}
-								key={index}
-								style={ styles.circleTable }>
-						</DraxView>;
-						case 'longTableHorizontal':
-						return <DraxView 
-								payload={index}
-								key={index}
-								style={ styles.longTableHorizontal }>
-						</DraxView>;
-						case 'longTableVertical':
-						return <DraxView 
-								payload={index}
-								key={index}
-								style={ styles.longTableVertical }>
-						</DraxView>;
-						default:
-						return <DraxView 
-								key={index}
-								style={styles.square}
-								onReceiveDragDrop={({ dragged: { payload } }) => {
-										console.log(`placing ${payload}`);
-										toCreateTableScreen(sqr, payload);
-								}}>
-						</DraxView>;
-						}
-		} else { 
-				switch(sqr.table){  
-						case 'sqrTable':
-						return <View 
-								key={index}
-								style={ styles.squareTable } /> ;
-						case 'circleTable':
-						return <View
-								key={index}
-								style={ styles.circleTable } />;
-						case 'longTableHorizontal':
-						return <View 
-								key={index}
-								style={ styles.longTableHorizontal } />;
-						case 'longTableVertical':
-						return <View 
-								key={index}
-								style={ styles.longTableVertical } />;
-						default:
-						return <View 
-								style={styles.square} 
-						/>
-				}
-		}
 }
 
 const styles = StyleSheet.create({
+		insideName:{
+				backgroundColor: 'transparent',
+				
+		},
 		container: {
 				flex: 1,
 				justifyContent: 'center',
