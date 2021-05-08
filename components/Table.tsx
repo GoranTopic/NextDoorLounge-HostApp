@@ -8,32 +8,70 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { DraxProvider, DraxView } from 'react-native-drax';
 
 export default function Table( { sqr, index, isEditMode, toCreateTableScreen, } ) {
-		console.log("running Table")
-		console.log(sqr);
-		console.log("isEditMode:")
-		console.log(isEditMode)
+	
+		const getTableStyle = tableType => { switch(tableType){  
+				case 'sqrTable':
+					return styles.squareTable;
+				case 'circleTable':
+					return styles.circleTable; 
+				case 'longTableHorizontal':
+					return styles.longTableHorizontal;
+				case 'longTableVertical':
+					return styles.longTableVertical;
+				default:
+					return styles.square;
+		}}
+
+
+		const renderTable = () => { 
+				if(isEditMode){  
+						return sqr.table? 
+						<DraxView 
+								payload={index}
+								key={index}
+								style={getTableStyle(sqr.table)}/> 
+						: <DraxView 
+								payload={index}
+								key={index}
+								style={getTableStyle(sqr.table)}
+								onReceiveDragDrop={({ dragged: { payload } }) => {
+										console.log("run this");
+										toCreateTableScreen(sqr, payload);} }/> 
+								}else{
+										return <View 
+												key={index}
+												style={getTableStyle(sqr.table)}/> 
+								}
+		}
+
+		return renderTable();
+
 		if (isEditMode){ 	
 				switch(sqr.table){  
 						case 'sqrTable':
 						return <DraxView 
 								payload={index}
 								key={index}
-								style={ styles.squareTable } /> ;
+								style={ styles.squareTable }>
+						</DraxView>;
 						case 'circleTable':
 						return <DraxView
 								payload={index}
 								key={index}
-								style={ styles.circleTable } />;
+								style={ styles.circleTable }>
+						</DraxView>;
 						case 'longTableHorizontal':
 						return <DraxView 
 								payload={index}
 								key={index}
-								style={ styles.longTableHorizontal } />;
+								style={ styles.longTableHorizontal }>
+						</DraxView>;
 						case 'longTableVertical':
 						return <DraxView 
 								payload={index}
 								key={index}
-								style={ styles.longTableVertical } />;
+								style={ styles.longTableVertical }>
+						</DraxView>;
 						default:
 						return <DraxView 
 								key={index}
@@ -41,7 +79,8 @@ export default function Table( { sqr, index, isEditMode, toCreateTableScreen, } 
 								onReceiveDragDrop={({ dragged: { payload } }) => {
 										console.log(`placing ${payload}`);
 										toCreateTableScreen(sqr, payload);
-								}}/>
+								}}>
+						</DraxView>;
 						}
 		} else { 
 				switch(sqr.table){  
