@@ -3,7 +3,6 @@ import { StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-nati
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View, TextInput } from '../components/Themed';
 import Reservation from '../components/Reservation';
-import [state, dispatch] from '../hooks/useState';
 
 
 export default function TabOneScreen({ navigation }) {

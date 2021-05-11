@@ -1,6 +1,7 @@
 import * as React from 'react';
+import Layout from '../constants/Layout';
 
-const DATA  = {
+const initialState  = {
 		grid: [],
 		tables: [],
 		reservations: [],
@@ -10,16 +11,14 @@ const DATA  = {
 		}
 }
 
-
-
 const empty_sqr = { 
 		sqrId: '', 
 		table: 'none', 
 		reservationID: '' } //Create grid data
-for (let i = 0; i < Layout.squareNum; i++ ) DATA.grid.push({ ...empty_sqr, sqrId: i })
+for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sqr, sqrId: i })
 
 
-const DATA.reservations = [ // data use to build for now
+initialState.reservations = [ // data use to build for now
 		{ id: 1,  tableID: '34', currentGuest: 0, name: 'Deloria King',   partySize: 4, arrivalTime: '9:00pm'  },
 		{ id: 2,  tableID: '4B', currentGuest: 0, name: 'Anna Nazarijan', partySize: 4, arrivalTime: '9:00pm'  },
 		{ id: 3,  tableID: '3B', currentGuest: 0, name: 'Naoma Silver',   partySize: 5, arrivalTime: '9:00pm'  },
@@ -37,8 +36,6 @@ const DATA.reservations = [ // data use to build for now
 ];
 
 
-const initialState = DATA;
-
 const stateReducer = (state, action) => {
 		switch (action.type) {
 				case 'CREATE_RESERVATION':
@@ -49,7 +46,7 @@ const stateReducer = (state, action) => {
 
 				case 'UPDATE_RESERVATION':
 						return { // probaly might not work, or just make a duplicate instead of an update
-								..state,
+								...state,
 								reservations: [ state.reservation.map( (reservation) => { 
 										return reservation.id === action.payload.id? 
 												action.payload
@@ -59,13 +56,13 @@ const stateReducer = (state, action) => {
 
 				case 'DELETE_RESERVATION':
 						return {
-								..state, ///might have to change the value to if it is not equal to 
+								...state, ///might have to change the value to if it is not equal to 
 								reservations: [ state.reservation.filter((reservation) =>  reservation.id !== action.payload.id) ],
 						};
 
 				case 'CREATE_TABLE_ON_GRID':
 						return {
-								..state, 
+								...state, 
 								grid:  [ ...state.grid.map( (gridSqr) => { 
 										return gridSqr.sqrId === action.payload.sqrId ?
 												action.payload
@@ -74,7 +71,7 @@ const stateReducer = (state, action) => {
 						};
 				case 'UPDATE_TABLE_ON_GRID':
 						return {
-								..state, 
+								...state, 
 								grid:  [ ...state.grid.map( (gridSqr) => { 
 										return gridSqr.sqrId === action.payload.sqrId ?
 												action.payload
@@ -83,7 +80,7 @@ const stateReducer = (state, action) => {
 						};
 				case 'DELETE_TABLE_ON_GRID':
 						return {
-								..state, 
+								...state, 
 								grid:  [ ...state.grid.map( (gridSqr) => { 
 										return gridSqr.sqrId === action.payload.sqrId ?
 												{ ...empty_sqr, sqrId: gridSqr.sqrId }
@@ -94,9 +91,9 @@ const stateReducer = (state, action) => {
 				default:
 						console.log('error: could not find dispatch command')
 						return null;
-
 		}
 
 };
 
-export default const [state, dispatch] = React.useReducer(stateReducer, initialState);
+export { initialState, stateReducer };
+
