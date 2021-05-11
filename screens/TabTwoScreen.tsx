@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { ImageBackground, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import Table from '../components/Table';
+import Untitled from '../assets/images/Untitled.png';
 import Layout from '../constants/Layout';
 import { DraxProvider, DraxView } from 'react-native-drax';
 
@@ -29,31 +30,33 @@ export default function TabTwoScreen({ navigation }) {
 	
 		return (
 				<DraxProvider>
-						<View style={styles.gridContainer} >
-								{ grid.map((sqr, index) => <Table 
-										sqr={sqr} key={index} index={index} isEditMode={isEditMode} toCreateTableScreen={toCreateTableScreen} />
+						<ImageBackground style={styles.backgroundImage } source={Untitled} >
+								<View style={styles.gridContainer} >
+										{ grid.map((sqr, index) => <Table 
+												sqr={sqr} key={index} index={index} isEditMode={isEditMode} toCreateTableScreen={toCreateTableScreen} />
 								)}
 						</View> 
-						<View style={styles.newTableContainer}>
-								<DraxView style={styles.squareTable}
-										payload="sqrTable"
-								/>
-								<DraxView style={styles.circleTable}
-										payload="circleTable"
-								/>
-								<DraxView style={styles.longTableHorizontal}
-										payload="longTableHorizontal"
-								/>
-								<DraxView style={styles.longTableVertical}
-										payload="longTableVertical"
-								/>
-								<DraxView 
-										renderContent={() => 
-											<Ionicons name={'trash-outline'} color={'red'} size={35} style={styles.optionsIcon} />}
+				</ImageBackground>
+				<View style={styles.newTableContainer}>
+						<DraxView style={styles.squareTable}
+								payload="sqrTable"
+						/>
+						<DraxView style={styles.circleTable}
+								payload="circleTable"
+						/>
+						<DraxView style={styles.longTableHorizontal}
+								payload="longTableHorizontal"
+						/>
+						<DraxView style={styles.longTableVertical}
+								payload="longTableVertical"
+						/>
+						<DraxView 
+								renderContent={() => 
+								<Ionicons name={'trash-outline'} color={'red'} size={35} style={styles.optionsIcon} />}
 										onReceiveDragDrop={({ dragged: { payload } }) => {
-														console.log(`received ${payload}`);
-														eraseTable(payload);
-												}}
+												console.log(`received ${payload}`);
+												eraseTable(payload);
+										}}
 								/>
 						</View>
 				</DraxProvider>
@@ -67,6 +70,7 @@ const styles = StyleSheet.create({
 				alignItems: 'center',
 		},
 		gridContainer: {
+				backgroundColor: 'transparent',
 				borderWidth: 0.2,
 				borderColor: 'red',
 				flexDirection: "row",
@@ -75,10 +79,10 @@ const styles = StyleSheet.create({
 				width: Layout.gridWidth,
 		},
 		square: {
-			borderWidth: 0.2,
-			//borderColor: 'white', // show the grid
-			width: Layout.squareWidth,
-			height: Layout.squareHeight,
+				borderWidth: 0.2,
+				//borderColor: 'white', // show the grid
+				width: Layout.squareWidth,
+				height: Layout.squareHeight,
 		},
 		draggable: {
 				width: 100,
@@ -101,40 +105,43 @@ const styles = StyleSheet.create({
 				paddingHorizontal: 20,
 		},
 		squareTable: {
-			borderWidth: 0.2,
-			borderColor: 'white',
-			backgroundColor: 'rgba(255,255,255,0.8)',
-			borderRadius: 2,
-			width: Layout.squareWidth,
-			height: Layout.squareHeight,
+				borderWidth: 0.2,
+				borderColor: 'white',
+				backgroundColor: 'rgba(255,255,255,0.8)',
+				borderRadius: 2,
+				width: Layout.squareWidth,
+				height: Layout.squareHeight,
 		},
 		circleTable: {
-			borderWidth: 0.2,
-			borderColor: 'white',
-			borderRadius: 12,
-			backgroundColor: 'rgba(255,255,255,0.8)',
-			width: Layout.squareWidth,
-			height: Layout.squareHeight,
+				borderWidth: 0.2,
+				borderColor: 'white',
+				borderRadius: 12,
+				backgroundColor: 'rgba(255,255,255,0.8)',
+				width: Layout.squareWidth,
+				height: Layout.squareHeight,
 		},
 		longTableHorizontal: {
-			borderWidth: 0.2,
-			borderColor: 'white',
-			backgroundColor: 'rgba(255,255,255,0.8)',
-			borderRadius: 12,
-			width: Layout.squareWidth * 2,
-			height: Layout.squareHeight,
+				borderWidth: 0.2,
+				borderColor: 'white',
+				backgroundColor: 'rgba(255,255,255,0.8)',
+				borderRadius: 12,
+				width: Layout.squareWidth * 2,
+				height: Layout.squareHeight,
 		},
 		longTableVertical: {
-			borderWidth: 0.2,
-			borderColor: 'white',
-			backgroundColor: 'rgba(255,255,255,0.8)',
-			borderRadius: 12,
-			width: Layout.squareWidth,
-			height: Layout.squareHeight * 2,
+				borderWidth: 0.2,
+				borderColor: 'white',
+				backgroundColor: 'rgba(255,255,255,0.8)',
+				borderRadius: 12,
+				width: Layout.squareWidth,
+				height: Layout.squareHeight * 2,
 		},
 		optionsIcon: {
 				alignSelf: 'center',
 				textAlign: 'left',
+		},
+		backgroundImage:{
+				
 		},
 });
 

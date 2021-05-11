@@ -57,32 +57,37 @@ export default function Table( { sqr, index, isEditMode, toCreateTableScreen, } 
 				}
 		}
 
+		const StyleSquare = (sqr) => { // gets all the styles for a possible square
+				return { ...getTableStyle(sqr.table), 
+						...getColorStyle(sqr.waiter),
+						...getNameStyle(sqr.name),
+						...getVipStyle(sqr.reservation.vip) 
+				} 
+		}
+
 
 		const renderTable = () => { 
 				if(isEditMode){  
-						return sqr.table !== 'none'? 
+						return sqr.table !== 'none'? // if is not empty table
 						<DraxView 
 								payload={index}
 								key={index}
 								style={getTableStyle(sqr.table)}>
 						</DraxView>
-						: <DraxView 
-								payload={index}
+								: <DraxView  // if it is empty
+										payload={index}
+										key={index}
+										style={getTableStyle(sqr.table)}
+										onReceiveDragDrop={({ dragged: { payload } }) => {
+												toCreateTableScreen(sqr, payload);} }> 
+										</DraxView>
+				}else{
+						return <View 
 								key={index}
-								style={getTableStyle(sqr.table)}
-								onReceiveDragDrop={({ dragged: { payload } }) => {
-										toCreateTableScreen(sqr, payload);} }> 
-						</DraxView>
-								}else{
-										return <View 
-												key={index}
-												style={ {...getTableStyle(sqr.table), 
-																...getColorStyle(sqr.waiter), 
-																...getNameStyle(sqr.name), 
-																...getVipStyle(sqr.reservation.vip) } }> 
-												{ InsideName(sqr.name) }
-										</View>
-								}
+								style={ StyleSquare(sqr) }> 
+								{ InsideName(sqr.name) }
+						</View>
+				}
 		}
 
 		return renderTable();
@@ -92,7 +97,6 @@ export default function Table( { sqr, index, isEditMode, toCreateTableScreen, } 
 const styles = StyleSheet.create({
 		insideName:{
 				backgroundColor: 'transparent',
-				
 		},
 		container: {
 				flex: 1,
@@ -108,8 +112,9 @@ const styles = StyleSheet.create({
 				width: Layout.gridWidth,
 		},
 		square: {
-			borderWidth: 0.2,
-			//borderColor: 'white', // show the grid
+				//borderWidth: 0.2,
+				//borderColor: 'white', // show the grid
+			backgroundColor: 'transparent',
 			width: Layout.squareWidth,
 			height: Layout.squareHeight,
 		},

@@ -153,15 +153,14 @@ export default function UpdateTableScreen({ route,  navigation }) {
 										</View>
 								</View>
 						</View>
-						<TouchableOpacity onPress={() => navigation.navigate('Layout', { 
-								name: 'Layout',
-								params: { table: table },
-								merege: true,
-						})} style={styles.link}>
-						<Text style={styles.linkText}>Done</Text>
-				</TouchableOpacity>
-		</View>
-);
+						<Button title="Done" style={{...styles.Button, borderRadius: 10}}
+								onPress={() => navigation.navigate({ 
+										name: 'TabTwoScreen',
+										params: { table: table },
+										merge: true,
+								})}/>
+				</View>
+		);
 }
 
 const styles = StyleSheet.create({
