@@ -36,7 +36,7 @@ initialState.reservations = [ // data use to build for now
 ];
 
 
-const stateReducer = (state, action) => {
+const stateReducer = (state = initialState, action) => {
 		switch (action.type) {
 				case 'CREATE_RESERVATION':
 						return {  // add a reservation to the list
@@ -89,7 +89,9 @@ const stateReducer = (state, action) => {
 						};
 
 				default:
-						console.log('error: could not find dispatch command')
+						console.log('error: could not find dispatch command');
+						console.log('action:');
+						console.log(action);
 						return null;
 		}
 

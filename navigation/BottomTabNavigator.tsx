@@ -14,41 +14,47 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import UpdateTableScreen from '../screens/UpdateTableScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import { Provider, connect  } from 'react-redux';
+import { createStore, } from 'redux';
 import { stateReducer, initialState } from '../reducer/state';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-	const [state, dispatch] = React.useReducer(stateReducer, initialState);
+		//const [state, dispatch] = React.useReducer(stateReducer, initialState);
+		const store = createStore(stateReducer);
+		const TabOneStoreContainer = connect( (state) => ({data: state}) )(TabOneScreen);
 
-  return (
-    <BottomTab.Navigator
-      initialRouteName="TabOne"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
-      <BottomTab.Screen
-        name="Search"
-        component={TabOneScreen}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="search-sharp" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Layout"
-        component={TabTwoNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="md-apps-sharp" color={color} />,
-        }}
-      />
-			<BottomTab.Screen
-        name="Info"
-        component={TabOneNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-information" color={color} />,
-        }}
-      />
-    </BottomTab.Navigator>
-  );
+		return (
+				<Provider store={store}>
+						<BottomTab.Navigator
+								initialRouteName="TabOne"
+								tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+								<BottomTab.Screen
+										name="Search"
+										component={TabOneStoreContainer}
+										options={{
+												tabBarIcon: ({ color }) => <TabBarIcon name="search-sharp" color={color} />,
+										}}
+								/>
+								<BottomTab.Screen
+										name="Layout"
+												component={TabTwoNavigator}
+										options={{
+												tabBarIcon: ({ color }) => <TabBarIcon name="md-apps-sharp" color={color} />,
+										}}
+								/>
+								<BottomTab.Screen
+										name="Info"
+										component={TabOneNavigator}
+										options={{
+												tabBarIcon: ({ color }) => <TabBarIcon name="ios-information" color={color} />,
+										}}
+								/>
+						</BottomTab.Navigator>
+				</Provider>
+		);
 }
 
 // You can explore the built-in icon families and icons on the web at:

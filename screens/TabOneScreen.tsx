@@ -5,7 +5,14 @@ import { Text, View, TextInput } from '../components/Themed';
 import Reservation from '../components/Reservation';
 
 
-export default function TabOneScreen({ navigation }) {
+export default function TabOneScreen(props) {
+		console.log('props')
+		console.log(props)
+		const { getState, dispatch, navigation } = props;
+		console.log('screen got this!')
+		console.log(dispatch)
+		console.log('getState:')
+		console.log(getState)
 
 		const [text, setText] = React.useState('');
 		const [ reservationList, setReservationList ] = React.useState(RESERVATION_DATA);
