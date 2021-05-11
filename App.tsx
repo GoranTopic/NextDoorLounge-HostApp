@@ -8,6 +8,8 @@ import { stateReducer, initialState } from './reducer/state';
 
 export default function App() {
 		const [state, dispatch] = React.useReducer(stateReducer, initialState);
+		const StateContext = React.createContext();
+		const DispatchContext = React.createContext();
 		const isLoadingComplete = useCachedResources();
 		const colorScheme = useColorScheme();
 
@@ -15,10 +17,14 @@ export default function App() {
 				return null;
 		} else {
 				return (
-						<SafeAreaProvider>
-								<Navigation colorScheme={colorScheme} />
-								<StatusBar />
-						</SafeAreaProvider>
+						<DispatchContext.Provider value={dispatch}>
+								<StateContext.Provider value={state}>
+										<SafeAreaProvider>
+												<Navigation colorScheme={colorScheme} />
+												<StatusBar />
+										</SafeAreaProvider>
+								</StateContext.Provider>
+						</DispatchContext.Provider>
 				);
 		}
 }

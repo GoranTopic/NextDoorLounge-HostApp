@@ -14,11 +14,13 @@ import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }, props) {
+		//const dispatch = React.useContext(DispatchContext);
+		console.log(props.state)
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <RootNavigator />
+      <RootNavigator dispatch={props.dispatch} state={props.state}/>
     </NavigationContainer>
   );
 }

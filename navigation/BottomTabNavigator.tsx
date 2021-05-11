@@ -14,11 +14,13 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import UpdateTableScreen from '../screens/UpdateTableScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import { stateReducer, initialState } from '../reducer/state';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
+	const [state, dispatch] = React.useReducer(stateReducer, initialState);
 
   return (
     <BottomTab.Navigator
@@ -60,6 +62,7 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
 function TabOneNavigator() {
+
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
