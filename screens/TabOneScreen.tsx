@@ -4,41 +4,27 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View, TextInput } from '../components/Themed';
 import Reservation from '../components/Reservation';
 
+export default function TabOneScreen({ state, dispatch, navigation }) {
 
-export default function TabOneScreen(props) {
-		console.log('props')
-		console.log(props)
-		const { getState, dispatch, navigation } = props;
-		console.log('screen got this!')
-		console.log(dispatch)
-		console.log('getState:')
-		console.log(getState)
+		//dispatch({ type: 'CREATE_RESERVATION', payload: {}  })
+		const [ text, setText ] = React.useState('');
 
-		const [text, setText] = React.useState('');
-		const [ reservationList, setReservationList ] = React.useState(RESERVATION_DATA);
-		const [customerList, setCustomerList] = React.useState(reservationList);
+		const handleSeachInput = (text)=>  setText(text); 
 
-		const handleSeachInput = (text)=> {
-				/* probaby should divide this function when cleaning up the code*/
-				setText(text);
-				setCustomerList(reservationList.filter( (value) => value.name.toLowerCase().includes(text.toLowerCase())));
-		}
+		const searchFilter = (reservation) => reservation.name.toLowerCase().includes(text.toLowerCase());
 
 		const updateList = ( id )  => {
 				//CUSTOMERS_DATA.filter((value) => value.id !== id )
-				navigation.navigate('updateScreen', { id: id });
+				navigation.navigate('updateReservatoinScreen', { id: id });
 		}
 
 		const removeList = ( id )  => {
 				/* bug it take twice the button press to delete*/
-				setCustomerList(reservationList.filter((value) => value.id !== id ));
-				setReservationList(reservationList.filter((value) => value.id !== id ));
-				handleSeachInput(text);
+				dispatch({ type: 'DELETE_RESERVATION', payload: { id: id }  })
 		}
 
 		return (
 				<View style={styles.container}>
-						<Text style={styles.title}>Reservations</Text>
 						<TextInput
 								style={styles.searchInput}
 								placeholder="Search Reservation"
@@ -49,7 +35,7 @@ export default function TabOneScreen(props) {
 						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 						<FlatList
 								styles={styles.reservList}
-								data={customerList}
+								data={ state.reservations.filter(searchFilter) }
 								renderItem={ ({ item }) => <Reservation reserv={item} navigation={navigation} update={updateList} remove={removeList}/> }
 								keyExtractor={(item) => item.id.toString()}
 						/>
@@ -60,7 +46,7 @@ export default function TabOneScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-		paddingTop: '20%',
+		paddingTop: '6%',
     justifyContent: 'center',
   },
 	searchInput: {
@@ -102,21 +88,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-const RESERVATION_DATA = [ // data use to build for now
-		{ id: 1, table: '34', currentGuest: 0, name: 'Deloria King', partySize: 4, arrivalTime: '9:00pm'  },
-		{ id: 2, table: '4B', currentGuest: 0, name: 'Anna Nazarijan', partySize: 4, arrivalTime: '9:00pm'  },
-		{ id: 3, table: '3B', currentGuest: 0, name: 'Naoma Silver', partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 4, table: '4B', currentGuest: 0, name: 'Leslie Reyes', partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 5, table: '20', currentGuest: 0, name: 'Ashley Vega', partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 6, table: '26', currentGuest: 0, name: 'Gimena Lora', partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 7, table: '34', currentGuest: 0, name: 'Oman Revolta', partySize: 3, arrivalTime: '9:00pm'  },
-		{ id: 8, table: '34', currentGuest: 0, name: 'Deloria King', partySize: 4, arrivalTime: '9:00pm'  },
-		{ id: 9, table: '4B', currentGuest: 0, name: 'Anna Nazarijan', partySize: 4, arrivalTime: '9:00pm'  },
-		{ id: 10, table: '3B', currentGuest: 0, name: 'Naoma Silver', partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 11, table: '4B', currentGuest: 0, name: 'Leslie Reyes', partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 12, table: '20', currentGuest: 0, name: 'Ashley Vega', partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 13, table: '26', currentGuest: 0, name: 'Gimena Lora', partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 14, table: '34', currentGuest: 0, name: 'Oman Revolta', partySize: 3, arrivalTime: '9:00pm'  },
-];
 

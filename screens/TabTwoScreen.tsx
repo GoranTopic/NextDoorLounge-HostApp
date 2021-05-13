@@ -6,22 +6,24 @@ import { Text, View } from '../components/Themed';
 import Table from '../components/Table';
 import Untitled from '../assets/images/Untitled.png';
 import Layout from '../constants/Layout';
+import { getTableReservations } from '../functions/queryState';
 import { DraxProvider, DraxView } from 'react-native-drax';
 
-//Create grid data
-const GRID_DATA = [];
-for (let i = 0; i < Layout.squareNum; i++ ) GRID_DATA.push({ sqrId: i, table: 'none',  })
 
-export default function TabTwoScreen({ navigation }) {
-		const [ grid, setGrid ] = React.useState([...GRID_DATA]);
+export default function TabTwoScreen({ state, dispatch, navigation }) {
+		//console.log("printing grid from tab two screen")
+		//console.log(state.grid)
+
+		const [ localGrid, setGrid ] = React.useState([]);
 
 		const [ isEditMode, setEditMode ] = React.useState(true);
 
-		const createTableOnGrid = ( sqrId, table ) => setGrid([...grid, grid[sqrId].table = table ]);
+		const eraseTable = ( sqrId ) =>  dispatch({ 
+				type: 'DELETE_TABLE_ON_GRID',
+				payload: { sqrId : sqrId },
+		});
 
-		const eraseTable = ( sqrId ) =>  setGrid([...grid, grid[sqrId].table = 'none' ]);
-
-		const toCreateTableScreen = ( sqrData, newTable )  => {
+		const toCreateTableScreen = ( sqrData, newTable ) => {
 				navigation.navigate('updateTable',{
 						sqr: sqrData, 
 						newTable: newTable, 
@@ -32,8 +34,13 @@ export default function TabTwoScreen({ navigation }) {
 				<DraxProvider>
 						<ImageBackground style={styles.backgroundImage } source={Untitled} >
 								<View style={styles.gridContainer} >
-										{ grid.map((sqr, index) => <Table 
-												sqr={sqr} key={index} index={index} isEditMode={isEditMode} toCreateTableScreen={toCreateTableScreen} />
+										{ state.grid.map((sqr, index) => <Table 
+												sqr={sqr} 
+												key={index} 
+												reservation={(sqr, state) => getTableReservations(sqr, state)()}
+												index={index} 
+												isEditMode={isEditMode} 
+												toCreateTableScreen={toCreateTableScreen} />
 								)}
 						</View> 
 				</ImageBackground>
@@ -115,7 +122,7 @@ const styles = StyleSheet.create({
 		circleTable: {
 				borderWidth: 0.2,
 				borderColor: 'white',
-				borderRadius: 12,
+				borderRadius: 15,
 				backgroundColor: 'rgba(255,255,255,0.8)',
 				width: Layout.squareWidth,
 				height: Layout.squareHeight,
@@ -140,8 +147,7 @@ const styles = StyleSheet.create({
 				alignSelf: 'center',
 				textAlign: 'left',
 		},
-		backgroundImage:{
-				
+		backgroundImage: {
 		},
 });
 

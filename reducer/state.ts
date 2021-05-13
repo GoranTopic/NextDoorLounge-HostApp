@@ -37,6 +37,8 @@ initialState.reservations = [ // data use to build for now
 
 
 const stateReducer = (state = initialState, action) => {
+		console.log('reducer ran with input')
+		console.log(action)
 		switch (action.type) {
 				case 'CREATE_RESERVATION':
 						return {  // add a reservation to the list
@@ -57,7 +59,7 @@ const stateReducer = (state = initialState, action) => {
 				case 'DELETE_RESERVATION':
 						return {
 								...state, ///might have to change the value to if it is not equal to 
-								reservations: [ state.reservation.filter((reservation) =>  reservation.id !== action.payload.id) ],
+								reservations: [ ...state.reservations.filter((reservation) =>  reservation.id !== action.payload.id) ],
 						};
 
 				case 'CREATE_TABLE_ON_GRID':
@@ -92,7 +94,7 @@ const stateReducer = (state = initialState, action) => {
 						console.log('error: could not find dispatch command');
 						console.log('action:');
 						console.log(action);
-						return null;
+						return state;
 		}
 
 };

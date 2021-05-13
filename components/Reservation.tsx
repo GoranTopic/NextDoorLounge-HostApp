@@ -78,12 +78,7 @@ const styles = StyleSheet.create({
 				paddingHorizontal: 10,
 				paddingVertical: 10, 
 				marginVertical: 4,
-				display: 'flex',
 				shadowColor: 'rgba(100, 100, 100, 0.2)',
-				shadowOffset: {
-						width: 0,
-						height: -3,
-				},
 				shadowRadius: 5,
 				flexDirection: "row",
 				justifyContent: 'space-between',

@@ -7,7 +7,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
@@ -20,12 +19,16 @@ import { stateReducer, initialState } from '../reducer/state';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-		//const [state, dispatch] = React.useReducer(stateReducer, initialState);
-		const store = createStore(stateReducer);
-		const TabOneStoreContainer = connect( (state) => ({data: state}) )(TabOneScreen);
+const store = createStore(stateReducer, initialState);
+// create a store container for tab screen one
+const TabOneStoreContainer = connect(state => ({ state: state }))(TabOneScreen);
+// create a store container for tab screen two
+const TabTwoStoreContainer = connect(state => ({ state: state }))(TabTwoScreen);
+// create a store container for update table
+const UpdateTableStoreContainer = connect()(UpdateTableScreen);
 
+export default function BottomTabNavigator() {
+		const colorScheme = useColorScheme();
 		return (
 				<Provider store={store}>
 						<BottomTab.Navigator
@@ -33,14 +36,14 @@ export default function BottomTabNavigator() {
 								tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
 								<BottomTab.Screen
 										name="Search"
-										component={TabOneStoreContainer}
+										component={TabOneNavigator}
 										options={{
 												tabBarIcon: ({ color }) => <TabBarIcon name="search-sharp" color={color} />,
 										}}
 								/>
 								<BottomTab.Screen
 										name="Layout"
-												component={TabTwoNavigator}
+										component={TabTwoNavigator}
 										options={{
 												tabBarIcon: ({ color }) => <TabBarIcon name="md-apps-sharp" color={color} />,
 										}}
@@ -73,8 +76,8 @@ function TabOneNavigator() {
     <TabOneStack.Navigator>
       <TabOneStack.Screen
         name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+        component={TabOneStoreContainer}
+				options={{ headerTitle: 'Reservations' }}
       />
     </TabOneStack.Navigator>
   );
@@ -87,12 +90,12 @@ function TabTwoNavigator() {
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
         name="TabTwoScreen"
-        component={TabTwoScreen}
+        component={TabTwoStoreContainer}
         options={{ headerTitle: 'Tables' }}
       />
 			<TabTwoStack.Screen
         name="updateTable"
-        component={UpdateTableScreen}
+        component={UpdateTableStoreContainer}
         options={{ headerTitle: 'Edit Table' }}
       />
     </TabTwoStack.Navigator>

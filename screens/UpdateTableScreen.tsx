@@ -15,16 +15,20 @@ const configinfo = { waiters: [
 ],
 }
 
-export default function UpdateTableScreen({ route,  navigation }) {
+export default function UpdateTableScreen({ dispatch, route,  navigation }) {
+
 		let d = new Date();
-		const { sqr, newTable } = route.params;
-		sqr.table = newTable;
+		const { sqr, newTable } = route.params; // get the sqr data from react navigation
+		sqr.table = newTable; // populate it with data
 		sqr.name = '';
 		sqr.waiter = '';
 		sqr.group = '';
-		sqr.reservation = { name: '', date: null, time: null, vip: false, notes: '' };
+		
+		// make a new resevation object
+		const initialReservation = { tableID: sqr.sqrId, name: '', date: null, time: null, vip: false, notes: '' };
 
-		const [table, setTable] = React.useState({...sqr});
+		const [ reservation, setReservation ] = React.useState(initialReservation);
+		const [ table, setTable ] = React.useState({...sqr});
 
 		// table handler functions 
 		const handleTableNameChange = name => setTable({ ...table, name: name  }) 
@@ -32,27 +36,33 @@ export default function UpdateTableScreen({ route,  navigation }) {
 		const handleTableGroupChange = group => setTable({ ...table, group: group }) 
 
 		// reservation handlers 
-		const handleReservationNameChange = name => setTable({ ...table, reservation: { ...table.reservation, name: name  } }) 
-		const handleReservationGroupChange = group => setTable({ ...table, reservation: { ...table.reservation, group: group  } }) 
-		const toggleReservationVIPChange = vip => setTable({ ...table, reservation: { ...table.reservation, vip: !table.reservation.vip } }) 
-		const handleReservationNoteChange = notes => setTable({ ...table, reservation: { ...table.reservation, notes: notes  } }) 
+		const handleReservationNameChange = name => setReservation({ ...reservation,  name: name  }) 
+		const handleReservationGroupChange = group => setReservation({ ...reservation, group: group  }) 
+		const toggleReservationVIPChange = vip => setReservation({ ...reservation, vip: !reservation.vip }) 
+		const handleReservationNoteChange = notes => setTable({ ...reservation, notes: notes  }) 
 
-		//functions to control the date picker
+		// functions to control the date picker
 		const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
 		const showDatePicker = () => setDatePickerVisibility(true);
 		const hideDatePicker = () =>  setDatePickerVisibility(false);
-		const handleDateConfirm = date => { setTable({ ...table, reservation: { ...table.reservation, date: date  } }); hideDatePicker(); };
+		const handleDateConfirm = date => { setReservation({ ...reservation, date: date  }); hideDatePicker(); };
 
-		//functions to control the time picker
+		// functions to control the time picker
 		const [isTimePickerVisible, setTimePickerVisibility] = React.useState(false);
 		const showTimePicker = () => setTimePickerVisibility(true);
 		const hideTimePicker = () =>  setTimePickerVisibility(false);
-		const handleTimeConfirm = time => { setTable({ ...table, reservation: { ...table.reservation, time: time  } }); hideTimePicker(); };
+		const handleTimeConfirm = time => { setReservation({ ...reservation, time: time }); hideTimePicker(); };
+
+		// dispatch new table to global redux state
+		const handleDoneClick = () => {  
+				if(reservation.name !== '' ) dispatch({ type: 'CREATE_RESERVATION', payload: reservation })
+				dispatch({ type: 'CREATE_TABLE_ON_GRID', payload: table });
+		} 
 
 		return (
 				<View style={styles.container}>
 						<View style={styles.tableContainer}>
-								<Table sqr={table} index={table.sqrId} isEditMode={false} />
+								<Table sqr={table} reservation={reservation} isEditMode={false} />
 						</View>
 						<Text style={styles.title}>Table</Text>
 						<View style={styles.separator}/>
@@ -94,7 +104,6 @@ export default function UpdateTableScreen({ route,  navigation }) {
 																		color:"white",
 																},
 												}}>
-
 										</RNPickerSelect>
 								</View>
 						</View>
@@ -107,13 +116,13 @@ export default function UpdateTableScreen({ route,  navigation }) {
 												placeholder="Name"
 												placeholderTextColor="gray"
 												onChangeText={handleReservationNameChange}
-												defaultValue={table.reservation.name}
+												defaultValue={reservation.name}
 										/>
 								</View>
 								<View style={styles.row}>
 										<View style={styles.inputContainer}>
-												{ table.reservation.date !== null? <TouchableOpacity onPress={showTimePicker}>
-														<Text style={styles.linkText}>{table.reservation.date.toLocaleDateString("es-US")}</Text>
+												{ reservation.date !== null? <TouchableOpacity onPress={showTimePicker}>
+														<Text style={styles.linkText}>{reservation.date.toLocaleDateString("es-US")}</Text>
 												</TouchableOpacity>
 												: <Button title="Date" color='gray' onPress={showDatePicker}/> }
 												<DateTimePickerModal
@@ -124,9 +133,9 @@ export default function UpdateTableScreen({ route,  navigation }) {
 												/>
 										</View>
 										<View style={styles.inputContainer}>
-												{ table.reservation.time !== null? <TouchableOpacity onPress={showTimePicker}>
+												{ reservation.time !== null? <TouchableOpacity onPress={showTimePicker}>
 														<Text style={styles.linkText}> 
-																{table.reservation.time.toLocaleTimeString("es-US", { hour12: false, hour: '2-digit', minute: '2-digit' } )}
+																{reservation.time.toLocaleTimeString("es-US", { hour12: false, hour: '2-digit', minute: '2-digit' } )}
 														</Text>
 												</TouchableOpacity>
 												: <Button title="Time" style={styles.button} color='gray' onPress={showTimePicker} /> }
@@ -147,18 +156,17 @@ export default function UpdateTableScreen({ route,  navigation }) {
 														checkedColor='gray'
 														checkedIcon={ <Ionicons name={'star'} color={'gold'} size={20} style={styles.optionsIcon} /> }
 														uncheckedIcon={ <Ionicons name={'star-outline'} color={'gold'} size={20} style={styles.optionsIcon} /> }
-														checked={table.reservation.vip}
+														checked={reservation.vip}
 														onPress={toggleReservationVIPChange}
 												/>
 										</View>
 								</View>
 						</View>
 						<Button title="Done" style={{...styles.Button, borderRadius: 10}}
-								onPress={() => navigation.navigate({ 
-										name: 'TabTwoScreen',
-										params: { table: table },
-										merge: true,
-								})}/>
+								onPress={() => { 
+										handleDoneClick(); 
+										navigation.goBack();
+								}}/>
 				</View>
 		);
 }

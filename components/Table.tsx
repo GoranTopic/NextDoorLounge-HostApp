@@ -20,15 +20,18 @@ const getWaiterColor = (waiter) => {
 				let color = waitersColors.filter(value => value.waiter === waiter )[0].color;
 				return color;
 		}catch( e ){
-				console.log(e);
+				//console.log(e); // if waiter was not found return white color
 				return 'white';
 		}
 }
 
 
-export default function Table( { sqr, index, isEditMode, toCreateTableScreen, } ) {
-		console.log("sqr:");
-		console.log(sqr);
+export default function Table({ sqr, index, reservation, isEditMode, toCreateTableScreen }){
+		//console.log(reservation);
+		if( typeof index === 'undefined' ) index = 0 ;
+		if( typeof reservation === 'undefined' ) reservation = { vip: null };
+		if( typeof isEditMode === 'undefined' )  isEditMode = false;
+		if( typeof toCreateTableScreen === 'undefined') toCreateTableScreen = null;
 	
 		const getTableStyle = tableType => { switch(tableType){  
 				case 'sqrTable':
@@ -61,7 +64,7 @@ export default function Table( { sqr, index, isEditMode, toCreateTableScreen, } 
 				return { ...getTableStyle(sqr.table), 
 						...getColorStyle(sqr.waiter),
 						...getNameStyle(sqr.name),
-						...getVipStyle(sqr.reservation.vip) 
+						...getVipStyle(reservation.vip) 
 				} 
 		}
 
@@ -72,9 +75,10 @@ export default function Table( { sqr, index, isEditMode, toCreateTableScreen, } 
 						<DraxView 
 								payload={index}
 								key={index}
-								style={getTableStyle(sqr.table)}>
+								style={  StyleSquare(sqr)  }>
+								{ InsideName(sqr.name) }
 						</DraxView>
-								: <DraxView  // if it is empty
+								: <DraxView  // if it is empty, render a black square
 										payload={index}
 										key={index}
 										style={getTableStyle(sqr.table)}
@@ -149,7 +153,7 @@ const styles = StyleSheet.create({
 		circleTable: {
 			borderWidth: 0.2,
 			borderColor: 'white',
-			borderRadius: 12,
+			borderRadius: 15,
 			backgroundColor: 'rgba(255,255,255,0.8)',
 			width: Layout.squareWidth,
 			height: Layout.squareHeight,
