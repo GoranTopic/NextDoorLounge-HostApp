@@ -6,7 +6,6 @@ import { Text, View } from '../components/Themed';
 import Table from '../components/Table';
 import Untitled from '../assets/images/Untitled.png';
 import Layout from '../constants/Layout';
-import { getTableReservations } from '../functions/queryState';
 import { DraxProvider, DraxView } from 'react-native-drax';
 
 
@@ -37,8 +36,6 @@ export default function TabTwoScreen({ state, dispatch, navigation }) {
 										{ state.grid.map((sqr, index) => <Table 
 												sqr={sqr} 
 												key={index} 
-												reservation={(sqr, state) => getTableReservations(sqr, state)()}
-												index={index} 
 												isEditMode={isEditMode} 
 												toCreateTableScreen={toCreateTableScreen} />
 								)}

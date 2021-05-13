@@ -59,6 +59,9 @@ initialState.reservations = [ // data use to build for now
 
 //link together those reservations and tables
 linkTableAndReservation(initialState.grid[39], initialState.reservations[0]);
+linkTableAndReservation(initialState.grid[44], initialState.reservations[1]);
+linkTableAndReservation(initialState.grid[85], initialState.reservations[2]);
+linkTableAndReservation(initialState.grid[169], initialState.reservations[3]);
 
 
 

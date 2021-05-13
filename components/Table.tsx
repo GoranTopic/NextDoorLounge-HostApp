@@ -25,11 +25,19 @@ const getWaiterColor = (waiter) => {
 		}
 }
 
+const getEarliestReservation = (reservations) => {
+		/* return the soones reservation */ 
+		if(reservations === undefined || reservations.length == 0){
+				return undefined;
+		}else{
+			return reservations[0]; // should be already sorted by reducer, hopefuly
+		}
+}
 
-export default function Table({ sqr, index, reservation, isEditMode, toCreateTableScreen }){
-		//console.log(reservation);
-		if( typeof index === 'undefined' ) index = 0 ;
-		if( typeof reservation === 'undefined' ) reservation = { vip: null };
+
+export default function Table({ sqr, isEditMode, toCreateTableScreen }){
+		console.log('got this sqr obj in table:')
+		console.log(sqr);
 		if( typeof isEditMode === 'undefined' )  isEditMode = false;
 		if( typeof toCreateTableScreen === 'undefined') toCreateTableScreen = null;
 	
@@ -48,7 +56,7 @@ export default function Table({ sqr, index, reservation, isEditMode, toCreateTab
 		
 		const getNameStyle = (name) => { return name !== ''? { backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center' } : {}  }
 
-		const getVipStyle = (vip) => { return vip? { borderColor: 'gold', borderWidth: 1 } : {}  }
+		const getVipStyle = (vip) => { return (typeof vip === 'undefined')? {} : (vip)? { borderColor: 'gold', borderWidth: 1 } : {}  }
 
 		const InsideName = (name) => name !== ''? <Text style={{...getColorStyle(sqr.waiter), ...styles.insideName,  } }>{name}</Text> : <></> 
 
@@ -64,30 +72,29 @@ export default function Table({ sqr, index, reservation, isEditMode, toCreateTab
 				return { ...getTableStyle(sqr.table), 
 						...getColorStyle(sqr.waiter),
 						...getNameStyle(sqr.name),
-						...getVipStyle(reservation.vip) 
+						...getVipStyle(getEarliestReservation(sqr.reservations)? getEarliestReservation(sqr.reservations).vip: undefined) 
 				} 
 		}
-
 
 		const renderTable = () => { 
 				if(isEditMode){  
 						return sqr.table !== 'none'? // if is not empty table
 						<DraxView 
-								payload={index}
-								key={index}
+								payload={sqr.sqrID}
+								key={sqr.sqrID}
 								style={  StyleSquare(sqr)  }>
 								{ InsideName(sqr.name) }
 						</DraxView>
 								: <DraxView  // if it is empty, render a black square
-										payload={index}
-										key={index}
+										payload={sqr.sqrID}
+										key={sqr.sqrID}
 										style={getTableStyle(sqr.table)}
 										onReceiveDragDrop={({ dragged: { payload } }) => {
 												toCreateTableScreen(sqr, payload);} }> 
 										</DraxView>
 				}else{
 						return <View 
-								key={index}
+								key={sqr.sqrID}
 								style={ StyleSquare(sqr) }> 
 								{ InsideName(sqr.name) }
 						</View>

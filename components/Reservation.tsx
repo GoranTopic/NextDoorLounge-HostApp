@@ -1,22 +1,28 @@
 import * as React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import useColorScheme from '../hooks/useColorScheme';
-import { getReservationTable } from '../functions/queryState';
+import Table from  '../components/Table';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
 
-export default function Reservation( { reserv, update, remove, navigation }) {
+export default function Reservation( { reserv, update, remove, navigation }) {	
+
 
 		const [isEditMode, setEditMode ] = React.useState(false);
 	
-		const handleEditToggle = () => setEditMode(!isEditMode)
+		const handleEditToggle = () => setEditMode(!isEditMode);
 			
-		const handlePress = () => navigation.navigate('Layout', { id: reserv.id })
+		const handlePress = () => navigation.navigate('Layout', { id: reserv.id });
 
-		const handleUpdate = () => update(reserv.id)
+		const handleUpdate = () => update(reserv.id);
 
-		const handleRemove =() => remove(reserv.id)
+		const handleRemove =() => remove(reserv.id);
+
+		const renderDate  = date => (date)? date.toLocaleDateString("es-US") : '';
+
+		const renderTime  = time => (time)? time.toLocaleDateString("es-US") : '';
+
 
 		return( 
 		<View>
@@ -36,12 +42,11 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 						:
 						<TouchableOpacity onPress={handlePress}>
 								<View style={styles.resevation}>
-										<View style={styles.tableBox}>
-												<Text style={styles.tableText}>{ reserv.tableID.name}</Text>
-										</View>
+										<Table sqr={reserv.table} />
 										<Text style={styles.name}>{ reserv.name }</Text>
 										<Text style={styles.party}> {reserv.partySize }/{ reserv.currentGuest} </Text>
-										<Text style={styles.arrival}>{ reserv.arrivalTime }</Text>
+										<Text style={styles.arrival}>{ renderDate(reserv.date)}</Text>
+										<Text style={styles.arrival}>{ renderTime(reserv.time)}</Text>
 										<TouchableOpacity onPress={handleEditToggle} style={{width:30}} >
 												<Ionicons name={'ellipsis-vertical-outline'} color={'white'} size={15} style={styles.optionsIcon} />
 										</TouchableOpacity>
