@@ -21,27 +21,46 @@ const empty_sqr = {
 		reservationID: '' } //Create grid data
 for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sqr, sqrId: i });
 
-initialState.grid[0] = { sqrId: 0, name: '3d', group: 'G', waiter: 'Jake', reservations: [], table: 'circleTable', ReservationID: 1, };
+const empty_reservation = {
+		id: '', 
+		table: '',  
+		currentGuest: 0, 
+		partySize: 0, 
+		name: '', 
+		time: null, 
+		date: null, 
+		vip: false, 
+		notes: '' ,
+}
 
+const linkTableAndReservation = (table, reservation) => {
+		/* link together a resservation an an table by reference */
+		table.reservations.push(table);
+		reservation.table = table;
+}
 
+// create new tables
+initialState.grid[39] = { sqrId: 0, name: '1', group: 'G', waiter: 'Jake', reservations: [], table: 'circleTable' };
+initialState.grid[44] = { sqrId: 30, name: '4G', group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+initialState.grid[85] = { sqrId: 90, name: '105', group: 'F', waiter: 'Melissa', reservations: [], table: 'circleTable' };
+initialState.grid[169] = { sqrId: 120, name: '104', group: 'G', waiter: 'Melissa', reservations: [], table: 'squareTable' };
+
+// create a few test reservation
 initialState.reservations = [ // data use to build for now
-		{ id: 1,  tableID: '', table: '',  currentGuest: 0, partySize: 4, name: 'Deloria King',   time: null, date: null, vip: false, notes: '' },
-		{ id: 2,  tableID: '', currentGuest: 0, partySize: 4, name: 'Anna Nazarijan', time: null, date: null, vip: false, notes: '' },
-		{ id: 3,  tableID: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: null, date: null, vip: false, notes: '' },
-		{ id: 4,  tableID: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: null, date: null, vip: false, notes: '' },
-		{ id: 5,  tableID: '', currentGuest: 0, partySize: 5, name: 'Ashley Vega',    time: null, date: null, vip: false, notes: '' },
-		{ id: 6,  tableID: '', currentGuest: 0, partySize: 5, name: 'Gimena Lora',    time: null, date: null, vip: false, notes: '' },
-		{ id: 7,  tableID: '', currentGuest: 0, partySize: 3, name: 'Oman Revolta',   time: null, date: null, vip: false, notes: '' },
-		{ id: 8,  tableID: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: null, date: null, vip: false, notes: '' },
-		{ id: 9,  tableID: '', currentGuest: 0, partySize: 4, name: 'Anna Nazarijan', time: null, date: null, vip: false, notes: '' },
-		{ id: 10, tableID: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: null, date: null, vip: false, notes: '' },
-		{ id: 11, tableID: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: null, date: null, vip: false, notes: '' },
-		{ id: 12, tableID: '', currentGuest: 0, partySize: 5, name: 'Ashley Vega',    time: null, date: null, vip: false, notes: '' },
-		{ id: 13, tableID: '', currentGuest: 0, partySize: 5, name: 'Gimena Lora',    time: null, date: null, vip: false, notes: '' },
-		{ id: 14, tableID: '', currentGuest: 0, partySize: 3, name: 'Oman Revolta',   time: null, date: null, vip: false, notes: '' },
+		{ id: 1, table: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: null, date: null, vip: false, notes: '' },
+		{ id: 2, table: '', currentGuest: 0, partySize: 4, name: 'Anna Nazarijan', time: null, date: null, vip: false, notes: '' },
+		{ id: 3, table: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: null, date: null, vip: true, notes: '' },
+		{ id: 4, table: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: null, date: null, vip: true, notes: '' },
+		{ id: 5, table: '', currentGuest: 0, partySize: 5, name: 'Ashley Vega',    time: null, date: null, vip: false, notes: '' },
+		{ id: 6, table: '', currentGuest: 0, partySize: 5, name: 'Gimena Lora',    time: null, date: null, vip: false, notes: '' },
+		{ id: 7, table: '', currentGuest: 0, partySize: 3, name: 'Oman Revolta',   time: null, date: null, vip: false, notes: '' },
+		{ id: 8, table: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: null, date: null, vip: false, notes: '' },
 ];
 
-initialState.reservations[0].tableID = initialState.grid[0];
+//link together those reservations and tables
+linkTableAndReservation(initialState.grid[39], initialState.reservations[0]);
+
+
 
 const stateReducer = (state = initialState, action) => {
 		console.log('reducer ran with input')
