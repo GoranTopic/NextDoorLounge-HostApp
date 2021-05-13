@@ -13,28 +13,35 @@ const initialState  = {
 
 const empty_sqr = { 
 		sqrId: '', 
+		name: '',
+		group: '',
+		waiter: '',
+		reservations: [],
 		table: 'none', 
 		reservationID: '' } //Create grid data
-for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sqr, sqrId: i })
+for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sqr, sqrId: i });
+
+initialState.grid[0] = { sqrId: 0, name: '3d', group: 'G', waiter: 'Jake', reservations: [], table: 'circleTable', ReservationID: 1, };
 
 
 initialState.reservations = [ // data use to build for now
-		{ id: 1,  tableID: '34', currentGuest: 0, name: 'Deloria King',   partySize: 4, arrivalTime: '9:00pm'  },
-		{ id: 2,  tableID: '4B', currentGuest: 0, name: 'Anna Nazarijan', partySize: 4, arrivalTime: '9:00pm'  },
-		{ id: 3,  tableID: '3B', currentGuest: 0, name: 'Naoma Silver',   partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 4,  tableID: '4B', currentGuest: 0, name: 'Leslie Reyes',   partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 5,  tableID: '20', currentGuest: 0, name: 'Ashley Vega',    partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 6,  tableID: '26', currentGuest: 0, name: 'Gimena Lora',    partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 7,  tableID: '34', currentGuest: 0, name: 'Oman Revolta',   partySize: 3, arrivalTime: '9:00pm'  },
-		{ id: 8,  tableID: '34', currentGuest: 0, name: 'Deloria King',   partySize: 4, arrivalTime: '9:00pm'  },
-		{ id: 9,  tableID: '4B', currentGuest: 0, name: 'Anna Nazarijan', partySize: 4, arrivalTime: '9:00pm'  },
-		{ id: 10, tableID: '3B', currentGuest: 0, name: 'Naoma Silver',   partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 11, tableID: '4B', currentGuest: 0, name: 'Leslie Reyes',   partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 12, tableID: '20', currentGuest: 0, name: 'Ashley Vega',    partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 13, tableID: '26', currentGuest: 0, name: 'Gimena Lora',    partySize: 5, arrivalTime: '9:00pm'  },
-		{ id: 14, tableID: '34', currentGuest: 0, name: 'Oman Revolta',   partySize: 3, arrivalTime: '9:00pm'  },
+		{ id: 1,  tableID: '', table: '',  currentGuest: 0, partySize: 4, name: 'Deloria King',   time: null, date: null, vip: false, notes: '' },
+		{ id: 2,  tableID: '', currentGuest: 0, partySize: 4, name: 'Anna Nazarijan', time: null, date: null, vip: false, notes: '' },
+		{ id: 3,  tableID: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: null, date: null, vip: false, notes: '' },
+		{ id: 4,  tableID: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: null, date: null, vip: false, notes: '' },
+		{ id: 5,  tableID: '', currentGuest: 0, partySize: 5, name: 'Ashley Vega',    time: null, date: null, vip: false, notes: '' },
+		{ id: 6,  tableID: '', currentGuest: 0, partySize: 5, name: 'Gimena Lora',    time: null, date: null, vip: false, notes: '' },
+		{ id: 7,  tableID: '', currentGuest: 0, partySize: 3, name: 'Oman Revolta',   time: null, date: null, vip: false, notes: '' },
+		{ id: 8,  tableID: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: null, date: null, vip: false, notes: '' },
+		{ id: 9,  tableID: '', currentGuest: 0, partySize: 4, name: 'Anna Nazarijan', time: null, date: null, vip: false, notes: '' },
+		{ id: 10, tableID: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: null, date: null, vip: false, notes: '' },
+		{ id: 11, tableID: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: null, date: null, vip: false, notes: '' },
+		{ id: 12, tableID: '', currentGuest: 0, partySize: 5, name: 'Ashley Vega',    time: null, date: null, vip: false, notes: '' },
+		{ id: 13, tableID: '', currentGuest: 0, partySize: 5, name: 'Gimena Lora',    time: null, date: null, vip: false, notes: '' },
+		{ id: 14, tableID: '', currentGuest: 0, partySize: 3, name: 'Oman Revolta',   time: null, date: null, vip: false, notes: '' },
 ];
 
+initialState.reservations[0].tableID = initialState.grid[0];
 
 const stateReducer = (state = initialState, action) => {
 		console.log('reducer ran with input')
@@ -45,7 +52,6 @@ const stateReducer = (state = initialState, action) => {
 								...state, 
 								reservations:  [ ...state.reservations, { ...action.payload, id: state.reservations.length + 1 } ],
 						};
-
 				case 'UPDATE_RESERVATION':
 						return { // probaly might not work, or just make a duplicate instead of an update
 								...state,
@@ -55,18 +61,16 @@ const stateReducer = (state = initialState, action) => {
 												: reservation 
 								}) ],
 						};
-
 				case 'DELETE_RESERVATION':
 						return {
-								...state, ///might have to change the value to if it is not equal to 
+								...state, 
 								reservations: [ ...state.reservations.filter((reservation) =>  reservation.id !== action.payload.id) ],
 						};
-
 				case 'CREATE_TABLE_ON_GRID':
 						return {
 								...state, 
 								grid:  [ ...state.grid.map( (gridSqr) => { 
-										return gridSqr.sqrId === action.payload.sqrId ?
+										return gridSqr.sqrId === action.payload.sqrId?
 												action.payload
 												: gridSqr
 								})],
@@ -75,7 +79,7 @@ const stateReducer = (state = initialState, action) => {
 						return {
 								...state, 
 								grid:  [ ...state.grid.map( (gridSqr) => { 
-										return gridSqr.sqrId === action.payload.sqrId ?
+										return gridSqr.sqrId === action.payload.sqrId?
 												action.payload
 												: gridSqr
 								})],
@@ -89,7 +93,6 @@ const stateReducer = (state = initialState, action) => {
 												: gridSqr
 								})],
 						};
-
 				default:
 						console.log('error: could not find dispatch command');
 						console.log('action:');

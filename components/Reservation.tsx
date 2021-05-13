@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import useColorScheme from '../hooks/useColorScheme';
+import { getReservationTable } from '../functions/queryState';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
 
 export default function Reservation( { reserv, update, remove, navigation }) {
+
 		const [isEditMode, setEditMode ] = React.useState(false);
 	
 		const handleEditToggle = () => setEditMode(!isEditMode)
@@ -35,7 +37,7 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 						<TouchableOpacity onPress={handlePress}>
 								<View style={styles.resevation}>
 										<View style={styles.tableBox}>
-												<Text style={styles.tableText}>{reserv.table}</Text>
+												<Text style={styles.tableText}>{ reserv.tableID.name}</Text>
 										</View>
 										<Text style={styles.name}>{ reserv.name }</Text>
 										<Text style={styles.party}> {reserv.partySize }/{ reserv.currentGuest} </Text>

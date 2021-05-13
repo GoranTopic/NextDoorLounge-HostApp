@@ -23,10 +23,9 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 		sqr.name = '';
 		sqr.waiter = '';
 		sqr.group = '';
-		
+
 		// make a new resevation object
 		const initialReservation = { tableID: sqr.sqrId, name: '', date: null, time: null, vip: false, notes: '' };
-
 		const [ reservation, setReservation ] = React.useState(initialReservation);
 		const [ table, setTable ] = React.useState({...sqr});
 
