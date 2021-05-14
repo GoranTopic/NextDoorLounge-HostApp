@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Layout from '../constants/Layout';
 
+const dDate = new Date('May 14, 2021 21:00:00'); // default date
+
 const initialState  = {
 		grid: [],
 		tables: [],
@@ -45,18 +47,20 @@ for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sq
 // create new tables
 initialState.grid[39] =  { sqrID: 0, name: '1', group: 'G', waiter: 'Jake', reservations: [], table: 'circleTable' };
 initialState.grid[44] =  { sqrID: 30, name: '4G', group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+initialState.grid[44] =  { sqrID: 30, name: '4G', group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+initialState.grid[44] =  { sqrID: 30, name: '4G', group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
 initialState.grid[85] =  { sqrID: 90, name: '105', group: 'F', waiter: 'Melissa', reservations: [], table: 'circleTable' };
 initialState.grid[169] = { sqrID: 120, name: '104', group: 'G', waiter: 'Melissa', reservations: [], table: 'squareTable' };
 
 // create a few test reservation
 initialState.reservations = [ // data use to build for now
-		{ id: 1, table: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: null, date: null, vip: true, notes: '' },
-		{ id: 2, table: '', currentGuest: 0, partySize: 4, name: 'Anna Nazarijan', time: null, date: null, vip: false, notes: '' },
-		{ id: 3, table: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: null, date: null, vip: false, notes: '' },
-		{ id: 4, table: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: null, date: null, vip: false, notes: '' },
-		{ id: 5, table: '', currentGuest: 0, partySize: 5, name: 'Ashley Vega',    time: null, date: null, vip: false, notes: '' },
-		{ id: 6, table: '', currentGuest: 0, partySize: 5, name: 'Gimena Lora',    time: null, date: null, vip: false, notes: '' },
-		{ id: 7, table: '', currentGuest: 0, partySize: 3, name: 'Oman Revolta',   time: null, date: null, vip: false, notes: '' },
+		{ id: 1, table: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: dDate, date: dDate, vip: true, notes: '' },
+		{ id: 2, table: '', currentGuest: 0, partySize: 4, name: 'Anna Nazarijan', time: dDate, date: dDate, vip: false, notes: '' },
+		{ id: 3, table: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: dDate, date: dDate, vip: false, notes: '' },
+		{ id: 4, table: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: dDate, date: dDate, vip: false, notes: '' },
+		{ id: 5, table: '', currentGuest: 0, partySize: 5, name: 'Ashley Vega',    time: dDate, date: dDate, vip: false, notes: '' },
+		{ id: 6, table: '', currentGuest: 0, partySize: 5, name: 'Gimena Lora',    time: dDate, date: dDate, vip: false, notes: '' },
+		{ id: 7, table: '', currentGuest: 0, partySize: 3, name: 'Oman Revolta',   time: dDate, date: dDate, vip: false, notes: '' },
 ];
 
 //link together those reservations and tables

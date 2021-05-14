@@ -19,9 +19,9 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 
 		const handleRemove =() => remove(reserv.id);
 
-		const renderDate  = date => (date)? date.toLocaleDateString("es-US") : '';
+		const renderDate  = date => (date)? date.toLocaleDateString("en-US") : '';
 
-		const renderTime  = time => (time)? time.toLocaleTimeString("es-US") : '';
+		const renderTime  = time => (time)? time.toLocaleTimeString([], { hour12: true, timeStyle: 'short' }) : '';
 
 
 		return( 
