@@ -144,7 +144,7 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 										<View style={styles.inputContainer}>
 												{ reservation.time !== null? <TouchableOpacity onPress={showTimePicker}>
 														<Text style={styles.linkText}> 
-																{reservation.time.format("HH:MM a")}
+																{reservation.time.format("HH:MM")}
 														</Text>
 												</TouchableOpacity>
 												: <Button title="Time" style={styles.button} color='gray' onPress={showTimePicker} /> }

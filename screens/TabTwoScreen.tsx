@@ -9,13 +9,31 @@ import Layout from '../constants/Layout';
 import { DraxProvider, DraxView } from 'react-native-drax';
 
 
-export default function TabTwoScreen({ state, dispatch, navigation }) {
+export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 		//console.log("printing grid from tab two screen")
 		//console.log(state.grid)
 
 		const [ localGrid, setGrid ] = React.useState([]);
 
 		const [ isEditMode, setEditMode ] = React.useState(true);
+
+		const renderSqrs = ( sqr, index) => {
+				console.log('sqrID:')
+				console.log(route.params.sqrID)
+				return (route.params && sqr.sqrID === route.params.sqrID)?
+				<View style={styles.highlight} key={index}> 
+						<Table 
+								sqr={sqr} 
+								key={index} 
+								isEditMode={isEditMode} 
+								toCreateTableScreen={toCreateTableScreen} /> 
+				</View> :  
+				<Table 
+						sqr={sqr} 
+						key={index} 
+						isEditMode={isEditMode} 
+						toCreateTableScreen={toCreateTableScreen} /> 
+		}
 
 		const eraseTable = ( sqrID ) =>  dispatch({ 
 				type: 'DELETE_TABLE_ON_GRID',
@@ -28,17 +46,14 @@ export default function TabTwoScreen({ state, dispatch, navigation }) {
 						newTable: newTable, 
 				});
 		}
-	
+
+
+
 		return (
 				<DraxProvider>
 						<ImageBackground style={styles.backgroundImage } source={Untitled} >
 								<View style={styles.gridContainer} >
-										{ state.grid.map((sqr, index) => <Table 
-												sqr={sqr} 
-												key={index} 
-												isEditMode={isEditMode} 
-												toCreateTableScreen={toCreateTableScreen} />
-								)}
+										{ state.grid.map(renderSqrs)}
 						</View> 
 				</ImageBackground>
 				<View style={styles.newTableContainer}>
@@ -146,5 +161,8 @@ const styles = StyleSheet.create({
 		},
 		backgroundImage: {
 		},
+		highlight: {
+				backgroundColor: 'red',
+		}
 });
 

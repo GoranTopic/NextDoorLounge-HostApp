@@ -8,13 +8,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 import moment from 'moment';
 
 export default function Reservation( { reserv, update, remove, navigation }) {	
+
 		const timeTo = false;
 
 		const [isEditMode, setEditMode ] = React.useState(false);
 	
 		const handleEditToggle = () => setEditMode(!isEditMode);
 			
-		const handlePress = () => navigation.navigate('Layout', { id: reserv.id });
+		const handlePress = () => navigation.navigate('Layout', {
+				screen: 'TabTwoScreen', 
+				params: { sqrID: reserv.table.sqrID },
+		});
 
 		const handleUpdate = () => update(reserv.id);
 
@@ -31,13 +35,22 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 				<View style={styles.resevationEditMode}>
 						<Text style={styles.name}>{ reserv.name }</Text>
 						<TouchableOpacity onPress={handleUpdate} style={{width:30}} >
-								<Ionicons name={'pencil-outline'} color={'red'} size={16} style={styles.optionsIcon} />
+								<Ionicons name={'pencil-outline'}
+										color={'red'} 
+										size={16} 
+										style={styles.optionsIcon} />
 						</TouchableOpacity>
 						<TouchableOpacity onPress={handleRemove} style={{width:30}} >
-								<Ionicons name={'trash-outline'} color={'red'} size={15} style={styles.optionsIcon} />
+								<Ionicons name={'trash-outline'} 
+										color={'red'} 
+										size={15} 
+										style={styles.optionsIcon} />
 						</TouchableOpacity>
 						<TouchableOpacity onPress={handleEditToggle} style={{width:30}} >
-								<Ionicons name={'ellipsis-vertical-outline'} color={'white'} size={15} style={styles.optionsIcon} />
+								<Ionicons name={'ellipsis-vertical-outline'} 
+										color={'white'} 
+										size={15} 
+										style={styles.optionsIcon} />
 						</TouchableOpacity>
 				</View> 
 						:
@@ -49,7 +62,10 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 										<Text style={styles.arrival}>{ renderTime(reserv.time)}</Text>
 										<Text style={styles.arrival}>{ renderDate(reserv.date)}</Text>
 										<TouchableOpacity onPress={handleEditToggle} style={{width:30}} >
-												<Ionicons name={'ellipsis-vertical-outline'} color={'white'} size={15} style={styles.optionsIcon} />
+												<Ionicons name={'ellipsis-vertical-outline'} 
+														color={'white'} 
+														size={15} 
+														style={styles.optionsIcon} />
 										</TouchableOpacity>
 								</View>
 						</TouchableOpacity>

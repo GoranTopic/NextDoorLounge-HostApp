@@ -47,12 +47,12 @@ const linkTableAndReservation = (table, reservation) => {
 for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sqr, sqrID: i });
 
 // create new tables
-initialState.grid[39] =  { sqrID: 0, name: '1', group: 'G', waiter: 'Jake', reservations: [], table: 'circleTable' };
-initialState.grid[44] =  { sqrID: 30, name: '4G', group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
-initialState.grid[44] =  { sqrID: 30, name: '4G', group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
-initialState.grid[44] =  { sqrID: 30, name: '4G', group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
-initialState.grid[85] =  { sqrID: 90, name: '105', group: 'F', waiter: 'Melissa', reservations: [], table: 'circleTable' };
-initialState.grid[169] = { sqrID: 120, name: '104', group: 'G', waiter: 'Melissa', reservations: [], table: 'squareTable' };
+initialState.grid[39] =  { sqrID: 39, name: '1', group: 'G', waiter: 'Jake', reservations: [], table: 'circleTable' };
+initialState.grid[44] =  { sqrID: 44, name: '4G', group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+initialState.grid[44] =  { sqrID: 44, name: '4G', group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+initialState.grid[44] =  { sqrID: 44, name: '4G', group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+initialState.grid[85] =  { sqrID: 85, name: '105', group: 'F', waiter: 'Melissa', reservations: [], table: 'circleTable' };
+initialState.grid[169] = { sqrID: 169, name: '104', group: 'G', waiter: 'Melissa', reservations: [], table: 'squareTable' };
 
 // create a few test reservation
 initialState.reservations = [ // data use to build for now
