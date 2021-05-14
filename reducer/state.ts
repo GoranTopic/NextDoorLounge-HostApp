@@ -1,7 +1,9 @@
 import * as React from 'react';
 import Layout from '../constants/Layout';
+import moment from 'moment';
 
-const dDate = new Date('May 14, 2021 21:00:00'); // default date
+const dTime = moment("09:00", "hh:mm"); // default time
+const dDate = moment("05-14", "MM-DD"); // default date
 
 const initialState  = {
 		grid: [],
@@ -54,13 +56,13 @@ initialState.grid[169] = { sqrID: 120, name: '104', group: 'G', waiter: 'Melissa
 
 // create a few test reservation
 initialState.reservations = [ // data use to build for now
-		{ id: 1, table: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: dDate, date: dDate, vip: true, notes: '' },
-		{ id: 2, table: '', currentGuest: 0, partySize: 4, name: 'Anna Nazarijan', time: dDate, date: dDate, vip: false, notes: '' },
-		{ id: 3, table: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: dDate, date: dDate, vip: false, notes: '' },
-		{ id: 4, table: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: dDate, date: dDate, vip: false, notes: '' },
-		{ id: 5, table: '', currentGuest: 0, partySize: 5, name: 'Ashley Vega',    time: dDate, date: dDate, vip: false, notes: '' },
-		{ id: 6, table: '', currentGuest: 0, partySize: 5, name: 'Gimena Lora',    time: dDate, date: dDate, vip: false, notes: '' },
-		{ id: 7, table: '', currentGuest: 0, partySize: 3, name: 'Oman Revolta',   time: dDate, date: dDate, vip: false, notes: '' },
+		{ id: 1, table: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: dTime, date: dDate, vip: true, notes: '' },
+		{ id: 2, table: '', currentGuest: 0, partySize: 4, name: 'Anna Nazarijan', time: dTime, date: dDate, vip: false, notes: '' },
+		{ id: 3, table: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: dTime, date: dDate, vip: false, notes: '' },
+		{ id: 4, table: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: dTime, date: dDate, vip: false, notes: '' },
+		{ id: 5, table: '', currentGuest: 0, partySize: 5, name: 'Ashley Vega',    time: dTime, date: dDate, vip: false, notes: '' },
+		{ id: 6, table: '', currentGuest: 0, partySize: 5, name: 'Gimena Lora',    time: dTime, date: dDate, vip: false, notes: '' },
+		{ id: 7, table: '', currentGuest: 0, partySize: 3, name: 'Oman Revolta',   time: dTime, date: dDate, vip: false, notes: '' },
 ];
 
 //link together those reservations and tables

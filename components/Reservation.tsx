@@ -4,10 +4,11 @@ import useColorScheme from '../hooks/useColorScheme';
 import Table from  '../components/Table';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack';
+import moment from 'moment';
 
 export default function Reservation( { reserv, update, remove, navigation }) {	
-
+		const timeTo = false;
 
 		const [isEditMode, setEditMode ] = React.useState(false);
 	
@@ -19,9 +20,9 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 
 		const handleRemove =() => remove(reserv.id);
 
-		const renderDate  = date => (date)? date.toLocaleDateString("en-US") : '';
+		const renderDate  = date =>  date? timeTo? date.toNow(true) : date.format('MM/DD') : ''; 
 
-		const renderTime  = time => (time)? time.toLocaleTimeString([], { hour12: true, timeStyle: 'short' }) : '';
+		const renderTime  = time => (time)? time.format('h:mm a') : '';
 
 
 		return( 

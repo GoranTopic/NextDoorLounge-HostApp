@@ -51,7 +51,7 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 		const [isTimePickerVisible, setTimePickerVisibility] = React.useState(false);
 		const showTimePicker = () => setTimePickerVisibility(true);
 		const hideTimePicker = () =>  setTimePickerVisibility(false);
-		const handleTimeConfirm = time => { setReservation({ ...reservation, time: time }); hideTimePicker(); };
+		const handleTimeConfirm = time => { console.log(time); setReservation({ ...reservation, time: time }); hideTimePicker(); };
 
 		// dispatch new table to global redux state
 		const handleDoneClick = () => {  
