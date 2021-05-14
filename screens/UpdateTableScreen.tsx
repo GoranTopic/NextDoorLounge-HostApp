@@ -4,7 +4,8 @@ import Table from '../components/Table';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import RNPickerSelect from 'react-native-picker-select';
 import { Ionicons } from '@expo/vector-icons';
-import { CheckBox } from 'react-native-elements'
+import { CheckBox } from 'react-native-elements';
+import moment from 'moment';
 
 const configinfo = { waiters: [
 		{ label: 'Melissa', value: 'Melissa' },
@@ -45,13 +46,16 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 		const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
 		const showDatePicker = () => setDatePickerVisibility(true);
 		const hideDatePicker = () =>  setDatePickerVisibility(false);
-		const handleDateConfirm = date => { setReservation({ ...reservation, date: date  }); hideDatePicker(); };
+		const handleDateConfirm = date => { 
+				setReservation({ ...reservation, date: moment(date)  }); 
+						hideDatePicker(); 
+				};
 
 		// functions to control the time picker
 		const [isTimePickerVisible, setTimePickerVisibility] = React.useState(false);
 		const showTimePicker = () => setTimePickerVisibility(true);
 		const hideTimePicker = () =>  setTimePickerVisibility(false);
-		const handleTimeConfirm = time => { console.log(time); setReservation({ ...reservation, time: time }); hideTimePicker(); };
+		const handleTimeConfirm = time => { setReservation({ ...reservation, time: moment(time) }); hideTimePicker(); };
 
 		// dispatch new table to global redux state
 		const handleDoneClick = () => {  
@@ -127,7 +131,7 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 								<View style={styles.row}>
 										<View style={styles.inputContainer}>
 												{ reservation.date !== null? <TouchableOpacity onPress={showTimePicker}>
-														<Text style={styles.linkText}>{reservation.date.toLocaleDateString("es-US")}</Text>
+														<Text style={styles.linkText}>{reservation.time.format("MM/DD/YY")}</Text>
 												</TouchableOpacity>
 												: <Button title="Date" color='gray' onPress={showDatePicker}/> }
 												<DateTimePickerModal
@@ -140,7 +144,7 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 										<View style={styles.inputContainer}>
 												{ reservation.time !== null? <TouchableOpacity onPress={showTimePicker}>
 														<Text style={styles.linkText}> 
-																{reservation.time.toLocaleTimeString("es-US", { hour12: false, hour: '2-digit', minute: '2-digit' } )}
+																{reservation.time.format("HH:MM a")}
 														</Text>
 												</TouchableOpacity>
 												: <Button title="Time" style={styles.button} color='gray' onPress={showTimePicker} /> }
