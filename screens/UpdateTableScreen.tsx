@@ -55,8 +55,13 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 
 		// dispatch new table to global redux state
 		const handleDoneClick = () => {  
-				if(reservation.name !== '' ) dispatch({ type: 'CREATE_RESERVATION', payload: reservation })
-				dispatch({ type: 'CREATE_TABLE_ON_GRID', payload: table });
+				if(reservation.name !== '' ) dispatch({
+						type: 'CREATE_TABLE_WITH_RESERVATION', 
+						payload: { 
+								reservation: reservation,
+								table: table,
+						}, 
+				})
 		} 
 
 		return (

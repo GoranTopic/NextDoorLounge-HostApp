@@ -125,11 +125,10 @@ const stateReducer = (state = initialState, action) => {
 						const new_table = { ...action.payload.table } ;
 						new_reservation.table = new_table; // attach table to reservation 
 						new_table.reservations = [ ...new_table.reservations, new_reservation ]; // attach reservation to table
-						//state.grid.forEach( (sqr) => { console.log(sqr) });
 						return {
 								...state, 
-								grid:  [ ...state.grid.map( (gridSqr) => (gridSqr.sqrID === new_table.sqrID)? new_table : gridSqr) ],
-								reservations:  [ ...state.reservations.map( (reservation) => (reservation.id === new_reservation.id)? new_reservation : reservation) ],
+								grid:  [ ...state.grid.map(gridSqr => gridSqr.sqrID === new_table.sqrID? new_table : gridSqr) ],
+								reservations:  [ ...state.reservations, new_reservation ],
 						};
 				default:
 						console.log('error: could not find dispatch command');
