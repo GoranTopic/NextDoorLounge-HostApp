@@ -35,7 +35,7 @@ const empty_reservation = {
 
 const linkTableAndReservation = (table, reservation) => {
 		/* link together a resservation an an table by reference */
-		table.reservations.push(table);
+		table.reservations = [ ...table.reservations, reservation ];
 		reservation.table = table;
 }
 
@@ -50,14 +50,13 @@ initialState.grid[169] = { sqrID: 120, name: '104', group: 'G', waiter: 'Melissa
 
 // create a few test reservation
 initialState.reservations = [ // data use to build for now
-		{ id: 1, table: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: null, date: null, vip: false, notes: '' },
+		{ id: 1, table: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: null, date: null, vip: true, notes: '' },
 		{ id: 2, table: '', currentGuest: 0, partySize: 4, name: 'Anna Nazarijan', time: null, date: null, vip: false, notes: '' },
-		{ id: 3, table: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: null, date: null, vip: true, notes: '' },
-		{ id: 4, table: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: null, date: null, vip: true, notes: '' },
+		{ id: 3, table: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: null, date: null, vip: false, notes: '' },
+		{ id: 4, table: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: null, date: null, vip: false, notes: '' },
 		{ id: 5, table: '', currentGuest: 0, partySize: 5, name: 'Ashley Vega',    time: null, date: null, vip: false, notes: '' },
 		{ id: 6, table: '', currentGuest: 0, partySize: 5, name: 'Gimena Lora',    time: null, date: null, vip: false, notes: '' },
 		{ id: 7, table: '', currentGuest: 0, partySize: 3, name: 'Oman Revolta',   time: null, date: null, vip: false, notes: '' },
-		{ id: 8, table: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: null, date: null, vip: false, notes: '' },
 ];
 
 //link together those reservations and tables

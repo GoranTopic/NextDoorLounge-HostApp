@@ -27,8 +27,8 @@ const getWaiterColor = (waiter) => {
 
 const getEarliestReservation = (reservations) => {
 		/* return the soones reservation */ 
-		console.log("got this for the reservation on table")
-		console.log(reservations)
+		//console.log("got this for the reservation on table")
+		//console.log(reservations)
 		if(reservations === undefined || reservations.length == 0){
 				return undefined;
 		}else{
@@ -56,7 +56,7 @@ export default function Table({ sqr, isEditMode, toCreateTableScreen }){
 					return styles.square;
 		}}
 		
-		const getNameStyle = (name) => { return name !== ''? { backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center' } : {}  }
+		const getNameStyle = (name) => { return name !== ''? { backgroundColor: 'transparent', borderWidth: 0.5, alignItems: 'center', justifyContent: 'center' } : {}  }
 
 		const getVipStyle = (vip) => { return (typeof vip === 'undefined')? {} : (vip)? { borderColor: 'gold', borderWidth: 1 } : {}  }
 
