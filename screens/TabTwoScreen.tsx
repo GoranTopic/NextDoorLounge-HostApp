@@ -17,9 +17,9 @@ export default function TabTwoScreen({ state, dispatch, navigation }) {
 
 		const [ isEditMode, setEditMode ] = React.useState(true);
 
-		const eraseTable = ( sqrId ) =>  dispatch({ 
+		const eraseTable = ( sqrID ) =>  dispatch({ 
 				type: 'DELETE_TABLE_ON_GRID',
-				payload: { sqrId : sqrId },
+				payload: { sqrID : sqrID },
 		});
 
 		const toCreateTableScreen = ( sqrData, newTable ) => {

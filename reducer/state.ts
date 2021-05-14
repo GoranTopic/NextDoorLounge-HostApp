@@ -12,23 +12,23 @@ const initialState  = {
 }
 
 const empty_sqr = { 
-		sqrId: '', 
+		sqrID: '', 
 		name: '',
 		group: '',
 		waiter: '',
 		reservations: [],
 		table: 'none', 
-		reservationID: '' } //Create grid data
-for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sqr, sqrId: i });
+} //Create grid data
+
 
 const empty_reservation = {
 		id: '', 
 		table: '',  
+		name: '', 
+		date: null, 
+		time: null, 
 		currentGuest: 0, 
 		partySize: 0, 
-		name: '', 
-		time: null, 
-		date: null, 
 		vip: false, 
 		notes: '' ,
 }
@@ -39,11 +39,14 @@ const linkTableAndReservation = (table, reservation) => {
 		reservation.table = table;
 }
 
+// create grid on empty sqrs
+for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sqr, sqrId: i });
+
 // create new tables
-initialState.grid[39] = { sqrId: 0, name: '1', group: 'G', waiter: 'Jake', reservations: [], table: 'circleTable' };
-initialState.grid[44] = { sqrId: 30, name: '4G', group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
-initialState.grid[85] = { sqrId: 90, name: '105', group: 'F', waiter: 'Melissa', reservations: [], table: 'circleTable' };
-initialState.grid[169] = { sqrId: 120, name: '104', group: 'G', waiter: 'Melissa', reservations: [], table: 'squareTable' };
+initialState.grid[39] =  { sqrID: 0, name: '1', group: 'G', waiter: 'Jake', reservations: [], table: 'circleTable' };
+initialState.grid[44] =  { sqrID: 30, name: '4G', group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+initialState.grid[85] =  { sqrID: 90, name: '105', group: 'F', waiter: 'Melissa', reservations: [], table: 'circleTable' };
+initialState.grid[169] = { sqrID: 120, name: '104', group: 'G', waiter: 'Melissa', reservations: [], table: 'squareTable' };
 
 // create a few test reservation
 initialState.reservations = [ // data use to build for now
@@ -92,7 +95,7 @@ const stateReducer = (state = initialState, action) => {
 						return {
 								...state, 
 								grid:  [ ...state.grid.map( (gridSqr) => { 
-										return gridSqr.sqrId === action.payload.sqrId?
+										return gridSqr.sqrID === action.payload.sqrID?
 												action.payload
 												: gridSqr
 								})],
@@ -101,7 +104,7 @@ const stateReducer = (state = initialState, action) => {
 						return {
 								...state, 
 								grid:  [ ...state.grid.map( (gridSqr) => { 
-										return gridSqr.sqrId === action.payload.sqrId?
+										return gridSqr.sqrID === action.payload.sqrID?
 												action.payload
 												: gridSqr
 								})],
@@ -110,10 +113,23 @@ const stateReducer = (state = initialState, action) => {
 						return {
 								...state, 
 								grid:  [ ...state.grid.map( (gridSqr) => { 
-										return gridSqr.sqrId === action.payload.sqrId ?
-												{ ...empty_sqr, sqrId: gridSqr.sqrId }
+										return gridSqr.sqrID === action.payload.sqrID ?
+												{ ...empty_sqr, sqrID: gridSqr.sqrID }
+
 												: gridSqr
 								})],
+						};
+				case 'CREATE_TABLE_WITH_RESERVATION':
+						// make a new reservation and table object
+						const new_reservation = { ...action.payload.reservation, id: state.reservations.length + 1, } ;
+						const new_table = { ...action.payload.table } ;
+						new_reservation.table = new_table; // attach table to reservation 
+						new_table.reservation = new_table; // attach reservation to table
+						console.log(state.grid.forEach( (sqr) => { console.lo(sqr) })
+						return {
+								...state, 
+								grid:  [ ...state.grid.map( (gridSqr) => (gridSqr.sqrID === new_table.sqrID)? new_table : gridSqr) ],
+								reservations:  [ ...state.reservations.map( (reservation) => (reservation.id === new_reservation.id)? new_reservation : reservation) ],
 						};
 				default:
 						console.log('error: could not find dispatch command');

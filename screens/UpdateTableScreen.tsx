@@ -12,22 +12,21 @@ const configinfo = { waiters: [
 		{ label: 'Cassadra', value: 'Cassadra' },
 		{ label: 'Selina', value: 'Selina' },
 		{ label: 'Jake', value: 'Jake' },
-],
-}
+], }
 
 export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 
 		let d = new Date();
 		const { sqr, newTable } = route.params; // get the sqr data from react navigation
-		sqr.table = newTable; // populate it with data
-		sqr.name = '';
-		sqr.waiter = '';
-		sqr.group = '';
 
-		// make a new resevation object
-		const initialReservation = { tableID: sqr.sqrId, name: '', date: null, time: null, vip: false, notes: '' };
+		// make initial empty table
+		const initialTable = { sqrID: sqr.sqrID, name: '', group: '', waiter: '', reservations: [], table: newTable,   }
+		// make empty  new resevation object
+		const initialReservation = { id: '', table: '', name: '', date: null, time: null, partySize: 0, vip: false, notes: '', };
+
+		// creat memory object to edit
 		const [ reservation, setReservation ] = React.useState(initialReservation);
-		const [ table, setTable ] = React.useState({...sqr});
+		const [ table, setTable ] = React.useState(initialTable);
 
 		// table handler functions 
 		const handleTableNameChange = name => setTable({ ...table, name: name  }) 

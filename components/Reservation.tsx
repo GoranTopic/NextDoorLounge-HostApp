@@ -21,7 +21,7 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 
 		const renderDate  = date => (date)? date.toLocaleDateString("es-US") : '';
 
-		const renderTime  = time => (time)? time.toLocaleDateString("es-US") : '';
+		const renderTime  = time => (time)? time.toLocaleTimeString("es-US") : '';
 
 
 		return( 
@@ -45,8 +45,8 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 										<Table sqr={reserv.table} />
 										<Text style={styles.name}>{ reserv.name }</Text>
 										<Text style={styles.party}> {reserv.partySize }/{ reserv.currentGuest} </Text>
-										<Text style={styles.arrival}>{ renderDate(reserv.date)}</Text>
 										<Text style={styles.arrival}>{ renderTime(reserv.time)}</Text>
+										<Text style={styles.arrival}>{ renderDate(reserv.date)}</Text>
 										<TouchableOpacity onPress={handleEditToggle} style={{width:30}} >
 												<Ionicons name={'ellipsis-vertical-outline'} color={'white'} size={15} style={styles.optionsIcon} />
 										</TouchableOpacity>
