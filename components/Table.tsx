@@ -27,6 +27,8 @@ const getWaiterColor = (waiter) => {
 
 const getEarliestReservation = (reservations) => {
 		/* return the soones reservation */ 
+		console.log("got this for the reservation on table")
+		console.log(reservations)
 		if(reservations === undefined || reservations.length == 0){
 				return undefined;
 		}else{
@@ -36,8 +38,8 @@ const getEarliestReservation = (reservations) => {
 
 
 export default function Table({ sqr, isEditMode, toCreateTableScreen }){
-		console.log('got this sqr obj in table:')
-		console.log(sqr);
+		//console.log('got this sqr obj in table:')
+		//console.log(sqr);
 		if( typeof isEditMode === 'undefined' )  isEditMode = false;
 		if( typeof toCreateTableScreen === 'undefined') toCreateTableScreen = null;
 	

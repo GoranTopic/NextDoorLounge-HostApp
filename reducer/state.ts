@@ -40,7 +40,7 @@ const linkTableAndReservation = (table, reservation) => {
 }
 
 // create grid on empty sqrs
-for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sqr, sqrId: i });
+for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sqr, sqrID: i });
 
 // create new tables
 initialState.grid[39] =  { sqrID: 0, name: '1', group: 'G', waiter: 'Jake', reservations: [], table: 'circleTable' };
@@ -124,8 +124,8 @@ const stateReducer = (state = initialState, action) => {
 						const new_reservation = { ...action.payload.reservation, id: state.reservations.length + 1, } ;
 						const new_table = { ...action.payload.table } ;
 						new_reservation.table = new_table; // attach table to reservation 
-						new_table.reservation = new_table; // attach reservation to table
-						console.log(state.grid.forEach( (sqr) => { console.lo(sqr) })
+						new_table.reservations = [ ...new_table.reservations, new_reservation ]; // attach reservation to table
+						//state.grid.forEach( (sqr) => { console.log(sqr) });
 						return {
 								...state, 
 								grid:  [ ...state.grid.map( (gridSqr) => (gridSqr.sqrID === new_table.sqrID)? new_table : gridSqr) ],

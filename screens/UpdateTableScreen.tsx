@@ -19,6 +19,8 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 		let d = new Date();
 		const { sqr, newTable } = route.params; // get the sqr data from react navigation
 
+		console.log('update table screen got:' );
+		console.log(sqr)
 		// make initial empty table
 		const initialTable = { sqrID: sqr.sqrID, name: '', group: '', waiter: '', reservations: [], table: newTable,   }
 		// make empty  new resevation object
