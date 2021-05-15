@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ImageBackground, StyleSheet, Dimensions } from 'react-native';
+import { Button, ImageBackground, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -8,26 +8,41 @@ import Untitled from '../assets/images/Untitled.png';
 import Layout from '../constants/Layout';
 import { DraxProvider, DraxView } from 'react-native-drax';
 
-
 export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 		//console.log("printing grid from tab two screen")
 		//console.log(state.grid)
 
 		const [ localGrid, setGrid ] = React.useState([]);
 
-		const [ isEditMode, setEditMode ] = React.useState(true);
+		const [ isEditMode, setEditMode ] = React.useState(false);
+
+		const toggleEditMode = () => setEditMode(!isEditMode);
+		
+		const EditButton = () => { 
+				if(isEditMode){
+						return <Button onPress={toggleEditMode} title="Done" />
+				}else{
+						return <Button onPress={toggleEditMode} title="Edit" />
+				}
+		}
+
+		
+		React.useLayoutEffect(() => {
+				navigation.setOptions({
+						headerRight: EditButton 
+				});
+		}, [navigation, toggleEditMode]);
 
 		const renderSqrs = ( sqr, index) => {
-				console.log('sqrID:')
-				console.log(route.params.sqrID)
 				return (route.params && sqr.sqrID === route.params.sqrID)?
-				<View style={styles.highlight} key={index}> 
+				<View style={styles.highlight} key={index}>
 						<Table 
 								sqr={sqr} 
 								key={index} 
 								isEditMode={isEditMode} 
 								toCreateTableScreen={toCreateTableScreen} /> 
-				</View> :  
+				</View>
+						:
 				<Table 
 						sqr={sqr} 
 						key={index} 
@@ -47,37 +62,40 @@ export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 				});
 		}
 
+		const getGridStyle = () => isEditMode? { ...styles.gridContainer, ...styles.gridEditMode }: { ...styles.gridContainer }
 
 
 		return (
 				<DraxProvider>
 						<ImageBackground style={styles.backgroundImage } source={Untitled} >
-								<View style={styles.gridContainer} >
+								<View style={getGridStyle() }>
 										{ state.grid.map(renderSqrs)}
-						</View> 
-				</ImageBackground>
-				<View style={styles.newTableContainer}>
-						<DraxView style={styles.squareTable}
-								payload="sqrTable"
-						/>
-						<DraxView style={styles.circleTable}
-								payload="circleTable"
-						/>
-						<DraxView style={styles.longTableHorizontal}
-								payload="longTableHorizontal"
-						/>
-						<DraxView style={styles.longTableVertical}
-								payload="longTableVertical"
-						/>
-						<DraxView 
-								renderContent={() => 
-								<Ionicons name={'trash-outline'} color={'red'} size={35} style={styles.optionsIcon} />}
-										onReceiveDragDrop={({ dragged: { payload } }) => {
-												console.log(`received ${payload}`);
-												eraseTable(payload);
-										}}
+								</View> 
+						</ImageBackground>
+						{ isEditMode && 
+						<View style={styles.newTableContainer}>
+								<DraxView style={styles.squareTable}
+										payload="sqrTable"
 								/>
-						</View>
+								<DraxView style={styles.circleTable}
+										payload="circleTable"
+								/>
+								<DraxView style={styles.longTableHorizontal}
+										payload="longTableHorizontal"
+								/>
+								<DraxView style={styles.longTableVertical}
+										payload="longTableVertical"
+								/>
+								<DraxView 
+										renderContent={() => 
+										<Ionicons name={'trash-outline'} color={'red'} size={35} style={styles.optionsIcon} />}
+												onReceiveDragDrop={({ dragged: { payload } }) => {
+														console.log(`received ${payload}`);
+														eraseTable(payload);
+												}}
+										/>
+								</View>
+						}
 				</DraxProvider>
 		);
 }
@@ -90,16 +108,18 @@ const styles = StyleSheet.create({
 		},
 		gridContainer: {
 				backgroundColor: 'transparent',
-				borderWidth: 0.2,
-				borderColor: 'red',
 				flexDirection: "row",
 				flexWrap: "wrap",
 				height: Layout.gridHeight,
 				width: Layout.gridWidth,
 		},
+		gridEditMode:{  
+				borderWidth: 0.5,
+				borderColor: 'red',
+		},
 		square: {
 				borderWidth: 0.2,
-				//borderColor: 'white', // show the grid
+				borderColor: 'white', // show the grid
 				width: Layout.squareWidth,
 				height: Layout.squareHeight,
 		},
@@ -162,7 +182,8 @@ const styles = StyleSheet.create({
 		backgroundImage: {
 		},
 		highlight: {
-				backgroundColor: 'red',
+				backgroundColor: 'rgba(255, 255, 255, 0.9)',
+				overflow: 'visible',
 		}
 });
 

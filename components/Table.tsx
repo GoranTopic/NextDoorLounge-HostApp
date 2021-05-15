@@ -84,21 +84,26 @@ export default function Table({ sqr, isEditMode, toCreateTableScreen }){
 						<DraxView 
 								payload={sqr.sqrID}
 								key={sqr.sqrID}
-								style={  StyleSquare(sqr)  }>
+								style={ StyleSquare(sqr) }>
 								{ InsideName(sqr.name) }
-						</DraxView>
-								: <DraxView  // if it is empty, render a black square
-										payload={sqr.sqrID}
-										key={sqr.sqrID}
-										style={getTableStyle(sqr.table)}
-										onReceiveDragDrop={({ dragged: { payload } }) => {
-												toCreateTableScreen(sqr, payload);} }> 
-										</DraxView>
+						</DraxView>: 
+						<DraxView  // if it is empty, render a black square
+								payload={sqr.sqrID}
+								key={sqr.sqrID}
+								style={getTableStyle(sqr.table)}
+								onReceiveDragDrop={({ dragged: { payload } }) => {
+										toCreateTableScreen(sqr, payload);} }> 
+								</DraxView>
 				}else{
-						return <View 
+						return sqr.table !== 'none'? 
+						<View 
 								key={sqr.sqrID}
 								style={ StyleSquare(sqr) }> 
 								{ InsideName(sqr.name) }
+						</View>: 
+						<View
+								key={sqr.sqrID}
+								style={getTableStyle(sqr.table)} >
 						</View>
 				}
 		}
@@ -116,20 +121,12 @@ const styles = StyleSheet.create({
 				justifyContent: 'center',
 				alignItems: 'center',
 		},
-		gridContainer: {
-				borderWidth: 0.2,
-				borderColor: 'red',
-				flexDirection: "row",
-				flexWrap: "wrap",
-				height: Layout.gridHeight,
-				width: Layout.gridWidth,
-		},
 		square: {
-				//borderWidth: 0.2,
-				//borderColor: 'white', // show the grid
-			backgroundColor: 'transparent',
-			width: Layout.squareWidth,
-			height: Layout.squareHeight,
+				borderWidth: 0.2, //uncomment to show grid
+				borderColor: 'white', // uncomment show the grid
+				backgroundColor: 'transparent',
+				width: Layout.squareWidth,
+				height: Layout.squareHeight,
 		},
 		draggable: {
 				width: 100,
@@ -152,36 +149,36 @@ const styles = StyleSheet.create({
 				paddingHorizontal: 20,
 		},
 		squareTable: {
-			borderWidth: 0.2,
-			borderColor: 'white',
-			backgroundColor: 'rgba(255,255,255,0.8)',
-			borderRadius: 2,
-			width: Layout.squareWidth,
-			height: Layout.squareHeight,
+				borderWidth: 0.2,
+				borderColor: 'white',
+				backgroundColor: 'rgba(255,255,255,0.8)',
+				borderRadius: 2,
+				width: Layout.squareWidth,
+				height: Layout.squareHeight,
 		},
 		circleTable: {
-			borderWidth: 0.2,
-			borderColor: 'white',
-			borderRadius: 15,
-			backgroundColor: 'rgba(255,255,255,0.8)',
-			width: Layout.squareWidth,
-			height: Layout.squareHeight,
+				borderWidth: 0.2,
+				borderColor: 'white',
+				borderRadius: 15,
+				backgroundColor: 'rgba(255,255,255,0.8)',
+				width: Layout.squareWidth,
+				height: Layout.squareHeight,
 		},
 		longTableHorizontal: {
-			borderWidth: 0.2,
-			borderColor: 'white',
-			backgroundColor: 'rgba(255,255,255,0.8)',
-			borderRadius: 12,
-			width: Layout.squareWidth * 2,
-			height: Layout.squareHeight,
+				borderWidth: 0.2,
+				borderColor: 'white',
+				backgroundColor: 'rgba(255,255,255,0.8)',
+				borderRadius: 12,
+				width: Layout.squareWidth * 2,
+				height: Layout.squareHeight,
 		},
 		longTableVertical: {
-			borderWidth: 0.2,
-			borderColor: 'white',
-			backgroundColor: 'rgba(255,255,255,0.8)',
-			borderRadius: 12,
-			width: Layout.squareWidth,
-			height: Layout.squareHeight * 2,
+				borderWidth: 0.2,
+				borderColor: 'white',
+				backgroundColor: 'rgba(255,255,255,0.8)',
+				borderRadius: 12,
+				width: Layout.squareWidth,
+				height: Layout.squareHeight * 2,
 		},
 		optionsIcon: {
 				alignSelf: 'center',

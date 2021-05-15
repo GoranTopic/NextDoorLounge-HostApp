@@ -86,18 +86,20 @@ function TabOneNavigator() {
 const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
 function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoStoreContainer}
-        options={{ headerTitle: 'Tables' }}
-      />
-			<TabTwoStack.Screen
-        name="updateTable"
-        component={UpdateTableStoreContainer}
-        options={{ headerTitle: 'Edit Table' }}
-      />
-    </TabTwoStack.Navigator>
-  );
+		return (
+				<TabTwoStack.Navigator>
+						<TabTwoStack.Screen
+								name="TabTwoScreen"
+								component={TabTwoStoreContainer}
+								options={({ navigation, route  }) => ({
+										headerTitle: 'Tables',
+								})}
+						/>
+						<TabTwoStack.Screen
+								name="updateTable"
+								component={UpdateTableStoreContainer}
+								options={{ headerTitle: 'Edit Table' }}
+						/>
+				</TabTwoStack.Navigator>
+		);
 }
