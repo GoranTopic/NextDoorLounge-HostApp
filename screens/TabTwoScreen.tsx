@@ -25,7 +25,6 @@ export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 						return <Button onPress={toggleEditMode} title="Edit" />
 				}
 		}
-
 		
 		React.useLayoutEffect(() => {
 				navigation.setOptions({

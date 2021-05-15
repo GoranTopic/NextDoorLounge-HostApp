@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Button, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View, TextInput } from '../components/Themed';
 import Reservation from '../components/Reservation';
@@ -22,6 +22,18 @@ export default function TabOneScreen({ state, dispatch, navigation }) {
 				/* bug it take twice the button press to delete*/
 				dispatch({ type: 'DELETE_RESERVATION', payload: { id: id }  })
 		}
+		
+		const toUpdateReservation = () => {
+
+		}
+
+		React.useLayoutEffect(() => {
+				navigation.setOptions({
+						headerRight: () => (<Button onPress={toUpdateReservation} title="Add"/> ) 
+				});
+		}, [navigation, toUpdateReservation]);
+
+
 
 		return (
 				<View style={styles.container}>
