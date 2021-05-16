@@ -39,19 +39,24 @@ export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 								sqr={sqr} 
 								key={index} 
 								isEditMode={isEditMode} 
-								toCreateTableScreen={toCreateTableScreen} /> 
+								toCreateTableScreen={toCreateTableScreen} 
+								navigation={navigation} /> 
 				</View>
 						:
 				<Table 
 						sqr={sqr} 
 						key={index} 
 						isEditMode={isEditMode} 
-						toCreateTableScreen={toCreateTableScreen} /> 
+						toCreateTableScreen={toCreateTableScreen} 
+						navigation={navigation} /> 
 		}
 
 		const eraseTable = ( sqrID ) =>  dispatch({ 
 				type: 'DELETE_TABLE_ON_GRID',
-				payload: { sqrID : sqrID },
+				payload: { 
+						sqrID: sqrID,
+						name: sqr.name,
+				},
 		});
 
 		const toCreateTableScreen = ( sqrData, newTable ) => {
@@ -60,6 +65,7 @@ export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 						newTable: newTable, 
 				});
 		}
+
 
 		const getGridStyle = () => isEditMode? { ...styles.gridContainer, ...styles.gridEditMode }: { ...styles.gridContainer }
 

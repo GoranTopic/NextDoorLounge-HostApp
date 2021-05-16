@@ -56,7 +56,7 @@ initialState.grid[169] = { sqrID: 169, name: '104', group: 'G', waiter: 'Melissa
 
 // create a few test reservation
 initialState.reservations = [ // data use to build for now
-		{ id: 1, table: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: dTime, date: dDate, vip: true, notes: '' },
+		{ id: 1, table: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: dTime, date: dDate, vip: true, notes: 'Plese dont forget to give birthday cake at midnight' },
 		{ id: 2, table: '', currentGuest: 0, partySize: 4, name: 'Anna Nazarijan', time: dTime, date: dDate, vip: false, notes: '' },
 		{ id: 3, table: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: dTime, date: dDate, vip: false, notes: '' },
 		{ id: 4, table: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: dTime, date: dDate, vip: false, notes: '' },
@@ -77,15 +77,16 @@ const stateReducer = (state = initialState, action) => {
 		console.log('reducer ran with input')
 		console.log(action)
 		switch (action.type) {
-				case 'CREATE_RESERVATION':
+				case 'CREATE_RESERVATION': //todo add reservation to table reservation list
+						const table = state.grid.filter(sqr => sqr.sqrID === action.payload.tableSqrID)[0];
 						return {  // add a reservation to the list
 								...state, 
-								reservations:  [ ...state.reservations, { ...action.payload, id: state.reservations.length + 1 } ],
+								reservations:  [ ...state.reservations, { ...action.payload, id: state.reservations.length + 1, table: table } ],
 						};
 				case 'UPDATE_RESERVATION':
 						return { // probaly might not work, or just make a duplicate instead of an update
 								...state,
-								reservations: [ state.reservation.map( (reservation) => { 
+								reservations: [ state.reservations.map( (reservation) => { 
 										return reservation.id === action.payload.id? 
 												action.payload
 												: reservation 

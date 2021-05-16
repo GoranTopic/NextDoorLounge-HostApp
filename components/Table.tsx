@@ -36,8 +36,7 @@ const getEarliestReservation = (reservations) => {
 		}
 }
 
-
-export default function Table({ sqr, isEditMode, toCreateTableScreen }){
+export default function Table({ sqr, isEditMode, toCreateTableScreen, navigation }){
 		//console.log('got this sqr obj in table:')
 		//console.log(sqr);
 		if( typeof isEditMode === 'undefined' )  isEditMode = false;
@@ -78,6 +77,10 @@ export default function Table({ sqr, isEditMode, toCreateTableScreen }){
 				} 
 		}
 
+		const toDetailTable = () => {
+				navigation.navigate('DetailTableScreen', { table: sqr  });
+		}
+
 		const renderTable = () => { 
 				if(isEditMode){  
 						return sqr.table !== 'none'? // if is not empty table
@@ -96,18 +99,18 @@ export default function Table({ sqr, isEditMode, toCreateTableScreen }){
 								</DraxView>
 				}else{
 						return sqr.table !== 'none'? 
-						<View 
+						<TouchableOpacity
 								key={sqr.sqrID}
+								//onPress={toDetailTable} //commented out for demo porposes
 								style={ StyleSquare(sqr) }> 
 								{ InsideName(sqr.name) }
-						</View>: 
+						</TouchableOpacity>: 
 						<View
-								key={sqr.sqrID}
+								key={sqr.sqrID} //if there is is not table in the sqr
 								style={getTableStyle(sqr.table)} >
 						</View>
 				}
 		}
-
 		return renderTable();
 
 }
@@ -122,8 +125,8 @@ const styles = StyleSheet.create({
 				alignItems: 'center',
 		},
 		square: {
-				borderWidth: 0.2, //uncomment to show grid
-				borderColor: 'white', // uncomment show the grid
+				//borderWidth: 0.2, //uncomment to show grid
+				//borderColor: 'white', // uncomment show the grid
 				backgroundColor: 'transparent',
 				width: Layout.squareWidth,
 				height: Layout.squareHeight,

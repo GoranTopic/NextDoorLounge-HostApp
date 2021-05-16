@@ -13,25 +13,25 @@ export default function TabOneScreen({ state, dispatch, navigation }) {
 
 		const searchFilter = (reservation) => reservation.name.toLowerCase().includes(text.toLowerCase());
 
-		const updateList = ( id )  => {
-				//CUSTOMERS_DATA.filter((value) => value.id !== id )
-				navigation.navigate('updateReservatoinScreen', { id: id });
-		}
-
-		const removeList = ( id )  => {
+		const handleRemove = ( id )  => {
 				/* bug it take twice the button press to delete*/
 				dispatch({ type: 'DELETE_RESERVATION', payload: { id: id }  })
 		}
 		
-		const toUpdateReservation = () => {
-
-		}
+		const toUpdateReservation = reservation => navigation.navigate('UpdateReservationScreen', {
+				reservation: reservation,
+				updating: true,
+		})
+		
+		const toCreateReservation = () => navigation.navigate('UpdateReservationScreen', { 
+				updating: false,
+		})
 
 		React.useLayoutEffect(() => {
 				navigation.setOptions({
-						headerRight: () => (<Button onPress={toUpdateReservation} title="Add"/> ) 
+						headerRight: () => (<Button onPress={toCreateReservation} title="Add"/> ) 
 				});
-		}, [navigation, toUpdateReservation]);
+		}, [navigation, toCreateReservation]);
 
 
 
@@ -48,11 +48,16 @@ export default function TabOneScreen({ state, dispatch, navigation }) {
 						<FlatList
 								styles={styles.reservList}
 								data={ state.reservations.filter(searchFilter) }
-								renderItem={ ({ item }) => <Reservation reserv={item} navigation={navigation} update={updateList} remove={removeList}/> }
-								keyExtractor={(item) => item.id.toString()}
-						/>
-				</View>
-		);
+								renderItem={ ({ item }) => 
+								<Reservation 
+										reserv={item} 
+										navigation={navigation} 
+										update={toUpdateReservation} 
+										remove={handleRemove}/> }
+										keyExtractor={(item) => item.id.toString()}
+								/>
+						</View>
+				);
 }
 
 const styles = StyleSheet.create({

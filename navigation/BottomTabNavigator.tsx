@@ -12,6 +12,9 @@ import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import UpdateTableScreen from '../screens/UpdateTableScreen';
+import DetailTableScreen from '../screens/DetailTableScreen';
+import DetailReservationScreen from '../screens/DetailReservationScreen';
+import UpdateReservationScreen from '../screens/UpdateReservationScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 import { Provider, connect  } from 'react-redux';
 import { createStore, } from 'redux';
@@ -26,6 +29,12 @@ const TabOneStoreContainer = connect(state => ({ state: state }))(TabOneScreen);
 const TabTwoStoreContainer = connect(state => ({ state: state }))(TabTwoScreen);
 // create a store container for update table
 const UpdateTableStoreContainer = connect()(UpdateTableScreen);
+// create a store container for update Reservatinos
+const UpdateReservationStoreContainer = connect(state => ({state: state}))(UpdateReservationScreen);
+// create a store container for detail tables
+const DetailTableStoreContainer = connect(state => ({state: state}))(UpdateTableScreen);
+// create a store container for detail reservations
+const DetailReservationStoreContainer = connect(state => ({state: state}))(DetailReservationScreen);
 
 export default function BottomTabNavigator() {
 		const colorScheme = useColorScheme();
@@ -79,6 +88,16 @@ function TabOneNavigator() {
         component={TabOneStoreContainer}
 				options={{ headerTitle: 'Reservations' }}
       />
+			<TabOneStack.Screen
+        name="UpdateReservationScreen"
+        component={UpdateReservationStoreContainer}
+				options={{ headerTitle: 'Reservations' }}
+      />
+			<TabOneStack.Screen
+        name="DetailReservationScreen"
+        component={DetailReservationStoreContainer}
+				options={{ headerTitle: 'Reservation' }}
+		/>
     </TabOneStack.Navigator>
   );
 }
@@ -99,6 +118,11 @@ function TabTwoNavigator() {
 								name="updateTable"
 								component={UpdateTableStoreContainer}
 								options={{ headerTitle: 'Edit Table' }}
+						/>
+						<TabOneStack.Screen
+								name="DetailTableScreen"
+								component={DetailTableStoreContainer}
+								options={{ headerTitle: 'Reservation' }}
 						/>
 				</TabTwoStack.Navigator>
 		);

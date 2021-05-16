@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import useColorScheme from '../hooks/useColorScheme';
 import Table from  '../components/Table';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Pressable, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import moment from 'moment';
@@ -20,7 +20,13 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 				params: { sqrID: reserv.table.sqrID },
 		});
 
-		const handleUpdate = () => update(reserv.id);
+		const handleLongPress = () => { 
+				// pass on the sqr id because react navigation does not like to pass fuctions, or something 
+				const reservation = { ...reserv, tableSqrID: reserv.table.sqrID  }  
+				navigation.navigate('DetailReservationScreen', { reservation: reservation });
+		}
+
+		const handleUpdate = () => update(reserv);
 
 		const handleRemove =() => remove(reserv.id);
 
@@ -54,11 +60,11 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 						</TouchableOpacity>
 				</View> 
 						:
-						<TouchableOpacity onPress={handlePress}>
+						<Pressable onPress={handlePress} onLongPress={handleLongPress}>
 								<View style={styles.resevation}>
 										<Table sqr={reserv.table} />
 										<Text style={styles.name}>{ reserv.name }</Text>
-										<Text style={styles.party}> {reserv.partySize }/{ reserv.currentGuest} </Text>
+										<Text style={styles.party}> { reserv.currentGuest }/{ reserv.partySize } </Text>
 										<Text style={styles.arrival}>{ renderTime(reserv.time)}</Text>
 										<Text style={styles.arrival}>{ renderDate(reserv.date)}</Text>
 										<TouchableOpacity onPress={handleEditToggle} style={{width:30}} >
@@ -68,7 +74,7 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 														style={styles.optionsIcon} />
 										</TouchableOpacity>
 								</View>
-						</TouchableOpacity>
+						</Pressable>
 				}
 		</View>
 		);

@@ -15,7 +15,7 @@ const configinfo = { waiters: [
 		{ label: 'Jake', value: 'Jake' },
 ], }
 
-export default function UpdateTableScreen({ dispatch, route,  navigation }) {
+export default function DetailTableScreen({ state, dispatch, route,  navigation }) {
 
 		let d = new Date();
 		const { sqr, newTable } = route.params; // get the sqr data from react navigation
@@ -130,8 +130,8 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 								</View>
 								<View style={styles.row}>
 										<View style={styles.inputContainer}>
-												{ reservation.date !== null? <TouchableOpacity onPress={showDatePicker}>
-														<Text style={styles.linkText}>{reservation.date.format("MM/DD/YY")}</Text>
+												{ reservation.date !== null? <TouchableOpacity onPress={showTimePicker}>
+														<Text style={styles.linkText}>{reservation.time.format("MM/DD/YY")}</Text>
 												</TouchableOpacity>
 												: <Button title="Date" color='gray' onPress={showDatePicker}/> }
 												<DateTimePickerModal
