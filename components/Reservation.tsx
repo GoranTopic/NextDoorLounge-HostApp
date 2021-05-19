@@ -15,12 +15,12 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 	
 		const handleEditToggle = () => setEditMode(!isEditMode);
 			
-		const handlePress = () => navigation.navigate('Layout', {
+		const toLayoutScreen = () => navigation.navigate('Layout', {
 				screen: 'TabTwoScreen', 
 				params: { sqrID: reserv.table.sqrID },
 		});
 
-		const handleLongPress = () => { 
+		const toDetailReservation = () => { 
 				// pass on the sqr id because react navigation does not like to pass fuctions, or something 
 				const reservation = { ...reserv, tableSqrID: reserv.table.sqrID  }  
 				navigation.navigate('DetailReservationScreen', { reservation: reservation });
@@ -60,7 +60,7 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 						</TouchableOpacity>
 				</View> 
 						:
-						<Pressable onPress={handlePress} onLongPress={handleLongPress}>
+						<Pressable onPress={toLayoutScreen} onLongPress={toDetailReservation}>
 								<View style={styles.resevation}>
 										<Table sqr={reserv.table} />
 										<Text style={styles.name}>{ reserv.name }</Text>

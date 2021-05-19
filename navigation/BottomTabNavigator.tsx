@@ -27,12 +27,14 @@ const store = createStore(stateReducer, initialState);
 const TabOneStoreContainer = connect(state => ({ state: state }))(TabOneScreen);
 // create a store container for tab screen two
 const TabTwoStoreContainer = connect(state => ({ state: state }))(TabTwoScreen);
+
 // create a store container for update table
 const UpdateTableStoreContainer = connect()(UpdateTableScreen);
+// create a store container for detail tables
+const DetailTableStoreContainer = connect(state => ({state: state}))(DetailTableScreen);
+
 // create a store container for update Reservatinos
 const UpdateReservationStoreContainer = connect(state => ({state: state}))(UpdateReservationScreen);
-// create a store container for detail tables
-const DetailTableStoreContainer = connect(state => ({state: state}))(UpdateTableScreen);
 // create a store container for detail reservations
 const DetailReservationStoreContainer = connect(state => ({state: state}))(DetailReservationScreen);
 
@@ -115,14 +117,14 @@ function TabTwoNavigator() {
 								})}
 						/>
 						<TabTwoStack.Screen
-								name="updateTable"
+								name="UpdateTableScreen"
 								component={UpdateTableStoreContainer}
 								options={{ headerTitle: 'Edit Table' }}
 						/>
 						<TabOneStack.Screen
 								name="DetailTableScreen"
 								component={DetailTableStoreContainer}
-								options={{ headerTitle: 'Reservation' }}
+								options={{ headerTitle: 'Table' }}
 						/>
 				</TabTwoStack.Navigator>
 		);

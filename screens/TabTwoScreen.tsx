@@ -60,7 +60,7 @@ export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 		});
 
 		const toCreateTableScreen = ( sqrData, newTable ) => {
-				navigation.navigate('updateTable',{
+				navigation.navigate('UpdateTableScreen',{
 						sqr: sqrData, 
 						newTable: newTable, 
 				});
@@ -73,24 +73,14 @@ export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 		return (
 				<DraxProvider>
 						<ImageBackground style={styles.backgroundImage } source={Untitled} >
-								<View style={getGridStyle() }>
+								<View style={ getGridStyle() }>
 										{ state.grid.map(renderSqrs)}
 								</View> 
 						</ImageBackground>
 						{ isEditMode && 
 						<View style={styles.newTableContainer}>
-								<DraxView style={styles.squareTable}
-										payload="sqrTable"
-								/>
-								<DraxView style={styles.circleTable}
-										payload="circleTable"
-								/>
-								<DraxView style={styles.longTableHorizontal}
-										payload="longTableHorizontal"
-								/>
-								<DraxView style={styles.longTableVertical}
-										payload="longTableVertical"
-								/>
+								<DraxView style={styles.squareTable} payload="sqrTable" />
+								<DraxView style={styles.circleTable} payload="circleTable" />
 								<DraxView 
 										renderContent={() => 
 										<Ionicons name={'trash-outline'} color={'red'} size={35} style={styles.optionsIcon} />}

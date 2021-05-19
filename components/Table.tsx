@@ -78,6 +78,7 @@ export default function Table({ sqr, isEditMode, toCreateTableScreen, navigation
 		}
 
 		const toDetailTable = () => {
+				//const sqr = { ...sqr, reservationIDs: sqr.reservations.map( (reservation) => reservations.id ) }
 				navigation.navigate('DetailTableScreen', { table: sqr  });
 		}
 
@@ -100,8 +101,8 @@ export default function Table({ sqr, isEditMode, toCreateTableScreen, navigation
 				}else{
 						return sqr.table !== 'none'? 
 						<TouchableOpacity
-								key={sqr.sqrID}
-								//onPress={toDetailTable} //commented out for demo porposes
+								key={ sqr.sqrID }
+								onPress={ toDetailTable } 
 								style={ StyleSquare(sqr) }> 
 								{ InsideName(sqr.name) }
 						</TouchableOpacity>: 

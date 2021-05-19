@@ -20,14 +20,9 @@ export default function DetailReservationScreen({ state, dispatch, route,  navig
 
 		return (
 				<View style={styles.container}>
-						<Text style={styles.title}>Reservation</Text>
+						<Text style={styles.title}>{reservation.name}</Text>
 						<View style={styles.separator}/>
 						<View style={styles.col}>
-								<View style={ styles.inputContainer}>
-										<Text style={{...styles.name, width: '100%' }} >
-												{reservation.name}
-										</Text>
-								</View>
 								<View style={styles.row}>
 										<View style={styles.inputContainer}>
 												{ reservation.date !== null && 
@@ -84,8 +79,10 @@ const styles = StyleSheet.create({
 				flex: 1,
 				backgroundColor: 'black',
 				alignItems: 'center',
-				justifyContent: 'center',
+				justifyContent: 'flex-start',
 				padding: 20,
+				marginTop: '5%',
+
 		},
 		tableContainer: {
 				alignItems: 'center',
@@ -124,7 +121,7 @@ const styles = StyleSheet.create({
 				fontWeight: 'normal' 
 		},
 		title: {
-				fontSize: 17,
+				fontSize: 18,
 				fontWeight: 'bold',
 				color: 'white',
 		},
@@ -148,6 +145,6 @@ const styles = StyleSheet.create({
 				marginVertical: 15,
 				height: 0.5,
 				width: '70%',
-				backgroundColor: '#eee',
+				backgroundColor: 'gold',
 		},
 });
