@@ -57,38 +57,37 @@ export default function DetailReservationScreen({ state, dispatch, route,  navig
 												</Text> }
 										</View>
 										<View style={{...styles.inputContainer, margin: 10, width: 100, }}>
+												{ reservation.vip && 
 												<CheckBox
 														title='VIP'
 														iconRight
 														enable={false}
 														textStyle={{color: 'white'}}
 														containerStyle={styles.button}
-														uncheckedColor='gray'
 														checkedColor='gray'
 														checkedIcon={ <Ionicons name={'star'} color={'gold'} size={20} style={styles.optionsIcon} /> }
-														uncheckedIcon={ <Ionicons name={'star-outline'} color={'gold'} size={20} style={styles.optionsIcon} /> }
-														checked={reservation.vip}/>
+														checked={reservation.vip}/> }
+												</View>
 										</View>
-								</View>
-								<View style={styles.row}>
-										<View style={styles.pickerContainer}>
-												<Table sqr={reservation.table} />
+										<View style={styles.row}>
+												<View style={styles.pickerContainer}>
+														<Table sqr={reservation.table} />
+												</View>
+												<View style={styles.pickerContainer}>
+														<Text style={styles.party}>{ reservation.currentGuest } guest out of { reservation.partySize }</Text>
+												</View>
 										</View>
-										<View style={styles.pickerContainer}>
-												<Text style={styles.party}>{ reservation.currentGuest } guest out of { reservation.partySize }</Text>
+										<View style={ styles.inputContainer}>
+												<Text
+														multiline={true}
+														numberOfLines={4}
+														style={styles.notesContainer} >
+														{reservation.notes}
+												</Text>
 										</View>
-								</View>
-								<View style={ styles.inputContainer}>
-										<Text
-												multiline={true}
-												numberOfLines={4}
-												style={styles.notesContainer} >
-												{reservation.notes}
-										</Text>
 								</View>
 						</View>
-				</View>
-		);
+				);
 }
 
 const styles = StyleSheet.create({
