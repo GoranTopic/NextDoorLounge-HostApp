@@ -63,6 +63,7 @@ export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 				navigation.navigate('UpdateTableScreen',{
 						sqr: sqrData, 
 						newTable: newTable, 
+						isUpdating: false,
 				});
 		}
 

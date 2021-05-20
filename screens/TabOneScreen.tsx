@@ -18,13 +18,13 @@ export default function TabOneScreen({ state, dispatch, navigation }) {
 				dispatch({ type: 'DELETE_RESERVATION', payload: { id: id }  })
 		}
 		
-		const toUpdateReservation = reservation => navigation.navigate('UpdateReservationScreen', {
+		const toUpdateReservationScreen = reservation => navigation.navigate('UpdateReservationScreen', {
 				reservation: reservation,
-				updating: true,
+				isUpdating: true,
 		})
 		
 		const toCreateReservation = () => navigation.navigate('UpdateReservationScreen', { 
-				updating: false,
+				isUpdating: false,
 		})
 
 		React.useLayoutEffect(() => {
@@ -52,7 +52,7 @@ export default function TabOneScreen({ state, dispatch, navigation }) {
 								<Reservation 
 										reserv={item} 
 										navigation={navigation} 
-										update={toUpdateReservation} 
+										update={toUpdateReservationScreen} 
 										remove={handleRemove}/> }
 										keyExtractor={(item) => item.id.toString()}
 								/>

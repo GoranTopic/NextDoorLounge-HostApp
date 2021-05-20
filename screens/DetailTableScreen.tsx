@@ -19,8 +19,10 @@ export default function DetailTableScreen({ state, dispatch, route,  navigation 
 
 		const toCreateTableScreen = ( sqrData, newTable ) => {
 				navigation.navigate('UpdateTableScreen',{
-						sqr: sqrData, 
+						sqr: table, 
 						newTable: newTable, 
+						isUpdating: true,
+						passedReservations: table.reservations,
 				});
 		}
 

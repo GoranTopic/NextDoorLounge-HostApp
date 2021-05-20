@@ -17,6 +17,26 @@ export default function DetailReservationScreen({ state, dispatch, route,  navig
 		const handleAddGuest = () => dispatch({ type: 'ADD_ONE_GUEST', })
 		const handleRemoveGuest = () => dispatch({ type: 'REMOVE_ONE_GUEST', })
 
+		// display edit button in the nav bar
+		React.useLayoutEffect(() => { // render edit button
+				navigation.setOptions({
+						headerRight: EditButton 
+				});
+		}, [navigation, toUpdateReservationScreen]);
+
+		const toUpdateReservationScreen = ( sqrData, newTable ) => {
+				navigation.navigate('UpdateReservationScreen',{
+						reservation: reservation, 
+						isUpdating: true,
+				});
+		}
+		
+		// edit button 
+		const EditButton = () => { 
+				return <Button onPress={toUpdateReservationScreen} title="Edit" />
+		}
+
+
 
 		return (
 				<View style={styles.container}>
@@ -28,15 +48,13 @@ export default function DetailReservationScreen({ state, dispatch, route,  navig
 												{ reservation.date !== null && 
 												<Text style={styles.linkText}>
 														{reservation.date.format("MM/DD/YY")}
-												</Text>
-												}
+												</Text> }
 										</View>
 										<View style={styles.inputContainer}>
 												{ reservation.time !== null && 
 												<Text style={styles.linkText}> 
 														{reservation.time.format("HH:MM")}
-												</Text>
-												}
+												</Text> }
 										</View>
 										<View style={{...styles.inputContainer, margin: 10, width: 100, }}>
 												<CheckBox
@@ -57,16 +75,15 @@ export default function DetailReservationScreen({ state, dispatch, route,  navig
 												<Table sqr={reservation.table} />
 										</View>
 										<View style={styles.pickerContainer}>
-												<Text style={styles.party}>  { reservation.currentGuest } guest out of { reservation.partySize } </Text>
+												<Text style={styles.party}>{ reservation.currentGuest } guest out of { reservation.partySize }</Text>
 										</View>
 								</View>
 								<View style={ styles.inputContainer}>
 										<Text
 												multiline={true}
 												numberOfLines={4}
-												style={{...styles.name, textAlign: 'left', borderWidth: 0.2, color: 'white',  padding: 10, width: 'auto', height: 150}}
-										>
-									{reservation.notes}
+												style={styles.notesContainer} >
+												{reservation.notes}
 										</Text>
 								</View>
 						</View>
@@ -101,6 +118,25 @@ const styles = StyleSheet.create({
 		inputContainer: {
 				marginHorizontal: 15,
 				marginVertical: 30,
+		},
+		addGuestButton:{
+
+		},
+		removeGuestButton:{
+
+		},
+		markEmptyButton:{
+
+		},
+		notesContainer: {
+				width: 'auto', 
+				borderBottomWidth: 0.2,
+				borderWidth: 0.2, 
+				borderColor: 'gold',
+				textAlign: 'left', 
+				color: 'white',  
+				padding: 10, 
+				height: 150
 		},
 		pickerContainer: {
 				width: 'auto',

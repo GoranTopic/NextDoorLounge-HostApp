@@ -9,11 +9,11 @@ import moment from 'moment';
 
 export default function UpdateTableScreen({ state, dispatch, route,  navigation }) {
 
-		const updating = route.params.updating
-		console.log('updating:')
-		console.log(route.params.updating)
+		const isUpdating = route.params.isUpdating
 
-		const initialReservation = (updating)? route.params.reservation 
+		/* if we are updating a reservation, the we get the passsed reservation 
+		else we make a new  empty reservation data */
+		const initialReservation = (isUpdating)? route.params.reservation  
 				: { id: '', 
 						table: '', 
 						name: '', 
@@ -24,15 +24,17 @@ export default function UpdateTableScreen({ state, dispatch, route,  navigation 
 						vip: false, 
 						notes: '',  }
 
-		// create table for choosing table 
+		// create data for choosing table 
 		const tableList = state.grid
 				.filter(sqr => sqr.table !== 'none')
 				.map(table => { return { label: table.name, value: table.sqrID } });
 
-		//create table for choosing party size
+		//create data for choosing party size
 		const partySizeList = [];
 		for( let i = 1; i < 16; i++ ) partySizeList.push({ label: i.toString(), value: i});
 
+		console.log("initial reservation: ");
+		console.log(initialReservation);
 		// creat memory object to edit
 		const [ reservation, setReservation ] = React.useState(initialReservation);
 
@@ -83,8 +85,6 @@ export default function UpdateTableScreen({ state, dispatch, route,  navigation 
 		} 
 		return (
 				<View style={styles.container}>
-						<Text style={styles.title}>Reservation</Text>
-						<View style={styles.separator}/>
 						<View style={styles.col}>
 								<View style={ styles.inputContainer}>
 										<TextInput
@@ -185,21 +185,21 @@ export default function UpdateTableScreen({ state, dispatch, route,  navigation 
 																multiline={true}
 																numberOfLines={4}
 																textAlign={'left'}
-																style={{...styles.input, textAlignVertical: 'top', borderWidth: 0.2, width: '100%' }}
+																spellCheck={true}
+																style={styles.notesContainer}
 																placeholder="Notes..."
 																placeholderTextColor="gray"
 																onChangeText={handleReservationNoteChange}
-																defaultValue={reservation.note}
+																defaultValue={reservation.notes}
 														/>
 												</View>
 										</View>
-										{( updating )?
+										{( isUpdating )?
 										<Button title="Update" style={{...styles.Button, borderRadius: 10}}
 												onPress={() => { 
 														handleUpdateClick(); 
 														navigation.goBack();
-												}}/>
-												:
+												}}/> :
 										<Button title="Create" style={{...styles.Button, borderRadius: 10}}
 												onPress={() => { 
 														handleCreateClick(); 
@@ -215,8 +215,8 @@ const styles = StyleSheet.create({
 				flex: 1,
 				backgroundColor: 'black',
 				alignItems: 'center',
-				justifyContent: 'center',
-				padding: 20,
+				justifyContent: 'flex-start',
+				padding: '2%',
 		},
 		tableContainer: {
 				alignItems: 'center',
@@ -248,6 +248,17 @@ const styles = StyleSheet.create({
 				alignItems:'center',
 				justifyContent: 'center',
 				fontWeight: 'normal' 
+		},
+		notesContainer: {
+				width: 'auto', 
+				borderBottomWidth: 0.2,
+				borderWidth: 0.2, 
+				borderColor: 'gold',
+				textAlign: 'left', 
+				color: 'white',  
+				textAlignVertical: 'top',
+				padding: 10, 
+				height: 150
 		},
 		title: {
 				fontSize: 17,

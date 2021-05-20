@@ -58,8 +58,7 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 										size={15} 
 										style={styles.optionsIcon} />
 						</TouchableOpacity>
-				</View> 
-						:
+				</View> :
 						<Pressable onPress={toLayoutScreen} onLongPress={toDetailReservation}>
 								<View style={styles.resevation}>
 										<Table sqr={reserv.table} />
