@@ -61,7 +61,7 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 				</View> :
 						<Pressable onPress={toLayoutScreen} onLongPress={toDetailReservation}>
 								<View style={styles.resevation}>
-										<Table sqr={reserv.table} />
+										<Table sqr={reserv.table} disableTouch={true} />
 										<Text style={styles.name}>{ reserv.name }</Text>
 										<Text style={styles.party}> { reserv.currentGuest }/{ reserv.partySize } </Text>
 										<Text style={styles.arrival}>{ renderTime(reserv.time)}</Text>

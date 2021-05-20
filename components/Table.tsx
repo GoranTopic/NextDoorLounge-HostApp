@@ -36,11 +36,12 @@ const getEarliestReservation = (reservations) => {
 		}
 }
 
-export default function Table({ sqr, isEditMode, toCreateTableScreen, navigation }){
+export default function Table({ sqr, isEditMode, disableTouch, toCreateTableScreen, navigation }){
 		//console.log('got this sqr obj in table:')
 		//console.log(sqr);
 		if( typeof isEditMode === 'undefined' )  isEditMode = false;
 		if( typeof toCreateTableScreen === 'undefined') toCreateTableScreen = null;
+		if( typeof disableTouch === 'undefined') disableTouch = false;
 	
 		const getTableStyle = tableType => { switch(tableType){  
 				case 'sqrTable':
@@ -100,15 +101,16 @@ export default function Table({ sqr, isEditMode, toCreateTableScreen, navigation
 								</DraxView>
 				}else{
 						return sqr.table !== 'none'? 
+								// if there is a table in the sqr, render it
 						<TouchableOpacity
 								key={ sqr.sqrID }
-								onPress={ toDetailTable } 
+								onPress={ disableTouch? null : toDetailTable } 
 								style={ StyleSquare(sqr) }> 
 								{ InsideName(sqr.name) }
 						</TouchableOpacity>: 
-						<View
+						<View // else just pass an empty black view
 								key={sqr.sqrID} //if there is is not table in the sqr
-								style={getTableStyle(sqr.table)} >
+								style={getTableStyle(sqr.table)}>
 						</View>
 				}
 		}

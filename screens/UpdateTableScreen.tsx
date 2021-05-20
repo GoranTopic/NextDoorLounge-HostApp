@@ -20,9 +20,6 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 		let d = new Date();
 		const { sqr, newTable, isUpdating, passedReservations } = route.params; // get the sqr data from react navigation
 
-		console.log('update table screen got:' );
-		console.log(sqr);
-
 		let initialTable;
 		let initialReservation;
 		if(isUpdating){ // if we are merely updating a table
@@ -92,7 +89,7 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 		return (
 				<View style={styles.container}>
 						<View style={styles.tableContainer}>
-								<Table sqr={table} reservation={reservation} isEditMode={false} />
+								<Table sqr={table} disableTouch={true} isEditMode={false} />
 						</View>
 						<View style={styles.separator}/>
 						<View style={styles.col}>

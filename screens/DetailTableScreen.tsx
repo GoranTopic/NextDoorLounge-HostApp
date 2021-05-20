@@ -64,7 +64,7 @@ export default function DetailTableScreen({ state, dispatch, route,  navigation 
 		return (
 				<View style={styles.container}>
 						<View style={styles.tableContainer}>
-								<Table sqr={table} isEditMode={false} />
+								<Table sqr={table} disableTouch={true} isEditMode={false} />
 						</View>
 						<View style={styles.separator}/>
 						<View style={{ ...styles.col, paddingBottom: "30%", }}>
@@ -79,7 +79,7 @@ export default function DetailTableScreen({ state, dispatch, route,  navigation 
 										</View>
 								</View>
 						</View>
-						<Text style={styles.title}>Reservations:</Text>
+						<Text style={styles.title}>Reservations</Text>
 						<View style={styles.separator}/>
 						<View style={styles.col}>
 								{ table.reservations.map(renderReservation) }
