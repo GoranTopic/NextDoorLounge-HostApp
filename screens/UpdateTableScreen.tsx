@@ -26,8 +26,9 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 		let initialTable;
 		let initialReservation;
 		if(isUpdating){ // if we are merely updating a table
-				initialTable = sqr;
-				initialReservation = passedReservations[0];
+				initialTable = sqr; 
+				// if the table passed has at least one resevation 
+				initialReservation = (passedReservations.length >= 1)? passedReservations[0] : null; 
 		}else{ // if you are creating a brand new table
 				// make initial empty table
 				initialTable = { sqrID: sqr.sqrID, name: '', group: '', waiter: '', reservations: [], table: newTable,   }

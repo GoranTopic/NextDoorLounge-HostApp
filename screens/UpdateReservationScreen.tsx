@@ -147,34 +147,28 @@ export default function UpdateTableScreen({ state, dispatch, route,  navigation 
 																		value: 'select',
 																		color: 'white',
 														}}
+														value={reservation.table.sqrID}
 														onValueChange={handleTableSelect}
 														items={tableList}
 														style={{ ...styles.title,
-																		inputAndroid: {
-																				color:"white",
-																		},
-																		inputIOS: {
-																				color:"white",
-																		},
+																		inputAndroid: { color:"white", },
+																		inputIOS: { color:"white", },
 														}}>
 														</RNPickerSelect>
 												</View>
 												<View style={styles.pickerContainer}>
 														<RNPickerSelect
-																placeholder={{
+																placeholder={ {
 																		label: 'Size',
 																				value: 'select',
 																				color: 'white',
 																}}
+																value={reservation.partySize}
 																onValueChange={handlePartySize}
 																items={partySizeList}
 																style={{ ...styles.title,
-																				inputAndroid: {
-																						color:"white",
-																				},
-																				inputIOS: {
-																						color:"white",
-																				},
+																				inputAndroid: { color:"white", },
+																				inputIOS: { color:"white", },
 																}}>
 																</RNPickerSelect>
 														</View>
