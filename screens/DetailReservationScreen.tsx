@@ -75,15 +75,24 @@ export default function DetailReservationScreen({ state, dispatch, route,  navig
 												</View>
 												<View style={styles.pickerContainer}>
 														<Text style={styles.party}>{ reservation.currentGuest } guest out of { reservation.partySize }</Text>
+														<View style={ styles.row}>
+																<TouchableOpacity style={styles.guestButton} onPress={handleAddGuest}>
+																		<Text style={{color: 'white'}}>-</Text>
+																</TouchableOpacity>
+																<TouchableOpacity style={styles.guestButton} onPress={handleRemoveGuest}>
+																		<Text style={{color: 'white'}}>+</Text>
+																</TouchableOpacity>
+														</View>
 												</View>
 										</View>
 										<View style={ styles.inputContainer}>
+												{ ( reservation.notes !== '' ) &&
 												<Text
 														multiline={true}
 														numberOfLines={4}
 														style={styles.notesContainer} >
 														{reservation.notes}
-												</Text>
+												</Text> }
 										</View>
 								</View>
 						</View>
@@ -118,10 +127,15 @@ const styles = StyleSheet.create({
 				marginHorizontal: 15,
 				marginVertical: 30,
 		},
-		addGuestButton:{
-
-		},
-		removeGuestButton:{
+		guestButton:{
+				borderRadius: 30,
+				width: 35,
+				height: 35,
+				backgroundColor: 'gray',
+				justifyContent: 'center',
+				alignItems: 'center',
+				marginHorizontal: 30,
+				marginVertical: 6,
 
 		},
 		markEmptyButton:{
