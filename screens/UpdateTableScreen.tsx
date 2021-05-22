@@ -85,7 +85,6 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 				})
 		} 
 
-
 		return (
 				<View style={styles.container}>
 						<View style={styles.tableContainer}>

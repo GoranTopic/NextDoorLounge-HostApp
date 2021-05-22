@@ -28,7 +28,7 @@ export default function Reservation( { reserv, update, remove, navigation }) {
 
 		const handleUpdate = () => update(reserv);
 
-		const handleRemove =() => remove(reserv.id);
+		const handleRemove =() => remove(reserv);
 
 		const renderDate  = date =>  date? timeTo? date.toNow(true) : date.format('MM/DD') : ''; 
 

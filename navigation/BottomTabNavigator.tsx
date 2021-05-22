@@ -11,11 +11,12 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
+import TabThreeScreen from '../screens/TabThreeScreen';
 import UpdateTableScreen from '../screens/UpdateTableScreen';
 import DetailTableScreen from '../screens/DetailTableScreen';
 import DetailReservationScreen from '../screens/DetailReservationScreen';
 import UpdateReservationScreen from '../screens/UpdateReservationScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from '../types';
 import { Provider, connect  } from 'react-redux';
 import { createStore, } from 'redux';
 import { stateReducer, initialState } from '../reducer/state';
@@ -27,6 +28,8 @@ const store = createStore(stateReducer, initialState);
 const TabOneStoreContainer = connect(state => ({ state: state }))(TabOneScreen);
 // create a store container for tab screen two
 const TabTwoStoreContainer = connect(state => ({ state: state }))(TabTwoScreen);
+// create a store container for tab screen three
+const TabThreeStoreContainer = connect(state => ({ state: state }))(TabThreeScreen);
 
 // create a store container for update table
 const UpdateTableStoreContainer = connect()(UpdateTableScreen);
@@ -61,7 +64,7 @@ export default function BottomTabNavigator() {
 								/>
 								<BottomTab.Screen
 										name="Info"
-										component={TabOneNavigator}
+										component={TabThreeNavigator}
 										options={{
 												tabBarIcon: ({ color }) => <TabBarIcon name="ios-information" color={color} />,
 										}}
@@ -82,26 +85,25 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
 function TabOneNavigator() {
-
-  return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneStoreContainer}
-				options={{ headerTitle: 'Reservations' }}
-      />
-			<TabOneStack.Screen
-        name="UpdateReservationScreen"
-        component={UpdateReservationStoreContainer}
-				options={{ headerTitle: 'Reservations' }}
-      />
-			<TabOneStack.Screen
-        name="DetailReservationScreen"
-        component={DetailReservationStoreContainer}
-				options={{ headerTitle: 'Reservation' }}
-		/>
-    </TabOneStack.Navigator>
-  );
+		return (
+				<TabOneStack.Navigator>
+						<TabOneStack.Screen
+								name="TabOneScreen"
+								component={TabOneStoreContainer}
+								options={{ headerTitle: 'Reservations' }}
+						/>
+						<TabOneStack.Screen
+								name="UpdateReservationScreen"
+								component={UpdateReservationStoreContainer}
+								options={{ headerTitle: 'Reservations' }}
+						/>
+						<TabOneStack.Screen
+								name="DetailReservationScreen"
+								component={DetailReservationStoreContainer}
+								options={{ headerTitle: 'Reservation' }}
+						/>
+				</TabOneStack.Navigator>
+		);
 }
 
 const TabTwoStack = createStackNavigator<TabTwoParamList>();
@@ -121,7 +123,7 @@ function TabTwoNavigator() {
 								component={UpdateTableStoreContainer}
 								options={{ headerTitle: 'Edit Table' }}
 						/>
-						<TabOneStack.Screen
+						<TabTwoStack.Screen
 								name="DetailTableScreen"
 								component={DetailTableStoreContainer}
 								options={{ headerTitle: 'Table' }}
@@ -129,3 +131,20 @@ function TabTwoNavigator() {
 				</TabTwoStack.Navigator>
 		);
 }
+
+const TabThreeStack = createStackNavigator<TabThreeParamList>();
+
+function TabThreeNavigator() {
+		return (
+				<TabThreeStack.Navigator>
+						<TabThreeStack.Screen
+								name="TabThreeScreen"
+								component={TabThreeStoreContainer}
+								options={({ navigation, route }) => ({
+										headerTitle: 'Logs',
+								})}
+						/>
+				</TabThreeStack.Navigator>
+		);
+}
+

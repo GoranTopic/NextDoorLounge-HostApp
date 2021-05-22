@@ -49,9 +49,9 @@ export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 						navigation={navigation} /> 
 		}
 
-		const eraseTable = ( sqrID ) =>  dispatch({ 
+		const eraseTable = ( sqr ) =>  dispatch({ 
 				type: 'DELETE_TABLE_ON_GRID',
-				payload: { sqrID: sqrID },
+				payload: { table: sqr },
 		});
 
 		const toCreateTableScreen = ( sqrData, newTable ) => {
@@ -82,7 +82,7 @@ export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 										<Ionicons name={'trash-outline'} color={'red'} size={35} style={styles.optionsIcon} />}
 												onReceiveDragDrop={({ dragged: { payload } }) => {
 														console.log(`received ${payload}`);
-														eraseTable(payload);
+														eraseTable(state.grid[payload]);
 												}}
 										/>
 								</View>

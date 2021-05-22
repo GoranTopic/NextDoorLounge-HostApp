@@ -16,9 +16,9 @@ export default function TabOneScreen({ state, dispatch, navigation }) {
 
 		const searchFilter = (reservation) => reservation.name.toLowerCase().includes(text.toLowerCase());
 
-		const handleRemove = ( reservation )  => {
+		const handleRemove = ( id )  => {
 				/* bug it take twice the button press to delete*/
-				dispatch({ type: 'DELETE_RESERVATION', payload: { reservation: reservation }  })
+				dispatch({ type: 'DELETE_RESERVATION', payload: { id: id }  })
 		}
 		
 		const toUpdateReservationScreen = reservation => navigation.navigate('UpdateReservationScreen', {
@@ -51,16 +51,16 @@ export default function TabOneScreen({ state, dispatch, navigation }) {
 						<FlatList
 								styles={styles.reservList}
 								data={ state.reservations.filter(searchFilter) }
-								keyExtractor={(item) => item.id.toString()}
-								renderItem={ 
-										({ item }) => <Reservation 
-												reserv={item} 
-												navigation={navigation} 
-												update={toUpdateReservationScreen} 
-												remove={handleRemove}/> 
-										}/>
-								</View>
-						);
+								renderItem={ ({ item }) => 
+								<Reservation 
+										reserv={item} 
+										navigation={navigation} 
+										update={toUpdateReservationScreen} 
+										remove={handleRemove}/> }
+										keyExtractor={(item) => item.id.toString()}
+								/>
+						</View>
+				);
 }
 
 const styles = StyleSheet.create({

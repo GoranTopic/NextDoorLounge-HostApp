@@ -89,6 +89,7 @@ const stateReducer = (state = initialState, action) => {
 						return {  // add a reservation to the list
 								...state, 
 								reservations:  [ ...state.reservations, { ...action.payload, id: state.reservations.length + 1, table: table } ],
+								logger: [ ...state.logger, 'Scott: created reservation ' + reservation.name ],
 						};
 				case 'UPDATE_RESERVATION':
 						return { // probaly might not work, or just make a duplicate instead of an update
@@ -98,11 +99,13 @@ const stateReducer = (state = initialState, action) => {
 										action.payload.reservation 
 										: reservation 
 								) ],
+								logger: [ ...state.logger, 'Scott: updated reservation ' + reservation.name ],
 						};
 				case 'DELETE_RESERVATION':
 						return {
 								...state, 
-								reservations: [ ...state.reservations.filter((reservation) =>  reservation.id !== action.payload.id) ],
+								reservations: [ ...state.reservations.filter((reservation) =>  reservation.id !== action.payload.reservation.id) ],
+								logger: [ ...state.logger, 'Scott: Deleted reservation ' + action.payload.reservation.name ],
 						};
 				case 'CREATE_TABLE_ON_GRID':
 						return {
@@ -124,10 +127,11 @@ const stateReducer = (state = initialState, action) => {
 						return {
 								...state, 
 								grid:  [ ...state.grid.map( (gridSqr) => { 
-										return gridSqr.sqrID === action.payload.sqrID ?
+										return gridSqr.sqrID === action.payload.table.sqrID ?
 												{ ...empty_sqr, sqrID: gridSqr.sqrID }
 												: gridSqr
 								})],
+								logger: [ ...state.logger, 'Scott: Deleted table ' + action.payload.table.name ],
 						};
 				case 'CREATE_TABLE_WITH_RESERVATION':
 						// make a new reservation and table object
@@ -139,6 +143,7 @@ const stateReducer = (state = initialState, action) => {
 								...state, 
 								grid:  [ ...state.grid.map(gridSqr => gridSqr.sqrID === new_table.sqrID? new_table : gridSqr) ],
 								reservations:  [ ...state.reservations, new_reservation ],
+								logger: [ ...state.logger, 'Scott: Created Table' + new_table.name ],
 						};
 				case 'UPDATE_TABLE_WITH_RESERVATION':
 						const updated_table = action.payload.table;
@@ -151,7 +156,7 @@ const stateReducer = (state = initialState, action) => {
 								reservations:  [ ...state.reservations.map( 
 										reservation => reservation.id === updated_reservation.id? updated_reservation : reservation 
 								)],
-								logger: [ ...state.logger, 'Scott Updated Table' + updated_table.name ],
+								logger: [ ...state.logger, 'Scott: Updated Table' + updated_table.name ],
 						};
 				case 'ADD_ONE_GUEST':
 						return { 
@@ -167,7 +172,8 @@ const stateReducer = (state = initialState, action) => {
 								reservations: [ ...state.reservations.map( 
 										reservation => (reservation.id === action.payload.reservation.id)? 
 										{ ...action.payload.reservation, currentGuest: reservation.currentGuest - 1 }:
-										reservation )]
+										reservation 
+								)]
 						};
 				default:
 						console.log('error: could not find dispatch command');
