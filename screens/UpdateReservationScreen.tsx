@@ -80,9 +80,10 @@ export default function UpdateTableScreen({ state, dispatch, route,  navigation 
 		const handleUpdateClick = () => {  
 				if(reservation.name !== '' ) dispatch({
 						type: 'UPDATE_RESERVATION', 
-						payload: reservation,
+						payload: { reservation: reservation },
 				})
 		} 
+
 		return (
 				<View style={styles.container}>
 						<View style={styles.col}>

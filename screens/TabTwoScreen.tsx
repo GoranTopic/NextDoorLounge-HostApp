@@ -53,10 +53,7 @@ export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 
 		const eraseTable = ( sqrID ) =>  dispatch({ 
 				type: 'DELETE_TABLE_ON_GRID',
-				payload: { 
-						sqrID: sqrID,
-						name: sqr.name,
-				},
+				payload: { sqrID: sqrID },
 		});
 
 		const toCreateTableScreen = ( sqrData, newTable ) => {

@@ -6,6 +6,9 @@ import Reservation from '../components/Reservation';
 
 export default function TabOneScreen({ state, dispatch, navigation }) {
 
+		console.log("printting the reservation from tabone")
+		console.log(state.reservations)
+	
 		//dispatch({ type: 'CREATE_RESERVATION', payload: {}  })
 		const [ text, setText ] = React.useState('');
 

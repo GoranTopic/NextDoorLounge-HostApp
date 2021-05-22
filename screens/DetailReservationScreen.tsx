@@ -14,8 +14,29 @@ export default function DetailReservationScreen({ state, dispatch, route,  navig
 		reservation.table = state.grid.filter((sqr) => sqr.sqrID === reservation.tableSqrID)[0] // there should only be one
 
 		// dispatch new table to global redux state // not yet implemented
-		const handleAddGuest = () => dispatch({ type: 'ADD_ONE_GUEST', })
-		const handleRemoveGuest = () => dispatch({ type: 'REMOVE_ONE_GUEST', })
+		const handleAddGuest = () => {  
+				const modifiedReservation = reservation;
+				if(reservation.currentGuest < reservation.partySize)
+						modifiedReservation.currentGuest = modifiedReservation.currentGuest + 1;
+				dispatch({ 
+						type: 'ADD_ONE_GUEST', 
+						payload: {
+								reservation: modifiedReservation,
+						},
+				})
+		}
+
+		const handleRemoveGuest = () => { 
+				const modifiedReservation = reservation;
+				if(reservation.currentGuest > 0)
+						modifiedReservation.currentGuest = modifiedReservation.currentGuest - 1;
+				dispatch({  
+						type: 'REMOVE_ONE_GUEST', 
+						payload: {
+								reservation: modifiedReservation,
+						}
+				})
+		};
 
 		// display edit button in the nav bar
 		React.useLayoutEffect(() => { // render edit button
@@ -76,10 +97,10 @@ export default function DetailReservationScreen({ state, dispatch, route,  navig
 												<View style={styles.pickerContainer}>
 														<Text style={styles.party}>{ reservation.currentGuest } guest out of { reservation.partySize }</Text>
 														<View style={ styles.row}>
-																<TouchableOpacity style={styles.guestButton} onPress={handleAddGuest}>
+																<TouchableOpacity style={styles.guestButton} onPress={handleRemoveGuest}>
 																		<Text style={{color: 'white'}}>-</Text>
 																</TouchableOpacity>
-																<TouchableOpacity style={styles.guestButton} onPress={handleRemoveGuest}>
+																<TouchableOpacity style={styles.guestButton} onPress={handleAddGuest}>
 																		<Text style={{color: 'white'}}>+</Text>
 																</TouchableOpacity>
 														</View>
