@@ -9,8 +9,6 @@ import Layout from '../constants/Layout';
 import { DraxProvider, DraxView } from 'react-native-drax';
 
 export default function TabTwoScreen({ state, dispatch, route, navigation }) {
-		//console.log("printing grid from tab two screen")
-		//console.log(state.grid)
 
 		const [ localGrid, setGrid ] = React.useState([]);
 

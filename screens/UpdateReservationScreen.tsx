@@ -63,7 +63,10 @@ export default function UpdateTableScreen({ state, dispatch, route,  navigation 
 		};
 
 		// functions for seting the table, just pass the rable id and let the reducer pass the table reference
-		const handleTableSelect = tableID => setReservation({ ...reservation, tableSqrID: tableID });
+		const handleTableSelect = tableID => {  
+				const table = state.grid.filter((sqr) => tableID === sqr.sqrID)[0];
+				setReservation({ ...reservation, table: table });
+		};
 
 		// functions setting the party size
 		const handlePartySize = size => setReservation({ ...reservation, partySize: size });

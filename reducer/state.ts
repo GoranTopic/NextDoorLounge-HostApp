@@ -8,6 +8,7 @@ const dDate = moment("05-14", "MM-DD"); // default date
 const initialState  = {
 		grid: [],
 		tables: [],
+		logger: [],
 		reservations: [],
 		config: { 
 			tableCount: 0,
@@ -97,72 +98,83 @@ const stateReducer = (state = initialState, action) => {
 										action.payload.reservation 
 										: reservation 
 								) ],
-		};
-		case 'DELETE_RESERVATION':
-		return {
-				...state, 
-				reservations: [ ...state.reservations.filter((reservation) =>  reservation.id !== action.payload.id) ],
-		};
-		case 'CREATE_TABLE_ON_GRID':
-		return {
-				...state, 
-				grid:  [ ...state.grid.map( (gridSqr) => { 
-						return gridSqr.sqrID === action.payload.sqrID?
-								action.payload
-								: gridSqr
-				})],
-		};
-		case 'UPDATE_TABLE_ON_GRID':
-		return {
-				...state, 
-				grid:  [ ...state.grid.map( (gridSqr) => { 
-						return gridSqr.sqrID === action.payload.sqrID?
-								action.payload
-								: gridSqr
-				})],
-		};
-		case 'DELETE_TABLE_ON_GRID':
-		return {
-				...state, 
-				grid:  [ ...state.grid.map( (gridSqr) => { 
-						return gridSqr.sqrID === action.payload.sqrID ?
-								{ ...empty_sqr, sqrID: gridSqr.sqrID }
-								: gridSqr
-				})],
-		};
-		case 'CREATE_TABLE_WITH_RESERVATION':
-		// make a new reservation and table object
-		const new_reservation = { ...action.payload.reservation, id: state.reservations.length + 1, } ;
-		const new_table = { ...action.payload.table } ;
-		new_reservation.table = new_table; // attach table to reservation 
-		new_table.reservations = [ ...new_table.reservations, new_reservation ]; // attach reservation to table
-		return {
-				...state, 
-				grid:  [ ...state.grid.map(gridSqr => gridSqr.sqrID === new_table.sqrID? new_table : gridSqr) ],
-				reservations:  [ ...state.reservations, new_reservation ],
-		};
-		case 'ADD_ONE_GUEST':
-		return { 
-				...state,
-				reservations: [ ...state.reservations.map( 
-						reservation => (reservation.id === action.payload.reservation.id)? 
-						action.payload.reservation:
-						reservation )]
-		};
-		case 'REMOVE_ONE_GUEST':
-		return { 
-				...state,
-				reservations: [ ...state.reservations.map( 
-						reservation => (reservation.id === action.payload.reservation.id)? 
-						{ ...action.payload.reservation, currentGuest: reservation.currentGuest - 1 }:
-						reservation )]
-		};
-		default:
-		console.log('error: could not find dispatch command');
-		console.log('action:');
-		console.log(action);
-		return state;
-}
+						};
+				case 'DELETE_RESERVATION':
+						return {
+								...state, 
+								reservations: [ ...state.reservations.filter((reservation) =>  reservation.id !== action.payload.id) ],
+						};
+				case 'CREATE_TABLE_ON_GRID':
+						return {
+								...state, 
+								grid:  [ ...state.grid.map( (gridSqr) => { 
+										return gridSqr.sqrID === action.payload.sqrID?
+												action.payload
+												: gridSqr
+								})],
+						};
+				case 'UPDATE_TABLE_ON_GRID':
+						return {
+								...state, 
+								grid:  [ ...state.grid.map( 
+										gridSqr => gridSqr.sqrID === action.payload.table.sqrID? action.payload.table : gridSqr
+								)],
+						};
+				case 'DELETE_TABLE_ON_GRID':
+						return {
+								...state, 
+								grid:  [ ...state.grid.map( (gridSqr) => { 
+										return gridSqr.sqrID === action.payload.sqrID ?
+												{ ...empty_sqr, sqrID: gridSqr.sqrID }
+												: gridSqr
+								})],
+						};
+				case 'CREATE_TABLE_WITH_RESERVATION':
+						// make a new reservation and table object
+						const new_reservation = { ...action.payload.reservation, id: state.reservations.length + 1, } ;
+						const new_table = { ...action.payload.table } ;
+						new_reservation.table = new_table; // attach table to reservation 
+						new_table.reservations = [ ...new_table.reservations, new_reservation ]; // attach reservation to table
+						return {
+								...state, 
+								grid:  [ ...state.grid.map(gridSqr => gridSqr.sqrID === new_table.sqrID? new_table : gridSqr) ],
+								reservations:  [ ...state.reservations, new_reservation ],
+						};
+				case 'UPDATE_TABLE_WITH_RESERVATION':
+						const updated_table = action.payload.table;
+						const updated_reservation = action.payload.reservation; 
+						updated_reservation.table = update_table; // 
+						updated_table.reservations = [ updated_reservation ]; // this delete eany other reservation. must add code avoid this.
+						return {
+								...state, 
+								grid: [ ...state.grid.map( gridSqr => gridSqr.sqrID === updated_table.sqrID? updated_table : gridSqr ) ],
+								reservations:  [ ...state.reservations.map( 
+										reservation => reservation.id === updated_reservation.id? updated_reservation : reservation 
+								)],
+								logger: [ ...state.logger, 'Scott Updated Table' + updated_table.name ],
+						};
+				case 'ADD_ONE_GUEST':
+						return { 
+								...state,
+								reservations: [ ...state.reservations.map( 
+										reservation => (reservation.id === action.payload.reservation.id)? 
+										action.payload.reservation:
+										reservation )]
+						};
+				case 'REMOVE_ONE_GUEST':
+						return { 
+								...state,
+								reservations: [ ...state.reservations.map( 
+										reservation => (reservation.id === action.payload.reservation.id)? 
+										{ ...action.payload.reservation, currentGuest: reservation.currentGuest - 1 }:
+										reservation )]
+						};
+				default:
+						console.log('error: could not find dispatch command');
+						console.log('action:');
+						console.log(action);
+						return state;
+		}
 
 };
 

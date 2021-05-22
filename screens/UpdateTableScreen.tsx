@@ -28,9 +28,9 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 				initialReservation = (passedReservations.length >= 1)? passedReservations[0] : null; 
 		}else{ // if you are creating a brand new table
 				// make initial empty table
-				initialTable = { sqrID: sqr.sqrID, name: '', group: '', waiter: '', reservations: [], table: newTable,   }
+				initialTable = { sqrID: sqr.sqrID, name: '', group: '', waiter: '', reservations: [], table: newTable  };
 				// make empty  new reservation object
-				initialReservation = { id: '', table: '', name: '', date: null, time: null, partySize: 0, vip: false, notes: '', };
+				initialReservation = { id: '', table: '', name: '', date: null, time: null, partySize: 0, vip: false, notes: '' };
 		}
 
 		// creat memory object to edit
@@ -38,9 +38,9 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 		const [ table, setTable ] = React.useState(initialTable);
 
 		// table handler functions 
-		const handleTableNameChange = name => setTable({ ...table, name: name  }) 
-		const handleTableWaiterChange = waiter => setTable({ ...table, waiter: waiter }) 
-		const handleTableGroupChange = group => setTable({ ...table, group: group }) 
+		const handleTableNameChange = name => setTable({ ...table, name: name  });
+		const handleTableWaiterChange = waiter => setTable({ ...table, waiter: waiter });
+		const handleTableGroupChange = group => setTable({ ...table, group: group });
 
 		// reservation handlers 
 		const handleReservationNameChange = name => setReservation({ ...reservation,  name: name  }) 
@@ -77,7 +77,7 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 		// dispatch an update table to global redux state
 		const handleUpdateClick = () => {  
 				if(reservation.name !== '' ) dispatch({
-						type: 'UDATE_TABLE_WITH_RESERVATION', 
+						type: 'UPDATE_TABLE_WITH_RESERVATION', 
 						payload: { 
 								reservation: reservation,
 								table: table,
@@ -192,6 +192,7 @@ export default function UpdateTableScreen({ dispatch, route,  navigation }) {
 								<Button title="Update" style={{...styles.Button, borderRadius: 10}}
 										onPress={() => { 
 												handleUpdateClick(); 
+												navigation.goBack();
 												navigation.goBack();
 										}}/> :
 								<Button title="Create" style={{...styles.Button, borderRadius: 10}}
