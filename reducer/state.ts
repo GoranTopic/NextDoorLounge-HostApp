@@ -30,6 +30,7 @@ const empty_reservation = {
 		id: '', 
 		table: '',  
 		name: '', 
+		status: '',
 		date: null, 
 		time: null, 
 		currentGuest: 0, 
