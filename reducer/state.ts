@@ -99,7 +99,7 @@ const stateReducer = (state = initialState, action) => {
 										action.payload.reservation 
 										: reservation 
 								) ],
-								logger: [ ...state.logger, 'Scott: updated reservation ' + reservation.name ],
+								logger: [ ...state.logger, 'Scott: updated reservation ' + action.payload.reservation.name ],
 						};
 				case 'DELETE_RESERVATION':
 						return {
@@ -148,7 +148,7 @@ const stateReducer = (state = initialState, action) => {
 				case 'UPDATE_TABLE_WITH_RESERVATION':
 						const updated_table = action.payload.table;
 						const updated_reservation = action.payload.reservation; 
-						updated_reservation.table = update_table; // 
+						updated_reservation.table = updated_table; // 
 						updated_table.reservations = [ updated_reservation ]; // this delete eany other reservation. must add code avoid this.
 						return {
 								...state, 

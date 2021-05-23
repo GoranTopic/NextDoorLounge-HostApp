@@ -12,9 +12,11 @@ export default function TabThreeScreen({ state, dispatch, navigation }) {
 								styles={styles.reservList}
 								data={ state.logger }
 								keyExtractor={(item) => item.toString()}
-								renderItem={ ({item}) =>  
-								<View key={item}>
-										<Text>{item}</Text>
+								renderItem={ 
+										({item}) =>  
+										<View key={item}
+												style={styles.eventContainer} >
+										<Text style={styles.text}>{item}</Text>
 								</View>
 						}/>
 						</View>
@@ -27,43 +29,29 @@ const styles = StyleSheet.create({
 		paddingTop: '6%',
     justifyContent: 'center',
   },
-	searchInput: {
-		alignSelf: 'center',
-		width: "85%",
-		margin: 5,
-		paddingVertical: 3,
-		paddingLeft: 15,
-		paddingRight: 15,
-		color: 'white',
-		borderColor: 'gold',
-		borderWidth: 0.2,
-		borderRadius: 5,
-	},
   title: {
 		alignSelf: 'center',
     fontSize: 20,
     fontWeight: 'bold',
   },
-	resevation:{
-		alignSelf: 'center',
-		borderColor: 'gray',
-		borderWidth: 0.2,
-		borderRadius: 2,
-		padding: 5, 
-		width: "85%",
-		marginVertical: 3,
+	dot:{
+			width: 10,
+			height: 10,
+			borderRadius: 30,
+			backgroundColor: 'white'
 	},
-  separator: {
-		alignSelf: 'center',
-    marginVertical: 15,
-    height: 1,
-    width: '90%',
-  },
-	reservList: {
-    paddingVertical: 15,
-    height: "50%",
-    width: '100%',
-  },
-});
+	eventContainer:{
+			padding: 3,
+			marginVertical: 5,
+			borderWidth: 0.5,
+			borderColor: 'gold',
+			borderRadius: 23,
+			alignSelf: 'flex-start',
+	},
+	text:{
+			fontSize: 17,
+			margin:5
+	},
+	});
 
 
