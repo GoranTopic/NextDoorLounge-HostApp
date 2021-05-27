@@ -9,10 +9,10 @@ import { DraxProvider, DraxView } from 'react-native-drax';
 
 const waitersColors = [
 		{ waiter: 'Melissa', color: 'red' },
-		{ waiter: 'Jennifer', color: 'blue' },
 		{ waiter: 'Cassadra', color: 'green' },
 		{ waiter: 'Selina', color: 'pink' },
 		{ waiter: 'Jake', color: 'purple' },
+		{ waiter: 'Myra', color: 'aqua' },
 ]
 
 const getWaiterColor = (waiter) => {
@@ -128,8 +128,8 @@ const styles = StyleSheet.create({
 				alignItems: 'center',
 		},
 		square: {
-				borderWidth: 0.2, //uncomment to show grid
-				borderColor: 'white', // uncomment show the grid
+				//borderWidth: 0.2, //uncomment to show grid
+				//borderColor: 'white', // uncomment show the grid
 				backgroundColor: 'transparent',
 				width: Layout.squareWidth,
 				height: Layout.squareHeight,

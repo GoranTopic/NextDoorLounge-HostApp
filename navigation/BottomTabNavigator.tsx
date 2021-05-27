@@ -46,7 +46,7 @@ export default function BottomTabNavigator() {
 		return (
 				<Provider store={store}>
 						<BottomTab.Navigator
-								initialRouteName="TabOne"
+								initialRouteName="Layout" //change ot TabOne
 								tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
 								<BottomTab.Screen
 										name="Search"

@@ -49,12 +49,38 @@ const linkTableAndReservation = (table, reservation) => {
 for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sqr, sqrID: i });
 
 // create new tables
-initialState.grid[39] =  { sqrID: 39,  name: '1',   group: 'G', waiter: 'Jake',     reservations: [], table: 'circleTable' };
-initialState.grid[44] =  { sqrID: 44,  name: '4G',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
-initialState.grid[44] =  { sqrID: 44,  name: '4G',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
-initialState.grid[44] =  { sqrID: 44,  name: '4G',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
-initialState.grid[85] =  { sqrID: 85,  name: '105', group: 'F', waiter: 'Melissa',  reservations: [], table: 'circleTable' };
-initialState.grid[169] = { sqrID: 169, name: '104', group: 'G', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+// create Selina Tables
+initialState.grid[2] =   { sqrID: 2,    name: '34',   group: 'G',  waiter: 'Selina', reservations: [], table: 'squareTable' };
+initialState.grid[24] =  { sqrID: 24,   name: '4B',   group: 'G',  waiter: 'Selina', reservations: [], table: 'squareTable' };
+initialState.grid[48] =  { sqrID: 48,   name: '3B',   group: 'G',  waiter: 'Selina', reservations: [], table: 'squareTable' };
+initialState.grid[84] =  { sqrID: 84,   name: '2',    group: 'G',  waiter: 'Selina', reservations: [], table: 'squareTable' };
+initialState.grid[108] = { sqrID: 108,  name: '1',    group: 'G',  waiter: 'Selina', reservations: [], table: 'squareTable' };
+// create Jake Tables
+initialState.grid[27] =  { sqrID: 27,  name: '21',   group: 'J', waiter: 'Jake', reservations: [], table: 'circleTable' };
+initialState.grid[30] =  { sqrID: 30,  name: '25',   group: 'J', waiter: 'Jake', reservations: [], table: 'squareTable' };
+initialState.grid[51] =  { sqrID: 51,  name: '20',   group: 'J', waiter: 'Jake', reservations: [], table: 'circleTable' };
+initialState.grid[54] =  { sqrID: 54,  name: '24',   group: 'J', waiter: 'Jake', reservations: [], table: 'circleTable' };
+// cassandra tables
+initialState.grid[33] =  { sqrID: 33,  name: '22',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'circleTable' };
+initialState.grid[57] =  { sqrID: 57,  name: '23',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'circleTable' };
+initialState.grid[74] =  { sqrID: 86,  name: '31',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+initialState.grid[83] =  { sqrID: 86,  name: '7B',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+initialState.grid[35] =  { sqrID: 86,  name: '6A',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+// make Jennifer
+initialState.grid[144] =  { sqrID: 85,  name: '107', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[158] =  { sqrID: 85,  name: '106', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[168] =  { sqrID: 85,  name: '113', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[182] =  { sqrID: 85,  name: '105', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[186] =  { sqrID: 85,  name: '110', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[192] =  { sqrID: 85,  name: '112', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[193] =  { sqrID: 85,  name: '111', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[206] =  { sqrID: 85,  name: '104', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+// make myra 
+initialState.grid[161] =  { sqrID: 85,  name: '108', group: 'F', waiter: 'Myra',  reservations: [], table: 'squareTable' };
+initialState.grid[164] =  { sqrID: 85,  name: '109', group: 'F', waiter: 'Myra',  reservations: [], table: 'squareTable' };
+initialState.grid[191] =  { sqrID: 85,  name: '101', group: 'F', waiter: 'Myra',  reservations: [], table: 'squareTable' };
+initialState.grid[210] =  { sqrID: 85,  name: '103', group: 'F', waiter: 'Myra',  reservations: [], table: 'squareTable' };
+initialState.grid[215] =  { sqrID: 85,  name: '102', group: 'F', waiter: 'Myra',  reservations: [], table: 'squareTable' };
 
 // create a few test reservation
 initialState.reservations = [ // data use to build for now

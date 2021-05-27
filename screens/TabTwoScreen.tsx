@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import Table from '../components/Table';
-import Untitled from '../assets/images/Untitled.png';
+import background from '../assets/images/background.png';
 import Layout from '../constants/Layout';
 import { DraxProvider, DraxView } from 'react-native-drax';
 
@@ -68,9 +68,11 @@ export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 
 		return (
 				<DraxProvider>
+						<ImageBackground style={styles.backgroundImage} source={background}>
 								<View style={ getGridStyle() }>
 										{ state.grid.map(renderSqrs)}
 								</View> 
+						</ImageBackground>
 						{ isEditMode && 
 						<View style={styles.newTableContainer}>
 								<DraxView style={styles.squareTable} payload="sqrTable" />
@@ -169,6 +171,7 @@ const styles = StyleSheet.create({
 				textAlign: 'left',
 		},
 		backgroundImage: {
+				opacity: 1,
 		},
 		highlight: {
 				backgroundColor: 'rgba(255, 255, 255, 0.9)',
