@@ -128,8 +128,8 @@ const styles = StyleSheet.create({
 				alignItems: 'center',
 		},
 		square: {
-				//borderWidth: 0.2, //uncomment to show grid
-				//borderColor: 'white', // uncomment show the grid
+				borderWidth: 0.2, //uncomment to show grid
+				borderColor: 'white', // uncomment show the grid
 				backgroundColor: 'transparent',
 				width: Layout.squareWidth,
 				height: Layout.squareHeight,

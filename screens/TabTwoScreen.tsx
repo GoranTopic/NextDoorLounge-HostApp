@@ -68,11 +68,9 @@ export default function TabTwoScreen({ state, dispatch, route, navigation }) {
 
 		return (
 				<DraxProvider>
-						<ImageBackground style={styles.backgroundImage } source={Untitled} >
 								<View style={ getGridStyle() }>
 										{ state.grid.map(renderSqrs)}
 								</View> 
-						</ImageBackground>
 						{ isEditMode && 
 						<View style={styles.newTableContainer}>
 								<DraxView style={styles.squareTable} payload="sqrTable" />
