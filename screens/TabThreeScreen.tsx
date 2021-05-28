@@ -10,9 +10,7 @@ export default function TabThreeScreen({ state, dispatch, navigation }) {
 
 		const handleSeachInput = (text)=>  setText(text); 
 
-		const handleSubmit = (text) => { 
-				console.log('sibmitting text:')
-				console.log(text)
+		const handleSubmit = () => { 
 				dispatch({
 						type: 'ADD_LOG',
 						payload:{ log: text, },
@@ -66,13 +64,13 @@ const styles = StyleSheet.create({
 	eventContainer:{
 			padding: 3,
 			marginVertical: 5,
-			borderWidth: 0.5,
+			borderWidth: 0.2,
 			borderColor: 'gold',
-			borderRadius: 23,
+			borderRadius: 8,
 			alignSelf: 'flex-start',
 	},
 	text:{
-			fontSize: 17,
+			fontSize: 14,
 			margin:5
 	},
 	searchInput: {
