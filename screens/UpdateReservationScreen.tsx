@@ -43,6 +43,7 @@ export default function UpdateTableScreen({ state, dispatch, route,  navigation 
 		const handleReservationGroupChange = group => setReservation({ ...reservation, group: group  }) 
 		const toggleReservationVIPChange = vip => setReservation({ ...reservation, vip: !reservation.vip }) 
 		const handleReservationNoteChange = notes => setReservation({ ...reservation, notes: notes  }) 
+		const handleSubmitNoteChange = notes => setReservation({ ...reservation, notes: notes  }) 
 
 		// functions to control the date picker
 		const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
@@ -180,7 +181,7 @@ export default function UpdateTableScreen({ state, dispatch, route,  navigation 
 												<View style={ styles.inputContainer}>
 														<TextInput
 																editable
-																multiline={true}
+																multiline={false}
 																numberOfLines={4}
 																textAlign={'left'}
 																spellCheck={true}
@@ -188,6 +189,7 @@ export default function UpdateTableScreen({ state, dispatch, route,  navigation 
 																placeholder="Notes..."
 																placeholderTextColor="gray"
 																onChangeText={handleReservationNoteChange}
+																//onSubmitEditing={handleSubmitNoteChange}
 																defaultValue={reservation.notes}
 														/>
 												</View>
