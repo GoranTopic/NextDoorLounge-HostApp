@@ -199,6 +199,7 @@ export default function UpdateTableScreen({ state, dispatch, route,  navigation 
 												onPress={() => { 
 														handleUpdateClick(); 
 														navigation.goBack();
+														navigation.goBack();
 												}}/> :
 										<Button title="Create" style={{...styles.Button, borderRadius: 10}}
 												onPress={() => { 
