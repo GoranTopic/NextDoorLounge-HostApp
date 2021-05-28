@@ -41,74 +41,113 @@ const empty_reservation = {
 
 const linkTableAndReservation = (table, reservation) => {
 		/* link together a resservation an an table by reference */
+		console.log('linking table:');
+		console.log(table);
 		table.reservations = [ ...table.reservations, reservation ];
 		reservation.table = table;
 }
+
+const get_table_by_Name = (tables, name) => tables.filter(table => table.name === name)[0] //name should be unique
 
 // create grid on empty sqrs
 for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sqr, sqrID: i });
 
 // create new tables
 // create Selina Tables
-initialState.grid[2] =   { sqrID: 2,    name: '34',   group: 'G',  waiter: 'Selina', reservations: [], table: 'squareTable' };
-initialState.grid[24] =  { sqrID: 24,   name: '4B',   group: 'G',  waiter: 'Selina', reservations: [], table: 'squareTable' };
-initialState.grid[48] =  { sqrID: 48,   name: '3B',   group: 'G',  waiter: 'Selina', reservations: [], table: 'squareTable' };
-initialState.grid[84] =  { sqrID: 84,   name: '2',    group: 'G',  waiter: 'Selina', reservations: [], table: 'squareTable' };
-initialState.grid[108] = { sqrID: 108,  name: '1',    group: 'G',  waiter: 'Selina', reservations: [], table: 'squareTable' };
-// create Jake Tables
-initialState.grid[27] =  { sqrID: 27,  name: '21',   group: 'J', waiter: 'Jake', reservations: [], table: 'circleTable' };
-initialState.grid[30] =  { sqrID: 30,  name: '25',   group: 'J', waiter: 'Jake', reservations: [], table: 'squareTable' };
-initialState.grid[51] =  { sqrID: 51,  name: '20',   group: 'J', waiter: 'Jake', reservations: [], table: 'circleTable' };
-initialState.grid[54] =  { sqrID: 54,  name: '24',   group: 'J', waiter: 'Jake', reservations: [], table: 'circleTable' };
-// cassandra tables
-initialState.grid[33] =  { sqrID: 33,  name: '22',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'circleTable' };
-initialState.grid[35] =  { sqrID: 35,  name: '6A',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
-initialState.grid[57] =  { sqrID: 57,  name: '23',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'circleTable' };
-initialState.grid[74] =  { sqrID: 74,  name: '31',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
-initialState.grid[83] =  { sqrID: 83,  name: '7B',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
-// make Jennifer
-initialState.grid[144] =  { sqrID: 144,  name: '107', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
-initialState.grid[158] =  { sqrID: 158,  name: '106', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
-initialState.grid[168] =  { sqrID: 168,  name: '113', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
-initialState.grid[182] =  { sqrID: 182,  name: '105', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
-initialState.grid[186] =  { sqrID: 186,  name: '110', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
-initialState.grid[192] =  { sqrID: 192,  name: '112', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
-initialState.grid[193] =  { sqrID: 193,  name: '111', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
-initialState.grid[206] =  { sqrID: 206,  name: '104', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
-// make myra 
-initialState.grid[161] =  { sqrID: 161,  name: '108', group: 'F', waiter: 'Myra',  reservations: [], table: 'squareTable' };
-initialState.grid[164] =  { sqrID: 164,  name: '109', group: 'F', waiter: 'Myra',  reservations: [], table: 'squareTable' };
-initialState.grid[191] =  { sqrID: 191,  name: '101', group: 'F', waiter: 'Myra',  reservations: [], table: 'squareTable' };
-initialState.grid[210] =  { sqrID: 210,  name: '103', group: 'F', waiter: 'Myra',  reservations: [], table: 'squareTable' };
-initialState.grid[215] =  { sqrID: 215,  name: '102', group: 'F', waiter: 'Myra',  reservations: [], table: 'squareTable' };
+initialState.grid[2]	 =  { sqrID: 2,   name: '34',  group: 'G', waiter: 'Selina', 	 reservations: [], table: 'squareTable' };
+initialState.grid[24]	 =  { sqrID: 24,  name: '4B',  group: 'G', waiter: 'Selina', 	 reservations: [], table: 'squareTable' };
+initialState.grid[48]	 =  { sqrID: 48,  name: '3B',  group: 'G', waiter: 'Selina', 	 reservations: [], table: 'squareTable' };
+initialState.grid[84]	 =  { sqrID: 84,  name: '2',   group: 'G', waiter: 'Selina', 	 reservations: [], table: 'squareTable' };
+initialState.grid[108] =	{ sqrID: 108, name: '1',   group: 'G', waiter: 'Selina',	 reservations: [], table: 'squareTable' };
+initialState.grid[27]	 =  { sqrID: 27,  name: '21',  group: 'J', waiter: 'Jake', 		 reservations: [], table: 'circleTable' };
+initialState.grid[30]	 =  { sqrID: 30, 	name: '25',  group: 'J', waiter: 'Jake', 		 reservations: [], table: 'squareTable' };
+initialState.grid[51]	 =  { sqrID: 51, 	name: '20',  group: 'J', waiter: 'Jake', 		 reservations: [], table: 'circleTable' };
+initialState.grid[54]	 =  { sqrID: 54, 	name: '24',  group: 'J', waiter: 'Jake', 		 reservations: [], table: 'circleTable' };
+initialState.grid[33]	 =  { sqrID: 33, 	name: '22',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'circleTable' };
+initialState.grid[35]	 =  { sqrID: 35, 	name: '6A',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+initialState.grid[57]	 =  { sqrID: 57, 	name: '23',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'circleTable' };
+initialState.grid[74]	 =  { sqrID: 74, 	name: '31',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+initialState.grid[83]	 =  { sqrID: 83, 	name: '7B',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
+initialState.grid[144] =  { sqrID: 144, name: '107', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[158] =  { sqrID: 158, name: '106', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[168] =  { sqrID: 168, name: '113', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[182] =  { sqrID: 182, name: '105', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[186] =  { sqrID: 186, name: '110', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[192] =  { sqrID: 192, name: '112', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[193] =  { sqrID: 193, name: '111', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[206] =  { sqrID: 206, name: '104', group: 'M', waiter: 'Melissa',  reservations: [], table: 'squareTable' };
+initialState.grid[161] =  { sqrID: 161, name: '108', group: 'F', waiter: 'Myra',  	 reservations: [], table: 'squareTable' };
+initialState.grid[164] =  { sqrID: 164, name: '109', group: 'F', waiter: 'Myra',  	 reservations: [], table: 'squareTable' };
+initialState.grid[191] =  { sqrID: 191, name: '101', group: 'F', waiter: 'Myra',  	 reservations: [], table: 'squareTable' };
+initialState.grid[210] =  { sqrID: 210, name: '103', group: 'F', waiter: 'Myra',  	 reservations: [], table: 'squareTable' };
+initialState.grid[215] =  { sqrID: 215, name: '102', group: 'F', waiter: 'Myra',  	 reservations: [], table: 'squareTable' };
 
 // create a few test reservation
 initialState.reservations = [ // data use to build for now
-		{ id: 1, table: '', currentGuest: 0, partySize: 4, name: 'Deloria King',   time: dTime, date: dDate, vip: true, 
-				notes: 'Plese dont forget to give birthday cake at midnight' },
-		{ id: 2, table: '', currentGuest: 0, partySize: 4, name: 'Anna Nazarijan', time: dTime, date: dDate, vip: false, 
-				notes: 'Chocolate Cake' },
-		{ id: 3, table: '', currentGuest: 0, partySize: 5, name: 'Naoma Silver',   time: dTime, date: dDate, vip: false, 
-				notes: '' },
-		{ id: 4, table: '', currentGuest: 0, partySize: 5, name: 'Leslie Reyes',   time: dTime, date: dDate, vip: false, 
-				notes: '' },
-		{ id: 5, table: '', currentGuest: 0, partySize: 5, name: 'Ashley Vega',    time: dTime, date: dDate, vip: false, 
-				notes: '' },
-		{ id: 6, table: '', currentGuest: 0, partySize: 5, name: 'Gimena Lora',    time: dTime, date: dDate, vip: false, 
-				notes: '' },
-		{ id: 7, table: '', currentGuest: 0, partySize: 3, name: 'Oman Revolta',   time: dTime, date: dDate, vip: false, 
-				notes: '' },
+			// lower part of the map
+		{ id: 14, table: '', currentGuest: 0, partySize: 12, name: 'Johanna Quiroz',   	time: dTime, date: dDate, vip: false, notes: 'Bottle Serive' },
+		{ id: 15, table: '', currentGuest: 0, partySize: 12, name: 'Bhavika Prjapati',  time: dTime, date: dDate, vip: false, notes: 'Bottle Service' },
+		{ id: 16, table: '', currentGuest: 0, partySize: 11, name: 'Ali Ghoorchian',  	time: dTime, date: dDate, vip: false, notes: 'Bottle Service and Chocolate Cake' },
+		{ id: 17, table: '', currentGuest: 0, partySize: 6, name: 'Arman',   						time: dTime, date: dDate, vip: false, notes: 'Bottle Service' },
+		{ id: 18, table: '', currentGuest: 0, partySize: 6, name: 'Armen Iskanian',   	time: dTime, date: dDate, vip: false, notes: 'Bottle Service' },
+		{ id: 19, table: '', currentGuest: 0, partySize: 10, name: 'Orion Lee',   			time: dTime, date: dDate, vip: false, notes: 'Bottle Serive' },
+		{ id: 20, table: '', currentGuest: 0, partySize: 5, name: 'Kristal L.',   			time: dTime, date: dDate, vip: true, 	notes: 'Bottle Serive' },
+		{ id: 21, table: '', currentGuest: 0, partySize: 8, name: 'Suzie Capcoto',   		time: dTime, date: dDate, vip: false, notes: 'Cholcolate Cake' },
+		{ id: 22, table: '', currentGuest: 0, partySize: 6, name: 'Ophelia Daniel',   	time: dTime, date: dDate, vip: false, notes: 'Bottle Serive' },
+		{ id: 23, table: '', currentGuest: 0, partySize: 6, name: 'Kim Lala',   				time: dTime, date: dDate, vip: false, notes: 'Bottle Service' },
+		{ id: 24, table: '', currentGuest: 0, partySize: 5, name: 'Shovinom T.',   			time: dTime, date: dDate, vip: false, notes: 'Bottle Service' },
+		{ id: 25, table: '', currentGuest: 0, partySize: 5, name: 'Sebastian Lang',   	time: dTime, date: dDate, vip: false, notes: 'No minimum' },
+		{ id: 26, table: '', currentGuest: 0, partySize: 5, name: 'Gregory',   					time: dTime, date: dDate, vip: false, notes: 'Bottle Service' },
+		// upper part of the map
+		{ id: 1, table: '', currentGuest: 0, partySize: 6, name: 'Inna Garcia',   	 	time: dTime, date: dDate, vip: true,  notes: 'Bottle Service' },
+		{ id: 2, table: '', currentGuest: 0, partySize: 5, name: 'Jas Heera',     	 	time: dTime, date: dDate, vip: false, notes: '' },
+		{ id: 3, table: '', currentGuest: 0, partySize: 4, name: 'Rose Garcia',   	 	time: dTime, date: dDate, vip: true,  notes: 'Vanilla Cake' },
+		{ id: 4, table: '', currentGuest: 0, partySize: 4, name: 'Roxana Artolas',   	time: dTime, date: dDate, vip: false, notes: 'Chocolate Cake' },
+		{ id: 5, table: '', currentGuest: 0, partySize: 6, name: 'Stephanie .C',     	time: dTime, date: dDate, vip: false, notes: 'Chocolate Cake' },
+		{ id: 6, table: '', currentGuest: 0, partySize: 6, name: 'Maria Quiroz',     	time: dTime, date: dDate, vip: false, notes: '' },
+		{ id: 7, table: '', currentGuest: 0, partySize: 3, name: 'Sandra Askew',   	 	time: dTime, date: dDate, vip: false, notes: '' },
+		{ id: 8, table: '', currentGuest: 0, partySize: 4, name: 'Jannifer Griffin', 	time: dTime, date: dDate, vip: false, notes: '' },
+		{ id: 9, table: '', currentGuest: 0, partySize: 4, name: 'Sara Newman', 			time: dTime, date: dDate, vip: true,  notes: '' },
+		{ id: 10, table: '', currentGuest: 0, partySize: 4, name: 'Ruby Padillo',   	time: dTime, date: dDate, vip: false, notes: '*Bottle Service' },
+		{ id: 11, table: '', currentGuest: 0, partySize: 2, name: 'Karla Vargas',   	time: dTime, date: dDate, vip: false, notes: '' },
+		{ id: 12, table: '', currentGuest: 0, partySize: 5, name: 'Marissa Mujio',   	time: dTime, date: dDate, vip: true, 	notes: '' },
+		{ id: 13, table: '', currentGuest: 0, partySize: 6, name: 'Natalie Amir',   	time: dTime, date: dDate, vip: false, notes: '' },
+
+
 ];
 
-//link together those reservations and tables
-linkTableAndReservation(initialState.grid[39],  initialState.reservations[0]);
-linkTableAndReservation(initialState.grid[44],  initialState.reservations[1]);
-linkTableAndReservation(initialState.grid[85],  initialState.reservations[2]);
-linkTableAndReservation(initialState.grid[169], initialState.reservations[3]);
+//link together reservations and tables
+linkTableAndReservation(get_table_by_Name(initialState.grid, '34' ),  initialState.reservations[0]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '4B' ), 	initialState.reservations[1]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '3B' ),	initialState.reservations[2]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '2'  ),	initialState.reservations[3]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '1'  ), 	initialState.reservations[4]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '21' ), 	initialState.reservations[5]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '25' ), 	initialState.reservations[6]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '20' ),	initialState.reservations[7]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '24' ), 	initialState.reservations[8]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '22' ), 	initialState.reservations[9]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '6A' ), 	initialState.reservations[10]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '23' ), 	initialState.reservations[11]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '31' ), 	initialState.reservations[12]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '7B' ),	initialState.reservations[13]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '107'), 	initialState.reservations[14]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '106'), 	initialState.reservations[15]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '113'), 	initialState.reservations[16]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '105'), 	initialState.reservations[17]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '110'), 	initialState.reservations[18]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '112'), 	initialState.reservations[19]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '111'), 	initialState.reservations[20]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '104'), 	initialState.reservations[21]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '108'), 	initialState.reservations[22]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '109'), 	initialState.reservations[23]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '101'), 	initialState.reservations[24]);
+linkTableAndReservation(get_table_by_Name(initialState.grid, '103'), 	initialState.reservations[25]);
+//linkTableAndReservation(initialState.grid[39],  initialState102 161.reservations[0]);
 
-const stateReducer = (state = initialState, action) => {
-		console.log('reducer ran with input:')
-		console.log(action)
+const stateReducer = (state = initialState, action) => {       
+		console.log('reducer ran with input:')                     
+		console.log(action)                                        
 
 		switch (action.type) {
 				case 'CREATE_RESERVATION': //todo add reservation to table reservation list
