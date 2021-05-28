@@ -5,13 +5,27 @@ import { Text, View, TextInput } from '../components/Themed';
 import Reservation from '../components/Reservation';
 
 export default function TabThreeScreen({ state, dispatch, navigation }) {
+
+		const [ text, setText ] = React.useState('');
+
+		const handleSeachInput = (text)=>  setText(text); 
+
+		const handleSubmit = (text) => { 
+				console.log('sibmitting text:')
+				console.log(text)
+				dispatch({
+						type: 'ADD_LOG',
+						payload:{ log: text, },
+				});
+				setText('');
+		}
 		
 		return (
 				<View style={styles.container}>
 						<FlatList
 								styles={styles.reservList}
 								data={ state.logger }
-								keyExtractor={(item) => item.toString()}
+								keyExtractor={(item, index) => index.toString()}
 								renderItem={ 
 										({item}) =>  
 										<View key={item}
@@ -19,6 +33,15 @@ export default function TabThreeScreen({ state, dispatch, navigation }) {
 										<Text style={styles.text}>{item}</Text>
 								</View>
 						}/>
+						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+						<TextInput
+								style={styles.searchInput}
+								placeholder="Message..."
+								placeholderTextColor="gray"
+								onChangeText={handleSeachInput}
+								onSubmitEditing={handleSubmit}
+								defaultValue={text}
+						/>
 						</View>
 		);
 }
@@ -31,7 +54,7 @@ const styles = StyleSheet.create({
   },
   title: {
 		alignSelf: 'center',
-    fontSize: 20,
+    fontSize: 11,
     fontWeight: 'bold',
   },
 	dot:{
@@ -52,6 +75,22 @@ const styles = StyleSheet.create({
 			fontSize: 17,
 			margin:5
 	},
-	});
+	searchInput: {
+		alignSelf: 'center',
+		width: "95%",
+		margin: 5,
+		paddingVertical: 3,
+		paddingLeft: 15,
+		paddingRight: 15,
+		color: 'white',
+		borderBottomColor: 'gold',
+		borderWidth: 0.2,
+	},
+	separator: {
+		alignSelf: 'center',
+    height: 1,
+    width: '100%',
+  },
+});
 
 

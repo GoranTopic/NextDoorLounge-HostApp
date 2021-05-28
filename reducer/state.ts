@@ -240,6 +240,11 @@ const stateReducer = (state = initialState, action) => {
 										reservation 
 								)]
 						};
+				case 'ADD_LOG':
+						return { 
+								...state,
+								logger: [ ...state.logger, 'Scott: ' + action.payload.log ],
+						};
 				default:
 						console.log('error: could not find dispatch command');
 						console.log('action:');
