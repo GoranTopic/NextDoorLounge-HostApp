@@ -8,10 +8,10 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { DraxProvider, DraxView } from 'react-native-drax';
 
 const waitersColors = [
-		{ waiter: 'Melissa', color: 'red' },
-		{ waiter: 'Cassadra', color: 'green' },
-		{ waiter: 'Selina', color: 'pink' },
-		{ waiter: 'Jake', color: 'purple' },
+		{ waiter: 'Melissa', color: 'fuchsia' },
+		{ waiter: 'Cassadra', color: 'orangered' },
+		{ waiter: 'Selina', color: 'green' },
+		{ waiter: 'Jake', color: 'red' },
 		{ waiter: 'Myra', color: 'aqua' },
 ]
 

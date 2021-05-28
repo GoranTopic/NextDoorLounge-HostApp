@@ -53,16 +53,6 @@ const get_table_by_Name = (tables, name) => tables.filter(table => table.name ==
 for (let i = 0; i < Layout.squareNum; i++ ) initialState.grid.push({ ...empty_sqr, sqrID: i });
 
 // create new tables
-// create Selina Tables
-initialState.grid[2]	 =  { sqrID: 2,   name: '34',  group: 'G', waiter: 'Selina', 	 reservations: [], table: 'squareTable' };
-initialState.grid[24]	 =  { sqrID: 24,  name: '4B',  group: 'G', waiter: 'Selina', 	 reservations: [], table: 'squareTable' };
-initialState.grid[48]	 =  { sqrID: 48,  name: '3B',  group: 'G', waiter: 'Selina', 	 reservations: [], table: 'squareTable' };
-initialState.grid[84]	 =  { sqrID: 84,  name: '2',   group: 'G', waiter: 'Selina', 	 reservations: [], table: 'squareTable' };
-initialState.grid[108] =	{ sqrID: 108, name: '1',   group: 'G', waiter: 'Selina',	 reservations: [], table: 'squareTable' };
-initialState.grid[27]	 =  { sqrID: 27,  name: '21',  group: 'J', waiter: 'Jake', 		 reservations: [], table: 'circleTable' };
-initialState.grid[30]	 =  { sqrID: 30, 	name: '25',  group: 'J', waiter: 'Jake', 		 reservations: [], table: 'squareTable' };
-initialState.grid[51]	 =  { sqrID: 51, 	name: '20',  group: 'J', waiter: 'Jake', 		 reservations: [], table: 'circleTable' };
-initialState.grid[54]	 =  { sqrID: 54, 	name: '24',  group: 'J', waiter: 'Jake', 		 reservations: [], table: 'circleTable' };
 initialState.grid[33]	 =  { sqrID: 33, 	name: '22',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'circleTable' };
 initialState.grid[35]	 =  { sqrID: 35, 	name: '6A',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'squareTable' };
 initialState.grid[57]	 =  { sqrID: 57, 	name: '23',  group: 'G', waiter: 'Cassadra', reservations: [], table: 'circleTable' };
@@ -81,6 +71,15 @@ initialState.grid[164] =  { sqrID: 164, name: '109', group: 'F', waiter: 'Myra',
 initialState.grid[191] =  { sqrID: 191, name: '101', group: 'F', waiter: 'Myra',  	 reservations: [], table: 'squareTable' };
 initialState.grid[210] =  { sqrID: 210, name: '103', group: 'F', waiter: 'Myra',  	 reservations: [], table: 'squareTable' };
 initialState.grid[215] =  { sqrID: 215, name: '102', group: 'F', waiter: 'Myra',  	 reservations: [], table: 'squareTable' };
+initialState.grid[2]	 =  { sqrID: 2,   name: '34',  group: 'G', waiter: 'Selina', 	 reservations: [], table: 'squareTable' };
+initialState.grid[24]	 =  { sqrID: 24,  name: '4B',  group: 'G', waiter: 'Selina', 	 reservations: [], table: 'squareTable' };
+initialState.grid[48]	 =  { sqrID: 48,  name: '3B',  group: 'G', waiter: 'Selina', 	 reservations: [], table: 'squareTable' };
+initialState.grid[84]	 =  { sqrID: 84,  name: '2',   group: 'G', waiter: 'Selina', 	 reservations: [], table: 'squareTable' };
+initialState.grid[108] =	{ sqrID: 108, name: '1',   group: 'G', waiter: 'Selina',	 reservations: [], table: 'squareTable' };
+initialState.grid[27]	 =  { sqrID: 27,  name: '21',  group: 'J', waiter: 'Jake', 		 reservations: [], table: 'circleTable' };
+initialState.grid[30]	 =  { sqrID: 30, 	name: '25',  group: 'J', waiter: 'Jake', 		 reservations: [], table: 'squareTable' };
+initialState.grid[51]	 =  { sqrID: 51, 	name: '20',  group: 'J', waiter: 'Jake', 		 reservations: [], table: 'circleTable' };
+initialState.grid[54]	 =  { sqrID: 54, 	name: '24',  group: 'J', waiter: 'Jake', 		 reservations: [], table: 'circleTable' };
 
 // create a few test reservation
 initialState.reservations = [ // data use to build for now
@@ -97,20 +96,20 @@ initialState.reservations = [ // data use to build for now
 		{ id: 23, table: '', currentGuest: 0, partySize: 6, name: 'Kim Lala',   				time: dTime, date: dDate, vip: false, notes: 'Bottle Service' },
 		{ id: 24, table: '', currentGuest: 0, partySize: 5, name: 'Shovinom T.',   			time: dTime, date: dDate, vip: false, notes: 'Bottle Service' },
 		{ id: 25, table: '', currentGuest: 0, partySize: 5, name: 'Sebastian Lang',   	time: dTime, date: dDate, vip: false, notes: 'No minimum' },
-		{ id: 26, table: '', currentGuest: 0, partySize: 5, name: 'Gregory',   					time: dTime, date: dDate, vip: false, notes: 'Bottle Service' },
+		{ id: 26, table: '', currentGuest: 0, partySize: 5, name: 'Gregory',   					time: dTime, date: dDate, vip: true, notes: 'Bottle Service' },
 		// upper part of the map
-		{ id: 1, table: '', currentGuest: 0, partySize: 6, name: 'Inna Garcia',   	 	time: dTime, date: dDate, vip: true,  notes: 'Bottle Service' },
+		{ id: 1, table: '', currentGuest: 0, partySize: 6, name: 'Inna Garcia',   	 	time: dTime, date: dDate, vip: false,  notes: 'Bottle Service' },
 		{ id: 2, table: '', currentGuest: 0, partySize: 5, name: 'Jas Heera',     	 	time: dTime, date: dDate, vip: false, notes: '' },
 		{ id: 3, table: '', currentGuest: 0, partySize: 4, name: 'Rose Garcia',   	 	time: dTime, date: dDate, vip: true,  notes: 'Vanilla Cake' },
 		{ id: 4, table: '', currentGuest: 0, partySize: 4, name: 'Roxana Artolas',   	time: dTime, date: dDate, vip: false, notes: 'Chocolate Cake' },
-		{ id: 5, table: '', currentGuest: 0, partySize: 6, name: 'Stephanie .C',     	time: dTime, date: dDate, vip: false, notes: 'Chocolate Cake' },
+		{ id: 5, table: '', currentGuest: 0, partySize: 6, name: 'Stephanie .C',     	time: dTime, date: dDate, vip: true, notes: 'Chocolate Cake' },
 		{ id: 6, table: '', currentGuest: 0, partySize: 6, name: 'Maria Quiroz',     	time: dTime, date: dDate, vip: false, notes: '' },
 		{ id: 7, table: '', currentGuest: 0, partySize: 3, name: 'Sandra Askew',   	 	time: dTime, date: dDate, vip: false, notes: '' },
 		{ id: 8, table: '', currentGuest: 0, partySize: 4, name: 'Jannifer Griffin', 	time: dTime, date: dDate, vip: false, notes: '' },
-		{ id: 9, table: '', currentGuest: 0, partySize: 4, name: 'Sara Newman', 			time: dTime, date: dDate, vip: true,  notes: '' },
+		{ id: 9, table: '', currentGuest: 0, partySize: 4, name: 'Sara Newman', 			time: dTime, date: dDate, vip: false,  notes: '' },
 		{ id: 10, table: '', currentGuest: 0, partySize: 4, name: 'Ruby Padillo',   	time: dTime, date: dDate, vip: false, notes: '*Bottle Service' },
 		{ id: 11, table: '', currentGuest: 0, partySize: 2, name: 'Karla Vargas',   	time: dTime, date: dDate, vip: false, notes: '' },
-		{ id: 12, table: '', currentGuest: 0, partySize: 5, name: 'Marissa Mujio',   	time: dTime, date: dDate, vip: true, 	notes: '' },
+		{ id: 12, table: '', currentGuest: 0, partySize: 5, name: 'Marissa Mujio',   	time: dTime, date: dDate, vip: false, 	notes: '' },
 		{ id: 13, table: '', currentGuest: 0, partySize: 6, name: 'Natalie Amir',   	time: dTime, date: dDate, vip: false, notes: '' },
 
 
