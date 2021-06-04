@@ -1,10 +1,9 @@
 # Next Door Lounge Host App
 
 ## About
-Hello there.Ths is app I designed for Next Door Lounge. It helps the staff to keep track of the reservations and table of the restaurant. I design it to be easy to use an intuitive. It uses a firebase server to comunicate chnget in real time across the all the apps.
+Hello there. This App is designed for Next Door Lounge. It helps the staff to keep track of the reservations and tables of the restaurant. I design it to be easy to use and intuitive. It uses a firebase as a back-end server and React Native as a front-end. It communicates all changes in real-time across all the apps.
 
-I used React Native, and designt it to be able to run on IOS, Android and Web.
-
+I designed it to be able to run on IOS, Android, and Web.
 
 ## Install
 The iPhone build can be found here:
