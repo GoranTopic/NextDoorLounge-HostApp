@@ -4,7 +4,7 @@
 </div>
 
 ## About
-Hello there. This App is designed for Next Door Lounge. It helps the staff to keep track of the reservations and tables of the restaurant. I design it to be easy to use and intuitive. It uses a firebase as a back-end server and React Native as a front-end. It communicates all changes in real-time across all the apps.
+Hello there. This App is designed for [Next Door Lounge](www.nextdoorhollywood.com). It helps the staff to keep track of the reservations and tables of the restaurant. I design it to be easy to use and intuitive. It uses a firebase as a back-end server and React Native as a front-end. It communicates all changes in real-time across all the apps.
 
 I designed it to be able to run on IOS, Android, and Web.
 
