@@ -1,4 +1,7 @@
-# Next Door Lounge Host App
+<div align="center"  styles="text-align:center; vertical-align:left;">
+  <img src="assets/images/splash.png" width="200" height="200">
+   <h1>Next Door Loung - Host App </h1>
+</div>
 
 ## About
 Hello there. This App is designed for Next Door Lounge. It helps the staff to keep track of the reservations and tables of the restaurant. I design it to be easy to use and intuitive. It uses a firebase as a back-end server and React Native as a front-end. It communicates all changes in real-time across all the apps.
