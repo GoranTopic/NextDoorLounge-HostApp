@@ -86,5 +86,8 @@ This would conclude the basic preview of the app.
 
 Feel free to copy the code or modify it in any way.
 
+As Always yours, 
+Goran Topic  :shipit:
+
 
 
