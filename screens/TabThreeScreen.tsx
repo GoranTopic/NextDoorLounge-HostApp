@@ -1,85 +1,65 @@
-  container: {
-								onSubmitEditing={handleSubmit}
-    fontSize: 11,
+			marginVertical: 5,
+						payload:{ log: text, },
+						}/>
+						</View>
+			height: 10,
+			margin:5
+								data={ state.logger }
+								keyExtractor={(item, index) => index.toString()}
+		borderBottomColor: 'gold',
+	dot:{
+}
+			width: 10,
+												style={styles.eventContainer} >
+	text:{
+				dispatch({
+		borderWidth: 0.2,
+						<FlatList
+						type: 'ADD_LOG',
+	separator: {
+								onChangeText={handleSeachInput}
+								placeholder="Message..."
+			borderColor: 'gold',
+  },
+  },
+  },
+import { Button, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
+										<View key={item}
+import * as React from 'react';
+});
+				});
+		alignSelf: 'center',
+		alignSelf: 'center',
+		alignSelf: 'center',
+		width: "95%",
+										<Text style={styles.text}>{item}</Text>
+				<View style={styles.container}>
+		const handleSeachInput = (text)=>  setText(text); 
+    height: 1,
+		}
+		return (
+		
+    flex: 1,
+								style={styles.searchInput}
+		);
+	},
+	},
+	},
+	},
 			padding: 3,
 	searchInput: {
-const styles = StyleSheet.create({
-						<FlatList
-						}/>
-		return (
-				});
-						</View>
-			marginVertical: 5,
-			fontSize: 14,
-								defaultValue={text}
-		}
-										<View key={item}
-			borderColor: 'gold',
-import { Text, View, TextInput } from '../components/Themed';
-		borderBottomColor: 'gold',
-	},
-	},
-	},
-	},
-			borderWidth: 0.2,
-						type: 'ADD_LOG',
-import Reservation from '../components/Reservation';
-												style={styles.eventContainer} >
-}
-								placeholder="Message..."
-				setText('');
-		alignSelf: 'center',
-		alignSelf: 'center',
-		alignSelf: 'center',
-		paddingRight: 15,
-	text:{
-		color: 'white',
-			width: 10,
-			borderRadius: 8,
-		const handleSubmit = () => { 
-    justifyContent: 'center',
-				<View style={styles.container}>
-    height: 1,
-								keyExtractor={(item, index) => index.toString()}
-		width: "95%",
-				dispatch({
-								style={styles.searchInput}
-		const handleSeachInput = (text)=>  setText(text); 
-			alignSelf: 'flex-start',
-});
-								data={ state.logger }
-		margin: 5,
-    fontWeight: 'bold',
-		paddingTop: '6%',
-	dot:{
-			borderRadius: 30,
-	separator: {
-			height: 10,
-		borderWidth: 0.2,
-						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-		);
-						<TextInput
-		paddingVertical: 3,
-								onChangeText={handleSeachInput}
-										({item}) =>  
-								styles={styles.reservList}
-import * as React from 'react';
-  },
-  },
-  },
-    width: '100%',
-	eventContainer:{
-								placeholderTextColor="gray"
-						/>
-  title: {
-								renderItem={ 
-		const [ text, setText ] = React.useState('');
-export default function TabThreeScreen({ state, dispatch, navigation }) {
 import EditScreenInfo from '../components/EditScreenInfo';
-						payload:{ log: text, },
-    flex: 1,
-import { Button, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
-								</View>
+								onSubmitEditing={handleSubmit}
+import Reservation from '../components/Reservation';
+		paddingTop: '6%',
+								placeholderTextColor="gray"
+						<TextInput
+			borderRadius: 30,
+  title: {
+    fontWeight: 'bold',
+								renderItem={ 
+    width: '100%',
+			alignSelf: 'flex-start',
 
 
 
@@ -87,8 +67,28 @@ import { Button, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 're
 
 
 
-			margin:5
+		color: 'white',
+										({item}) =>  
+export default function TabThreeScreen({ state, dispatch, navigation }) {
+		const handleSubmit = () => { 
+			borderRadius: 8,
+		paddingRight: 15,
+	eventContainer:{
+		const [ text, setText ] = React.useState('');
+  container: {
 			backgroundColor: 'white'
-										<Text style={styles.text}>{item}</Text>
+								styles={styles.reservList}
+				setText('');
+						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 		paddingLeft: 15,
-		
+		paddingVertical: 3,
+const styles = StyleSheet.create({
+		margin: 5,
+			borderWidth: 0.2,
+    fontSize: 11,
+import { Text, View, TextInput } from '../components/Themed';
+    justifyContent: 'center',
+			fontSize: 14,
+								</View>
+								defaultValue={text}
+						/>
