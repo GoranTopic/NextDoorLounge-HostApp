@@ -1,94 +1,94 @@
-		paddingLeft: 15,
-		paddingTop: '6%',
-								defaultValue={text}
-				dispatch({
-						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-		width: "95%",
-    justifyContent: 'center',
-    fontWeight: 'bold',
-	dot:{
-    flex: 1,
-								renderItem={ 
-			margin:5
-	searchInput: {
-		
-import Reservation from '../components/Reservation';
-});
-		}
-						type: 'ADD_LOG',
-			padding: 3,
-						<FlatList
-    height: 1,
 				});
-	eventContainer:{
-const styles = StyleSheet.create({
-    fontSize: 11,
-			borderRadius: 8,
-			borderWidth: 0.2,
-						</View>
+			padding: 3,
+		color: 'white',
+		alignSelf: 'center',
+		alignSelf: 'center',
+		alignSelf: 'center',
+										<Text style={styles.text}>{item}</Text>
+			fontSize: 14,
+		width: "95%",
+								data={ state.logger }
+	},
+	},
+	},
+	},
 		return (
 			borderColor: 'gold',
-			height: 10,
-		margin: 5,
-				setText('');
-	},
-	},
-	},
-	},
-		borderWidth: 0.2,
-			marginVertical: 5,
-	text:{
-import * as React from 'react';
-		color: 'white',
-								onSubmitEditing={handleSubmit}
-}
-import EditScreenInfo from '../components/EditScreenInfo';
-								placeholder="Message..."
-						payload:{ log: text, },
-		const [ text, setText ] = React.useState('');
-			fontSize: 14,
-		const handleSubmit = () => { 
-import { Text, View, TextInput } from '../components/Themed';
-						/>
-		const handleSeachInput = (text)=>  setText(text); 
-			width: 10,
-								data={ state.logger }
-	separator: {
-										({item}) =>  
-		alignSelf: 'center',
-		alignSelf: 'center',
-		alignSelf: 'center',
-												style={styles.eventContainer} >
-			alignSelf: 'flex-start',
-    width: '100%',
-								onChangeText={handleSeachInput}
-		paddingRight: 15,
-		borderBottomColor: 'gold',
-export default function TabThreeScreen({ state, dispatch, navigation }) {
-								styles={styles.reservList}
-				<View style={styles.container}>
-		paddingVertical: 3,
-								style={styles.searchInput}
-			backgroundColor: 'white'
-
-
-
-
-
-
-
-								</View>
-import { Button, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
+						<FlatList
   container: {
-										<Text style={styles.text}>{item}</Text>
-  },
-  },
-  },
-								placeholderTextColor="gray"
+    fontWeight: 'bold',
+		paddingRight: 15,
+		paddingTop: '6%',
+								onSubmitEditing={handleSubmit}
+								style={styles.searchInput}
+		}
 		);
+		borderBottomColor: 'gold',
+
+
+
+
+
+
+
+export default function TabThreeScreen({ state, dispatch, navigation }) {
+import * as React from 'react';
+			width: 10,
+    flex: 1,
+import { Button, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
+		const handleSeachInput = (text)=>  setText(text); 
+    fontSize: 11,
+			borderRadius: 8,
+import { Text, View, TextInput } from '../components/Themed';
+								defaultValue={text}
+			borderWidth: 0.2,
+    width: '100%',
+	text:{
+			backgroundColor: 'white'
+						</View>
+    height: 1,
+		paddingLeft: 15,
+			marginVertical: 5,
+						type: 'ADD_LOG',
+	separator: {
+								</View>
 						<TextInput
-										<View key={item}
+import EditScreenInfo from '../components/EditScreenInfo';
 			borderRadius: 30,
-  title: {
-								keyExtractor={(item, index) => index.toString()}
+    justifyContent: 'center',
+								onChangeText={handleSeachInput}
+}
+	searchInput: {
+								placeholder="Message..."
+});
+				dispatch({
+								renderItem={ 
+						/>
+												style={styles.eventContainer} >
 						}/>
+		borderWidth: 0.2,
+		const handleSubmit = () => { 
+	dot:{
+		paddingVertical: 3,
+										({item}) =>  
+	eventContainer:{
+				<View style={styles.container}>
+				setText('');
+const styles = StyleSheet.create({
+			margin:5
+						<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+								keyExtractor={(item, index) => index.toString()}
+		margin: 5,
+  title: {
+			height: 10,
+								placeholderTextColor="gray"
+								styles={styles.reservList}
+		
+			alignSelf: 'flex-start',
+		const [ text, setText ] = React.useState('');
+						payload:{ log: text, },
+import Reservation from '../components/Reservation';
+  },
+  },
+  },
+										<View key={item}
